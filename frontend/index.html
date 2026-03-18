@@ -224,9 +224,9 @@ textarea { resize: vertical; min-height: 72px; }
           </button>
         </div>
 
-        <div class="card">
-          <div class="card-title">Cas cliniques du professeur</div>
-          <div class="form-row">
+          <div class="card">
+            <div class="card-title">Cas cliniques du professeur</div>
+            <div class="form-row">
             <div class="form-group">
               <label>Cas à analyser</label>
               <select id="case-select">
@@ -241,16 +241,27 @@ textarea { resize: vertical; min-height: 72px; }
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label>Modèles génératifs à comparer</label>
-            <div class="symptomes-grid" id="providers-grid"></div>
+            <div id="case-meta" style="font-size:13px;color:var(--text-muted)"></div>
           </div>
-          <div id="case-meta" style="font-size:13px;color:var(--text-muted)"></div>
-        </div>
 
-        <div class="card">
-          <div class="card-title">Identité & anthropométrie</div>
-          <div class="form-row">
+          <div class="card">
+            <div class="card-title">Compte-rendu vocal infirmier</div>
+            <div class="form-group">
+              <label>Enregistrement audio avec transcription automatique</label>
+                <div style="display:flex;gap:10px;flex-wrap:wrap">
+                  <button class="btn btn-outline" type="button" id="btn-audio-start" onclick="startAudioDiagnosticCapture()">Commencer l'enregistrement</button>
+                  <button class="btn btn-primary" type="button" id="btn-audio-stop" onclick="stopAudioDiagnosticCapture()" disabled>Arrêter</button>
+                  <button class="btn btn-teal" type="button" id="btn-audio-analyze" onclick="processAudioTranscript()">Remplir et diagnostiquer</button>
+                </div>
+              </div>
+            <div id="audio-diagnostic-status" style="font-size:13px;color:var(--text-muted)">
+              La transcription sera ajoutée dans la description libre du patient.
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Identité & anthropométrie</div>
+            <div class="form-row">
             <div class="form-group">
               <label>Âge (ans) *</label>
               <input type="number" id="age" placeholder="ex: 58" min="0" max="120">
@@ -556,11 +567,13 @@ const API = 'http://localhost:8000/api';
 let currentRole = 'infirmiere';
 let currentDiagnostic = null;
 let currentECGResult = null;
-let availableECGFiles = [];
-let availableCases = [];
-let availableProviders = [];
-let predictionEcgLoading = false;
-const validations = JSON.parse(localStorage.getItem('exofit_validations') || '[]');
+  let availableECGFiles = [];
+  let availableCases = [];
+  let availableProviders = [];
+  let predictionEcgLoading = false;
+  let audioRecognition = null;
+  let audioRecognitionActive = false;
+  const validations = JSON.parse(localStorage.getItem('exofit_validations') || '[]');
 const PROVIDER_LABELS = {
   google: 'Gemini',
   qwen: 'Qwen (Hugging Face)',
@@ -709,12 +722,9 @@ async function initCaseSelector() {
       <option value="">-- Sélectionner un cas --</option>
       ${availableCases.map(c => `<option value="${c.id}">${c.description}</option>`).join('')}
     `;
-    document.getElementById('providers-grid').innerHTML = availableProviders.map(provider => `
-      <label class="symptome-item checked" id="p-${provider}" onclick="toggleCheck(this,'p-${provider}')">
-        <input type="checkbox" value="${provider}" checked> ${PROVIDER_LABELS[provider] || provider}
-      </label>
-    `).join('');
-    document.getElementById('case-meta').textContent = `${availableCases.length} cas chargés depuis data/cas_cliniques/parsed`;
+    const providerNames = availableProviders.map(provider => PROVIDER_LABELS[provider] || provider).join(', ');
+    document.getElementById('case-meta').textContent =
+      `${availableCases.length} cas chargés depuis data/cas_cliniques/parsed · Fusion automatique des modèles: ${providerNames || 'Aucun modèle disponible'}`;
     await loadPredictionPatients();
     normalizePredictionUIText();
   } catch (e) {
@@ -786,7 +796,42 @@ async function loadSelectedCase() {
   }
 
   const data = await res.json();
-  const p = data.patient || {};
+  fillPatientForm(data.patient || {});
+
+  document.getElementById('case-meta').textContent =
+    `${data.description || caseId} · Source: ${data.source_document || 'N/A'}`;
+}
+
+async function submitSelectedCase() {
+  const caseId = document.getElementById('case-select').value;
+  if (!caseId) { alert('Sélectionnez un cas'); return; }
+
+  document.getElementById('loader-diagnostic').classList.add('active');
+  try {
+    const res = await fetch(`${API}/diagnostic/case`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ case_id: caseId, providers: availableProviders })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    currentDiagnostic = {
+      id: data.case_id,
+      patient: data.patient,
+      comparison: data,
+      result: data.best_result || (data.comparisons || []).find(x => x.status === 'ok')?.result || null,
+      timestamp: new Date().toISOString()
+    };
+    renderCaseComparisonResult(data);
+    showPage('p1-result');
+  } catch (e) {
+    alert(`Erreur pendant le diagnostic: ${e.message}`);
+  } finally {
+    document.getElementById('loader-diagnostic').classList.remove('active');
+  }
+}
+
+function fillPatientForm(p) {
   document.getElementById('age').value = p.age || '';
   document.getElementById('sexe').value = p.sexe || '';
   document.getElementById('taille').value = p.taille_cm || '';
@@ -802,41 +847,6 @@ async function loadSelectedCase() {
   document.getElementById('resultats_examens').value = parseResultatsText(p.resultats_examens || {});
   setCheckedValues('s-', p.symptomes || []);
   setCheckedValues('e-', p.examens_realises || []);
-
-  document.getElementById('case-meta').textContent =
-    `${data.description || caseId} · Source: ${data.source_document || 'N/A'}`;
-}
-
-async function submitSelectedCase() {
-  const caseId = document.getElementById('case-select').value;
-  if (!caseId) { alert('Sélectionnez un cas'); return; }
-
-  const providers = getChecked('p-');
-  if (!providers.length) { alert('Sélectionnez au moins un modèle'); return; }
-
-  document.getElementById('loader-diagnostic').classList.add('active');
-  try {
-    const res = await fetch(`${API}/diagnostic/case`, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ case_id: caseId, providers })
-    });
-    if (!res.ok) throw new Error(await res.text());
-    const data = await res.json();
-    currentDiagnostic = {
-      id: data.case_id,
-      patient: data.patient,
-      comparison: data,
-      result: (data.comparisons || []).find(x => x.status === 'ok')?.result || null,
-      timestamp: new Date().toISOString()
-    };
-    renderCaseComparisonResult(data);
-    showPage('p1-result');
-  } catch (e) {
-    alert(`Erreur pendant le diagnostic: ${e.message}`);
-  } finally {
-    document.getElementById('loader-diagnostic').classList.remove('active');
-  }
 }
 
 // ── NAVIGATION ──
@@ -849,17 +859,152 @@ function setRole(role) {
   else showPage('p1-patient');
 }
 
-function showPage(id) {
+  function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const el = document.getElementById('page-' + id);
   if (el) el.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const ni = [...document.querySelectorAll('.nav-item')].find(n => n.getAttribute('onclick')?.includes(id));
   if (ni) ni.classList.add('active');
-  if (id === 'med-stats') loadStats();
-}
+    if (id === 'med-stats') loadStats();
+  }
+
+  function getSpeechRecognitionCtor() {
+    return window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  }
+
+  function updateAudioDiagnosticStatus(message, isError = false) {
+    const statusEl = document.getElementById('audio-diagnostic-status');
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.style.color = isError ? 'var(--red)' : 'var(--text-muted)';
+  }
+
+  function setAudioDiagnosticButtons(isRecording) {
+    const startBtn = document.getElementById('btn-audio-start');
+    const stopBtn = document.getElementById('btn-audio-stop');
+    const analyzeBtn = document.getElementById('btn-audio-analyze');
+    if (startBtn) startBtn.disabled = isRecording;
+    if (stopBtn) stopBtn.disabled = !isRecording;
+    if (analyzeBtn) analyzeBtn.disabled = isRecording;
+  }
+
+  function ensureAudioRecognition() {
+    if (audioRecognition) return audioRecognition;
+    const SpeechRecognitionCtor = getSpeechRecognitionCtor();
+    if (!SpeechRecognitionCtor) return null;
+
+    audioRecognition = new SpeechRecognitionCtor();
+    audioRecognition.lang = 'fr-FR';
+    audioRecognition.continuous = true;
+    audioRecognition.interimResults = true;
+
+    audioRecognition.onstart = () => {
+      audioRecognitionActive = true;
+      setAudioDiagnosticButtons(true);
+      updateAudioDiagnosticStatus("Enregistrement en cours... parlez librement de l'état du patient.");
+    };
+
+    audioRecognition.onresult = (event) => {
+      let transcript = '';
+      for (let i = 0; i < event.results.length; i++) {
+        transcript += event.results[i][0].transcript + ' ';
+      }
+      const textarea = document.getElementById('symptome_libre');
+      if (textarea) textarea.value = transcript.trim();
+    };
+
+    audioRecognition.onerror = (event) => {
+      audioRecognitionActive = false;
+      setAudioDiagnosticButtons(false);
+      updateAudioDiagnosticStatus(`Erreur de transcription audio: ${event.error}`, true);
+    };
+
+    audioRecognition.onend = () => {
+      const wasActive = audioRecognitionActive;
+      audioRecognitionActive = false;
+      setAudioDiagnosticButtons(false);
+      if (wasActive) {
+        updateAudioDiagnosticStatus("Transcription terminée. Vous pouvez lancer le diagnostic IA.");
+      }
+    };
+
+    return audioRecognition;
+  }
+
+  function startAudioDiagnosticCapture() {
+    const recognition = ensureAudioRecognition();
+    if (!recognition) {
+      updateAudioDiagnosticStatus("La transcription vocale n'est pas prise en charge par ce navigateur.", true);
+      return;
+    }
+    try {
+      recognition.start();
+    } catch (e) {
+      updateAudioDiagnosticStatus(`Impossible de démarrer l'enregistrement: ${e.message}`, true);
+    }
+  }
+
+  function stopAudioDiagnosticCapture() {
+    if (!audioRecognition) return;
+    audioRecognitionActive = false;
+    try {
+      audioRecognition.stop();
+    } catch (e) {
+      updateAudioDiagnosticStatus(`Impossible d'arrêter l'enregistrement: ${e.message}`, true);
+    }
+  }
 
 // ── DIAGNOSTIC IA ──
+async function processAudioTranscript() {
+  const transcript = (document.getElementById('symptome_libre')?.value || '').trim();
+  if (!transcript) {
+    updateAudioDiagnosticStatus("Aucune transcription disponible pour le moment.", true);
+    return;
+  }
+
+  document.getElementById('loader-diagnostic').classList.add('active');
+  updateAudioDiagnosticStatus("Transcription reÃ§ue. PrÃ©remplissage des champs et gÃ©nÃ©ration du diagnostic...");
+  try {
+    const res = await fetch(`${API}/diagnostic/transcript`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ transcript, providers: availableProviders })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+
+    fillPatientForm(data.patient || {});
+    currentDiagnostic = {
+      id: 'audio_' + Date.now(),
+      patient: data.patient,
+      comparison: data.diagnostic_comparison,
+      result: data.diagnostic || null,
+      timestamp: new Date().toISOString()
+    };
+
+    if (data.diagnostic_comparison) {
+      renderCaseComparisonResult({
+        case_id: currentDiagnostic.id,
+        description: "Diagnostic gÃ©nÃ©rÃ© Ã  partir de la transcription audio infirmiÃ¨re",
+        source_document: "Compte-rendu vocal infirmier",
+        comparisons: data.diagnostic_comparison.comparisons || [],
+        best_provider: data.diagnostic_comparison.best_provider,
+      });
+    } else if (data.diagnostic) {
+      renderDiagnosticResult(data.diagnostic);
+    }
+
+    updateAudioDiagnosticStatus("Transcription structurÃ©e, formulaire rempli et diagnostic gÃ©nÃ©rÃ©.");
+    showPage('p1-result');
+  } catch (e) {
+    updateAudioDiagnosticStatus(`Erreur lors du traitement audio: ${e.message}`, true);
+    alert(`Erreur lors du traitement audio: ${e.message}`);
+  } finally {
+    document.getElementById('loader-diagnostic').classList.remove('active');
+  }
+}
+
 async function submitDiagnostic() {
   const age = document.getElementById('age').value;
   const sexe = document.getElementById('sexe').value;
@@ -1005,59 +1150,39 @@ function renderDiagnosticResult(data) {
 }
 
 function renderCaseComparisonResult(data) {
-  const blocks = (data.comparisons || []).map(item => {
-    if (item.status !== 'ok') {
-      return `
-        <div class="card">
-          <div class="card-title">${PROVIDER_LABELS[item.provider] || item.provider}</div>
-          <div style="color:var(--red);font-size:14px">Erreur: ${item.error}</div>
-        </div>`;
-    }
+  const item = (data.comparisons || []).find(x => x.provider === data.best_provider && x.status === 'ok')
+    || (data.comparisons || []).find(x => x.status === 'ok');
 
-    const r = item.result;
-    const urg = r.niveau_urgence || 'default';
-    const confPct = toPercent(r.confiance);
-    const diffHtml = (r.diagnostics_differentiels||[]).map(d => {
-      const credibility = toPercent(d.credibilite);
-      return `<li>
-        <div style="font-weight:600">${d.nom ?? d}</div>
-        <div style="font-size:13px;color:var(--text-muted);margin-top:2px">${d.explication || ''}</div>
-        <div style="font-size:12px;color:var(--blue-dark);margin-top:4px">Crédibilité : ${credibility}%</div>
-      </li>`;
-    }).join('');
-    return `
+  if (!item || !item.result) {
+    const errors = (data.comparisons || [])
+      .filter(x => x.status !== 'ok')
+      .map(x => `<li>${PROVIDER_LABELS[x.provider] || x.provider}: ${x.error}</li>`)
+      .join('');
+    document.getElementById('diagnostic-output').innerHTML = `
       <div class="card">
-        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
-          <div class="card-title" style="margin-bottom:0">${PROVIDER_LABELS[item.provider] || item.provider}</div>
-          <span class="badge badge-${urg}">${urg.toUpperCase()}</span>
-        </div>
-        <div class="result-main" style="margin-top:12px">${r.diagnostic_preliminaire}</div>
-        <div class="confidence-bar">
-          <div class="confidence-label"><span>Taux de crédibilité</span><span style="font-weight:600">${confPct}%</span></div>
-          <div class="confidence-track"><div class="confidence-fill" style="width:${confPct}%"></div></div>
-        </div>
-        <div class="result-section">
-          <div class="result-section-title">Explication du choix diagnostique</div>
-          <div style="font-size:14px;line-height:1.6">${r.explication_diagnostic || 'Non fournie'}</div>
-        </div>
-        <div class="result-section">
-          <div class="result-section-title">Diagnostics différentiels</div>
-          <ul class="result-list">${diffHtml}</ul>
-        </div>
-        <div class="result-section">
-          <div class="result-section-title">Questions complémentaires</div>
-          <ul class="result-list">${(r.questions_complementaires||[]).map(x => `<li>${x}</li>`).join('')}</ul>
-        </div>
-        <div class="result-section">
-          <div class="result-section-title">Examens proposés</div>
-          <ul class="result-list">${(r.examens_proposes||[]).map(x => `<li>${x}</li>`).join('')}</ul>
-        </div>
-        <div class="result-section">
-          <div class="result-section-title">Traitements proposés</div>
-          <ul class="result-list">${(r.traitements_proposes||[]).map(x => `<li>${x}</li>`).join('')}</ul>
-        </div>
-        <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">Modèle: ${r.modele_utilise}</div>
-      </div>`;
+        <div class="card-title">Cas sélectionné</div>
+        <div style="font-size:14px">${data.description}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Source: ${data.source_document || 'N/A'}</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Fusion LLM</div>
+        <div style="color:var(--red);font-size:14px">Aucun modèle n'a produit de résultat exploitable.</div>
+        ${errors ? `<ul class="result-list" style="margin-top:10px">${errors}</ul>` : ''}
+      </div>
+    `;
+    return;
+  }
+
+  const r = item.result;
+  const urg = r.niveau_urgence || 'default';
+  const confPct = toPercent(r.confiance);
+  const diffHtml = (r.diagnostics_differentiels||[]).map(d => {
+    const credibility = toPercent(d.credibilite);
+    return `<li>
+      <div style="font-weight:600">${d.nom ?? d}</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:2px">${d.explication || ''}</div>
+      <div style="font-size:12px;color:var(--blue-dark);margin-top:4px">Crédibilité : ${credibility}%</div>
+    </li>`;
   }).join('');
 
   document.getElementById('diagnostic-output').innerHTML = `
@@ -1066,7 +1191,41 @@ function renderCaseComparisonResult(data) {
       <div style="font-size:14px">${data.description}</div>
       <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Source: ${data.source_document || 'N/A'}</div>
     </div>
-    ${blocks}
+    <div class="card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div>
+          <div class="card-title" style="margin-bottom:0">Résultat fusionné</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Modèle retenu automatiquement: ${PROVIDER_LABELS[item.provider] || item.provider}</div>
+        </div>
+        <span class="badge badge-${urg}">${urg.toUpperCase()}</span>
+      </div>
+      <div class="result-main" style="margin-top:12px">${r.diagnostic_preliminaire}</div>
+      <div class="confidence-bar">
+        <div class="confidence-label"><span>Taux de crédibilité</span><span style="font-weight:600">${confPct}%</span></div>
+        <div class="confidence-track"><div class="confidence-fill" style="width:${confPct}%"></div></div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Explication du choix diagnostique</div>
+        <div style="font-size:14px;line-height:1.6">${r.explication_diagnostic || 'Non fournie'}</div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Diagnostics différentiels</div>
+        <ul class="result-list">${diffHtml}</ul>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Questions complémentaires</div>
+        <ul class="result-list">${(r.questions_complementaires||[]).map(x => `<li>${x}</li>`).join('')}</ul>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Examens proposés</div>
+        <ul class="result-list">${(r.examens_proposes||[]).map(x => `<li>${x}</li>`).join('')}</ul>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Traitements proposés</div>
+        <ul class="result-list">${(r.traitements_proposes||[]).map(x => `<li>${x}</li>`).join('')}</ul>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">Modèle: ${r.modele_utilise}</div>
+    </div>
   `;
 }
 

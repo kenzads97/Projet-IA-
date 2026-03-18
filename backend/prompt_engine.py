@@ -8,6 +8,7 @@ import json
 import httpx
 import os
 import asyncio
+import re
 from pathlib import Path
 from datetime import datetime
 from typing import Any
@@ -47,6 +48,30 @@ LLM_CONFIGS = {
         "env_key": "MISTRAL_API_KEY",
     },
 }
+
+STRUCTURED_SYMPTOMS = [
+    "douleur_thoracique",
+    "dyspnee",
+    "palpitations",
+    "syncope",
+    "fievre",
+    "toux",
+    "cephalees",
+    "douleur_abdominale",
+    "nausees_vomissements",
+    "asthenie",
+    "oedemes_membres",
+    "vertiges",
+]
+
+STRUCTURED_EXAMS = [
+    "ecg",
+    "nfs",
+    "crp",
+    "bilan_metabolique",
+    "troponine",
+    "rx_thorax",
+]
 
 ACTIVE_LLM = os.getenv("ACTIVE_LLM", "google").lower()
 PARSED_CASES_DIR = Path(__file__).resolve().parent.parent / "data" / "cas_cliniques" / "parsed"
@@ -186,6 +211,47 @@ Contraintes :
     }
 
 
+def build_transcript_structuring_prompt(transcript: str) -> dict:
+    """Construit un prompt pour structurer un compte-rendu vocal infirmier."""
+    system = """Tu es un assistant medical charge de transformer un compte-rendu vocal infirmier en donnees structurees.
+Tu dois extraire uniquement les informations explicites ou tres fortement implicites.
+Si une information n'est pas mentionnee, retourne null, une liste vide ou un objet vide selon le champ.
+Reponds UNIQUEMENT en JSON valide, sans texte avant ni apres."""
+
+    user = f"""Analyse ce compte-rendu vocal infirmier et retourne STRICTEMENT ce JSON :
+{{
+  "age": 0,
+  "sexe": "",
+  "taille_cm": null,
+  "poids_kg": null,
+  "symptomes": ["id_symptome"],
+  "symptome_libre": "string",
+  "tension_systolique": null,
+  "tension_diastolique": null,
+  "frequence_cardiaque": null,
+  "temperature": null,
+  "spo2": null,
+  "antecedents": ["string"],
+  "traitements_en_cours": ["string"],
+  "examens_realises": ["id_examen"],
+  "resultats_examens": {{}}
+}}
+
+Contraintes :
+- Les ids symptomes autorises sont uniquement : {", ".join(STRUCTURED_SYMPTOMS)}
+- Les ids examens autorises sont uniquement : {", ".join(STRUCTURED_EXAMS)}
+- "sexe" doit etre "M", "F" ou ""
+- "symptome_libre" doit contenir un resume clinique court du compte-rendu
+- "resultats_examens" doit etre un objet cle/valeur, par exemple {{"ecg": "rythme irregulier"}}
+- N'invente pas d'informations absentes
+
+Compte-rendu vocal :
+{transcript}
+"""
+
+    return {"system": system, "user": user}
+
+
 # ─── APPEL LLM ────────────────────────────────────────────────────────────
 
 async def call_llm(prompt: dict, provider: str = ACTIVE_LLM) -> dict:
@@ -245,6 +311,59 @@ async def call_llm(prompt: dict, provider: str = ACTIVE_LLM) -> dict:
 
     # Parser le JSON
     result = _normalize_result(_parse_json_response(text))
+    result["modele_utilise"] = f"{provider}/{config['model']}"
+    return result
+
+
+async def call_llm_json(prompt: dict, provider: str = ACTIVE_LLM) -> dict:
+    """Appelle un LLM et retourne un JSON brut parse sans normalisation diagnostique."""
+    provider = provider.lower()
+    if provider not in LLM_CONFIGS:
+        supported = ", ".join(sorted(LLM_CONFIGS))
+        raise ValueError(f"Provider LLM inconnu: {provider}. Providers supportes: {supported}")
+
+    config = LLM_CONFIGS[provider]
+    api_key = os.getenv(config["env_key"])
+    if not api_key:
+        raise ValueError(f"Aucune cle API configuree pour {provider}")
+
+    url = config["url"].format(model=config["model"])
+    headers = {
+        "Content-Type": "application/json",
+        config["header_key"]: f"{config['header_prefix']}{api_key}"
+    }
+
+    if provider in {"qwen", "deepseek_hf", "mistral"}:
+        body = {
+            "model": config["model"],
+            "messages": [
+                {"role": "system", "content": prompt["system"]},
+                {"role": "user", "content": prompt["user"]},
+            ],
+            "temperature": 0.2,
+        }
+    else:
+        body = {
+            "contents": [{"parts": [{"text": prompt["system"] + "\n\n" + prompt["user"]}]}]
+        }
+
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        response = await client.post(url, headers=headers, json=body)
+        try:
+            response.raise_for_status()
+        except httpx.HTTPStatusError as exc:
+            details = exc.response.text
+            raise ValueError(
+                f"Erreur API {provider} ({exc.response.status_code}): {details}"
+            ) from exc
+        data = response.json()
+
+    if provider in {"qwen", "deepseek_hf", "mistral"}:
+        text = data["choices"][0]["message"]["content"]
+    else:
+        text = data["candidates"][0]["content"]["parts"][0]["text"]
+
+    result = _parse_json_response(text)
     result["modele_utilise"] = f"{provider}/{config['model']}"
     return result
 
@@ -390,6 +509,102 @@ def _demo_response(provider: str) -> dict:
         "confiance": 0,
         "modele_utilise": f"{provider}/demo"
     }
+
+
+def _heuristic_structured_patient_from_transcript(transcript: str) -> dict:
+    """Fallback simple quand aucun LLM n'est disponible pour structurer l'audio."""
+    text = (transcript or "").strip()
+    lowered = text.lower()
+
+    symptom_map = {
+        "douleur_thoracique": ["douleur thoracique", "douleur poitrine", "oppression thoracique"],
+        "dyspnee": ["dyspnee", "essoufflement", "difficulte a respirer", "souffle court"],
+        "palpitations": ["palpitations", "coeur qui bat vite", "battements irreguliers"],
+        "syncope": ["syncope", "malaise", "perte de connaissance"],
+        "fievre": ["fievre", "temperature"],
+        "toux": ["toux"],
+        "cephalees": ["cephalee", "mal de tete"],
+        "douleur_abdominale": ["douleur abdominale", "douleur au ventre"],
+        "nausees_vomissements": ["nausee", "vomissement"],
+        "asthenie": ["asthenie", "fatigue"],
+        "oedemes_membres": ["oedeme", "jambes gonflees"],
+        "vertiges": ["vertige", "etourdissement"],
+    }
+
+    exam_map = {
+        "ecg": ["ecg"],
+        "nfs": ["nfs"],
+        "crp": ["crp"],
+        "bilan_metabolique": ["bilan metabolique", "glycemie", "ionogramme"],
+        "troponine": ["troponine"],
+        "rx_thorax": ["radio thorax", "rx thorax", "radiographie thoracique"],
+    }
+
+    symptomes = [
+        key for key, labels in symptom_map.items()
+        if any(label in lowered for label in labels)
+    ]
+    examens = [
+        key for key, labels in exam_map.items()
+        if any(label in lowered for label in labels)
+    ]
+
+    age_match = re.search(r"(\d{1,3})\s*ans", lowered)
+    sexe = ""
+    if any(token in lowered for token in ["patient ", "homme", "monsieur", "masculin"]):
+        sexe = "M"
+    elif any(token in lowered for token in ["patiente", "femme", "madame", "feminin"]):
+        sexe = "F"
+
+    fc_match = re.search(r"(?:fc|frequence cardiaque)[^\d]{0,10}(\d{2,3})", lowered)
+    ta_match = re.search(r"(?:ta|tension)[^\d]{0,10}(\d{2,3})\s*/\s*(\d{2,3})", lowered)
+    spo2_match = re.search(r"(?:spo2|saturation)[^\d]{0,10}(\d{2,3})", lowered)
+    temp_match = re.search(r"(?:temperature|temp)[^\d]{0,10}(\d{2}(?:[.,]\d)?)", lowered)
+
+    return {
+        "age": int(age_match.group(1)) if age_match else None,
+        "sexe": sexe,
+        "taille_cm": None,
+        "poids_kg": None,
+        "symptomes": symptomes,
+        "symptome_libre": text,
+        "tension_systolique": int(ta_match.group(1)) if ta_match else None,
+        "tension_diastolique": int(ta_match.group(2)) if ta_match else None,
+        "frequence_cardiaque": int(fc_match.group(1)) if fc_match else None,
+        "temperature": float(temp_match.group(1).replace(",", ".")) if temp_match else None,
+        "spo2": int(spo2_match.group(1)) if spo2_match else None,
+        "antecedents": [],
+        "traitements_en_cours": [],
+        "examens_realises": examens,
+        "resultats_examens": {},
+        "modele_utilise": "heuristic/audio",
+    }
+
+
+def _normalize_structured_patient(data: dict, transcript: str) -> dict:
+    """Nettoie la sortie JSON de structuration pour le formulaire frontend."""
+    normalized = _heuristic_structured_patient_from_transcript(transcript)
+    normalized.update({
+        "age": data.get("age") if isinstance(data.get("age"), int) else normalized.get("age"),
+        "sexe": data.get("sexe") if data.get("sexe") in {"M", "F", ""} else normalized.get("sexe", ""),
+        "taille_cm": data.get("taille_cm") if isinstance(data.get("taille_cm"), int) else None,
+        "poids_kg": data.get("poids_kg") if isinstance(data.get("poids_kg"), (int, float)) else None,
+        "symptome_libre": data.get("symptome_libre") or transcript,
+        "tension_systolique": data.get("tension_systolique") if isinstance(data.get("tension_systolique"), int) else normalized.get("tension_systolique"),
+        "tension_diastolique": data.get("tension_diastolique") if isinstance(data.get("tension_diastolique"), int) else normalized.get("tension_diastolique"),
+        "frequence_cardiaque": data.get("frequence_cardiaque") if isinstance(data.get("frequence_cardiaque"), int) else normalized.get("frequence_cardiaque"),
+        "temperature": data.get("temperature") if isinstance(data.get("temperature"), (int, float)) else normalized.get("temperature"),
+        "spo2": data.get("spo2") if isinstance(data.get("spo2"), int) else normalized.get("spo2"),
+        "antecedents": data.get("antecedents") if isinstance(data.get("antecedents"), list) else [],
+        "traitements_en_cours": data.get("traitements_en_cours") if isinstance(data.get("traitements_en_cours"), list) else [],
+        "resultats_examens": data.get("resultats_examens") if isinstance(data.get("resultats_examens"), dict) else {},
+    })
+
+    symptoms = data.get("symptomes") if isinstance(data.get("symptomes"), list) else []
+    exams = data.get("examens_realises") if isinstance(data.get("examens_realises"), list) else []
+    normalized["symptomes"] = [item for item in symptoms if item in STRUCTURED_SYMPTOMS] or normalized["symptomes"]
+    normalized["examens_realises"] = [item for item in exams if item in STRUCTURED_EXAMS] or normalized["examens_realises"]
+    return normalized
 
 
 # ─── CAS TESTS SYNTHÉTIQUES ───────────────────────────────────────────────
@@ -553,11 +768,103 @@ async def diagnose_case_with_providers(case_id: str, providers: list[str]) -> di
 
     comparisons = await asyncio.gather(*(run_provider(provider) for provider in normalized))
 
+    ok_results = [item for item in comparisons if item.get("status") == "ok" and item.get("result")]
+
+    def provider_rank(item: dict) -> tuple:
+        result = item["result"]
+        diag = (result.get("diagnostic_preliminaire") or "").strip().lower()
+        model_name = (result.get("modele_utilise") or "").strip().lower()
+        is_demo = "demo" in model_name or "mode demo" in diag
+        confidence = result.get("confiance") or 0
+        urgency = (result.get("niveau_urgence") or "").lower()
+        urgency_bonus = {
+            "critique": 3,
+            "eleve": 2,
+            "modere": 1,
+            "faible": 0,
+        }.get(urgency, 0)
+        explanation_bonus = 1 if result.get("explication_diagnostic") else 0
+        differential_bonus = min(len(result.get("diagnostics_differentiels") or []), 3)
+        return (
+            0 if is_demo else 1,
+            int(confidence),
+            urgency_bonus,
+            explanation_bonus,
+            differential_bonus,
+        )
+
+    best_comparison = max(ok_results, key=provider_rank) if ok_results else None
+
     return {
         "case_id": case["id"],
         "description": case["description"],
         "source_document": case.get("source_document"),
         "patient": case["patient"],
+        "selection_mode": "fusion_auto_best",
+        "providers_used": normalized,
+        "best_provider": best_comparison["provider"] if best_comparison else None,
+        "best_result": best_comparison["result"] if best_comparison else None,
+        "comparisons": comparisons,
+    }
+
+
+async def diagnose_patient_with_providers(patient: dict, providers: list[str] | None = None) -> dict:
+    """Lance plusieurs modeles generatifs sur des donnees patient structurees."""
+    normalized = []
+    for provider in providers or sorted(LLM_CONFIGS.keys()):
+        provider = provider.lower()
+        if provider not in normalized:
+            normalized.append(provider)
+
+    prompt = build_prompt(patient)
+
+    async def run_provider(provider: str) -> dict:
+        try:
+            result = await call_llm(prompt, provider=provider)
+            return {
+                "provider": provider,
+                "status": "ok",
+                "result": result,
+            }
+        except Exception as exc:
+            return {
+                "provider": provider,
+                "status": "error",
+                "error": str(exc),
+            }
+
+    comparisons = await asyncio.gather(*(run_provider(provider) for provider in normalized))
+    ok_results = [item for item in comparisons if item.get("status") == "ok" and item.get("result")]
+
+    def provider_rank(item: dict) -> tuple:
+        result = item["result"]
+        diag = (result.get("diagnostic_preliminaire") or "").strip().lower()
+        model_name = (result.get("modele_utilise") or "").strip().lower()
+        is_demo = "demo" in model_name or "mode demo" in diag
+        confidence = result.get("confiance") or 0
+        urgency = (result.get("niveau_urgence") or "").lower()
+        urgency_bonus = {
+            "critique": 3,
+            "eleve": 2,
+            "modere": 1,
+            "faible": 0,
+        }.get(urgency, 0)
+        explanation_bonus = 1 if result.get("explication_diagnostic") else 0
+        differential_bonus = min(len(result.get("diagnostics_differentiels") or []), 3)
+        return (
+            0 if is_demo else 1,
+            int(confidence),
+            urgency_bonus,
+            explanation_bonus,
+            differential_bonus,
+        )
+
+    best_comparison = max(ok_results, key=provider_rank) if ok_results else None
+    return {
+        "selection_mode": "fusion_auto_best",
+        "providers_used": normalized,
+        "best_provider": best_comparison["provider"] if best_comparison else None,
+        "best_result": best_comparison["result"] if best_comparison else None,
         "comparisons": comparisons,
     }
 

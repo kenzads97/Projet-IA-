@@ -18,10 +18,15 @@ try:
         ACTIVE_LLM,
         LLM_CONFIGS,
         build_prompt,
+        build_transcript_structuring_prompt,
         call_llm,
+        call_llm_json,
         diagnose_case_with_providers,
+        diagnose_patient_with_providers,
         get_available_cases,
         get_case_by_id,
+        _normalize_structured_patient,
+        _heuristic_structured_patient_from_transcript,
     )
     from ecg_pipeline import (
         get_preview_signal,
@@ -31,6 +36,18 @@ try:
         preprocess_ecg,
         predict_pathology,
         read_ecg_csv,
+    )
+    from ecg_cnn_model import (
+        CNN_META_PATH,
+        CNN_MODEL_PATH,
+        get_cnn_model_status,
+        train_cnn_ecg_model,
+    )
+    from ecg_hybrid_model import (
+        HYBRID_MODEL_PATH,
+        HYBRID_META_PATH,
+        get_hybrid_model_status,
+        train_hybrid_ecg_model,
     )
     from prediction_pipeline import (
         META_PATH,
@@ -50,10 +67,15 @@ except ModuleNotFoundError:
         ACTIVE_LLM,
         LLM_CONFIGS,
         build_prompt,
+        build_transcript_structuring_prompt,
         call_llm,
+        call_llm_json,
         diagnose_case_with_providers,
+        diagnose_patient_with_providers,
         get_available_cases,
         get_case_by_id,
+        _normalize_structured_patient,
+        _heuristic_structured_patient_from_transcript,
     )
     from backend.ecg_pipeline import (
         get_preview_signal,
@@ -63,6 +85,18 @@ except ModuleNotFoundError:
         preprocess_ecg,
         predict_pathology,
         read_ecg_csv,
+    )
+    from backend.ecg_cnn_model import (
+        CNN_META_PATH,
+        CNN_MODEL_PATH,
+        get_cnn_model_status,
+        train_cnn_ecg_model,
+    )
+    from backend.ecg_hybrid_model import (
+        HYBRID_MODEL_PATH,
+        HYBRID_META_PATH,
+        get_hybrid_model_status,
+        train_hybrid_ecg_model,
     )
     from backend.prediction_pipeline import (
         META_PATH,
@@ -147,12 +181,31 @@ class CaseSelectionRequest(BaseModel):
     providers: list[str] = []
 
 
+class TranscriptDiagnosticRequest(BaseModel):
+    transcript: str
+    providers: list[str] = []
+
+
 class ECGFileSelectionRequest(BaseModel):
     file_id: str
 
 
 class PredictionTrainRequest(BaseModel):
     test_ratio: float = 0.2
+
+
+class ECGHybridTrainRequest(BaseModel):
+    test_ratio: float = 0.2
+    min_class_size: int = 40
+    max_per_class: int = 400
+
+
+class ECGCNNTrainRequest(BaseModel):
+    test_ratio: float = 0.2
+    min_class_size: int = 40
+    max_per_class: int = 80
+    epochs: int = 8
+    batch_size: int = 8
 
 
 class PredictionRequest(BaseModel):
@@ -186,6 +239,54 @@ async def obtenir_diagnostic(patient: PatientData):
         return DiagnosticResponse(**resultat)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/diagnostic/transcript")
+async def obtenir_diagnostic_depuis_transcription(request: TranscriptDiagnosticRequest):
+    """
+    Reçoit une transcription audio, structure les champs patient,
+    puis génère le diagnostic à partir de ces données.
+    """
+    transcript = (request.transcript or "").strip()
+    if not transcript:
+        raise HTTPException(status_code=400, detail="Transcription vide")
+
+    providers = request.providers or sorted(LLM_CONFIGS.keys())
+    structuring_prompt = build_transcript_structuring_prompt(transcript)
+
+    structured_patient = None
+    structuring_provider = None
+    structuring_error = None
+
+    for provider in providers:
+        try:
+            raw_structured = await call_llm_json(structuring_prompt, provider=provider)
+            structured_patient = _normalize_structured_patient(raw_structured, transcript)
+            structuring_provider = provider
+            break
+        except Exception as exc:
+            structuring_error = str(exc)
+
+    if structured_patient is None:
+        structured_patient = _heuristic_structured_patient_from_transcript(transcript)
+        structuring_provider = "heuristic"
+
+    age = structured_patient.get("age")
+    sexe = structured_patient.get("sexe")
+    if not isinstance(age, int) or age <= 0:
+        raise HTTPException(status_code=400, detail="Age introuvable dans la transcription")
+    if sexe not in {"M", "F"}:
+        raise HTTPException(status_code=400, detail="Sexe introuvable dans la transcription")
+
+    result = await diagnose_patient_with_providers(structured_patient, providers=providers)
+    return {
+        "transcript": transcript,
+        "patient": structured_patient,
+        "structuring_provider": structuring_provider,
+        "structuring_error": structuring_error,
+        "diagnostic": result.get("best_result"),
+        "diagnostic_comparison": result,
+    }
 
 
 @app.get("/api/cases")
@@ -322,6 +423,55 @@ async def analyser_ecg_fichier(request: ECGFileSelectionRequest):
         return ECGDiagnosticResponse(**resultat)
     except FileNotFoundError as e:
         raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/ecg/hybrid/status")
+async def get_ecg_hybrid_status():
+    """Retourne l'etat du modele hybride ECG supervise."""
+    status = get_hybrid_model_status()
+    status["model_exists"] = HYBRID_MODEL_PATH.exists()
+    status["metadata_exists"] = META_PATH.exists()
+    status["meta_file_exists"] = HYBRID_META_PATH.exists()
+    return status
+
+
+@app.post("/api/ecg/hybrid/train")
+async def train_ecg_hybrid_model(request: ECGHybridTrainRequest):
+    """Entraine un modele supervise a partir des ECG reels et des labels metadata."""
+    try:
+        return train_hybrid_ecg_model(
+            test_ratio=request.test_ratio,
+            min_class_size=request.min_class_size,
+            max_per_class=request.max_per_class,
+            save_model=True,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/ecg/cnn/status")
+async def get_ecg_cnn_status():
+    """Retourne l'etat du modele CNN ECG."""
+    status = get_cnn_model_status()
+    status["model_exists"] = CNN_MODEL_PATH.exists()
+    status["meta_file_exists"] = CNN_META_PATH.exists()
+    return status
+
+
+@app.post("/api/ecg/cnn/train")
+async def train_ecg_cnn(request: ECGCNNTrainRequest):
+    """Entraine le CNN 1D a partir des ECG reels et des labels metadata."""
+    try:
+        return train_cnn_ecg_model(
+            test_ratio=request.test_ratio,
+            min_class_size=request.min_class_size,
+            max_per_class=request.max_per_class,
+            epochs=request.epochs,
+            batch_size=request.batch_size,
+            save_model=True,
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
