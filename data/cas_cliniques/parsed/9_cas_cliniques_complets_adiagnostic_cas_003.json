@@ -1,0 +1,37 @@
+{
+  "id": "9_cas_cliniques_complets_adiagnostic_cas_003",
+  "source_document": "9 cas cliniques complets adiagnostic.docx",
+  "case_number": 3,
+  "patient": {
+    "age": 56,
+    "sexe": "F",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "asthenie"
+    ],
+    "symptome_libre": "Fatigue chronique\nÉpisodes de confusion mentale et troubles de concentration\nAugmentation du volume de l’abdomen\nHémoglobine : 10.5 g/dl et plaquettes : 80 g/l\nALAT : 55 UI/L (N : <40) , ASAT : 90 UI/L (N : <40)\nGamma-GT : 180 UI/L (N : <35), Phosphatases alcalines : 150 UI/L (N : <130)\nBilirubine totale : 3.5 mg/dL (N : <1.2), Albumine : 2.8 g/dL (N : 3.5-5.5)\nINR : 1.8, Sodium : 130 mmol/l, Potassium : 4.2 mmol/l, Urée : 25 mg/dL\nCréatinine : 1.2 mg/dL\nÉchographie abdominale :\nFoie de taille réduite, contours irréguliers\nAscite modérée\nSplénomégalie\nPatiente de 56 ans\nConsommation d'alcool chronique (équivalent de 4 verres/jour pendant 15 ans, arrêt depuis 2 ans), obésité avec IMC à 32 et hypertension artérielle traitée",
+    "tension_systolique": 110,
+    "tension_diastolique": 70,
+    "frequence_cardiaque": 85,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [],
+    "traitements_en_cours": [],
+    "examens_realises": [
+      "biologie",
+      "echographie"
+    ],
+    "resultats_examens": {
+      "Hémoglobine": "10.5 g/dl et plaquettes : 80 g/l",
+      "ALAT": "55 UI/L (N : <40) , ASAT : 90 UI/L (N : <40)",
+      "Gamma-GT": "180 UI/L (N : <35), Phosphatases alcalines : 150 UI/L (N : <130)",
+      "Bilirubine totale": "3.5 mg/dL (N : <1.2), Albumine : 2.8 g/dL (N : 3.5-5.5)",
+      "INR": "1.8, Sodium : 130 mmol/l, Potassium : 4.2 mmol/l, Urée : 25 mg/dL",
+      "Créatinine": "1.2 mg/dL",
+      "Échographie abdominale": ""
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 3 :\nPatiente de 56 ans\nConsommation d'alcool chronique (équivalent de 4 verres/jour pendant 15 ans, arrêt depuis 2 ans), obésité avec IMC à 32 et hypertension artérielle traitée\nSymptômes actuels\nFatigue chronique\nÉpisodes de confusion mentale et troubles de concentration\nAugmentation du volume de l’abdomen\nExamen clinique\nConstantes\nTension artérielle : 110/70 mmHg\nFréquence cardiaque : 85 bpm\nInspection :\nIctère conjonctival\nPalpation abdominale :\nHépatomégalie modérée\nInvestigations biologiques\nHémoglobine : 10.5 g/dl et plaquettes : 80 g/l\nALAT : 55 UI/L (N : <40) , ASAT : 90 UI/L (N : <40)\nGamma-GT : 180 UI/L (N : <35), Phosphatases alcalines : 150 UI/L (N : <130)\nBilirubine totale : 3.5 mg/dL (N : <1.2), Albumine : 2.8 g/dL (N : 3.5-5.5)\nINR : 1.8, Sodium : 130 mmol/l, Potassium : 4.2 mmol/l, Urée : 25 mg/dL\nCréatinine : 1.2 mg/dL\nÉchographie abdominale :\nFoie de taille réduite, contours irréguliers\nAscite modérée\nSplénomégalie"
+}

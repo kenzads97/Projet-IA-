@@ -1,0 +1,1855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXOFIT — Assistance Médicale IA</title>
+<style>
+:root {
+  --blue: #2E75B6;
+  --blue-dark: #1B4F8A;
+  --blue-light: #E6F1FB;
+  --teal: #1D6E6E;
+  --teal-light: #E1F5EE;
+  --red: #C0392B;
+  --red-light: #FDEDEC;
+  --amber: #D68910;
+  --amber-light: #FEF9E7;
+  --green: #1A7A4A;
+  --green-light: #EAFAF1;
+  --gray: #5F6368;
+  --gray-light: #F8F9FA;
+  --border: #E0E0E0;
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #F0F4F8; color: var(--text); font-size: 15px; line-height: 1.6; }
+
+/* ── LAYOUT ── */
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+.topbar { background: var(--blue-dark); color: white; padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+.topbar-title { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; }
+.topbar-subtitle { font-size: 13px; opacity: 0.75; }
+.role-tabs { display: flex; gap: 4px; }
+.role-tab { padding: 6px 16px; border-radius: 20px; border: none; cursor: pointer; font-size: 13px; font-weight: 500; transition: all 0.2s; background: rgba(255,255,255,0.15); color: white; }
+.role-tab.active { background: white; color: var(--blue-dark); }
+
+.main { display: flex; flex: 1; gap: 0; }
+.sidebar { width: 260px; min-width: 260px; background: white; border-right: 1px solid var(--border); padding: 20px 16px; display: flex; flex-direction: column; gap: 8px; }
+.content { flex: 1; padding: 24px; overflow-y: auto; }
+
+/* ── SIDEBAR NAV ── */
+.nav-section { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); padding: 12px 8px 6px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--text); transition: all 0.15s; border: none; background: none; width: 100%; text-align: left; }
+.nav-item:hover { background: var(--gray-light); }
+.nav-item.active { background: var(--blue-light); color: var(--blue-dark); font-weight: 500; }
+.nav-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+/* ── CARDS ── */
+.card { background: white; border-radius: var(--radius); border: 1px solid var(--border); padding: 20px; margin-bottom: 16px; }
+.card-title { font-size: 16px; font-weight: 600; margin-bottom: 16px; color: var(--blue-dark); display: flex; align-items: center; gap: 8px; }
+.card-title-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; }
+
+/* ── FORMS ── */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+label { font-size: 13px; font-weight: 500; color: var(--gray); }
+input, select, textarea { border: 1px solid var(--border); border-radius: 7px; padding: 8px 12px; font-size: 14px; font-family: inherit; color: var(--text); background: white; transition: border 0.2s; width: 100%; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(46,117,182,0.12); }
+textarea { resize: vertical; min-height: 72px; }
+
+/* ── SYMPTOMES CHECKBOXES ── */
+.symptomes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.symptome-item { display: flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid var(--border); border-radius: 7px; cursor: pointer; font-size: 13px; transition: all 0.15s; }
+.symptome-item:hover { border-color: var(--blue); background: var(--blue-light); }
+.symptome-item.checked { border-color: var(--blue); background: var(--blue-light); color: var(--blue-dark); font-weight: 500; }
+.symptome-item input[type=checkbox] { display: none; }
+
+/* ── BUTTONS ── */
+.btn { padding: 10px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 500; font-family: inherit; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+.btn-primary { background: var(--blue); color: white; }
+.btn-primary:hover { background: var(--blue-dark); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-teal { background: var(--teal); color: white; }
+.btn-teal:hover { background: #155050; }
+.btn-green { background: var(--green); color: white; }
+.btn-green:hover { background: #14633a; }
+.btn-outline { background: white; color: var(--blue); border: 1px solid var(--blue); }
+.btn-outline:hover { background: var(--blue-light); }
+.btn-danger { background: var(--red); color: white; }
+.btn-lg { padding: 12px 28px; font-size: 15px; }
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+
+/* ── URGENCE BADGES ── */
+.badge { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.badge-critique { background: var(--red-light); color: var(--red); border: 1px solid #f5c6c2; }
+.badge-eleve { background: #FEF0E7; color: #C0621B; border: 1px solid #f9d5b5; }
+.badge-modere { background: var(--amber-light); color: var(--amber); border: 1px solid #fad67a; }
+.badge-faible { background: var(--green-light); color: var(--green); border: 1px solid #a9dfbf; }
+
+/* ── RÉSULTAT DIAGNOSTIC ── */
+.diagnostic-result { border-radius: var(--radius); padding: 20px; border: 1px solid; }
+.diagnostic-result.critique { background: var(--red-light); border-color: #f5c6c2; }
+.diagnostic-result.eleve { background: #FEF0E7; border-color: #f9d5b5; }
+.diagnostic-result.modere { background: var(--amber-light); border-color: #fad67a; }
+.diagnostic-result.faible { background: var(--green-light); border-color: #a9dfbf; }
+.diagnostic-result.default { background: var(--blue-light); border-color: #b5d4f4; }
+
+.result-main { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.result-section { margin-top: 14px; }
+.result-section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-muted); margin-bottom: 6px; }
+.result-list { list-style: none; }
+.result-list li { padding: 4px 0; padding-left: 16px; position: relative; font-size: 14px; }
+.result-list li::before { content: "›"; position: absolute; left: 0; color: var(--blue); font-weight: 700; }
+
+/* ── BARRE DE CONFIANCE ── */
+.confidence-bar { margin-top: 10px; }
+.confidence-label { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
+.confidence-track { height: 8px; background: rgba(0,0,0,0.1); border-radius: 4px; overflow: hidden; }
+.confidence-fill { height: 100%; border-radius: 4px; background: var(--green); transition: width 0.6s ease; }
+
+/* ── ECG UPLOAD ── */
+.ecg-drop { border: 2px dashed var(--border); border-radius: var(--radius); padding: 40px 20px; text-align: center; cursor: pointer; transition: all 0.2s; color: var(--text-muted); }
+.ecg-drop:hover, .ecg-drop.dragover { border-color: var(--teal); background: var(--teal-light); color: var(--teal); }
+.ecg-drop-icon { font-size: 32px; margin-bottom: 8px; }
+.ecg-drop p { font-size: 14px; }
+.ecg-drop small { font-size: 12px; opacity: 0.7; }
+
+/* ── PATHOLOGIE PROBABILITIES ── */
+.proba-list { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.proba-item { display: flex; align-items: center; gap: 10px; }
+.proba-name { font-size: 13px; flex: 1; color: var(--text); }
+.proba-track { flex: 2; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.proba-fill { height: 100%; border-radius: 3px; background: var(--teal); transition: width 0.5s; }
+.proba-value { font-size: 12px; color: var(--text-muted); min-width: 38px; text-align: right; }
+
+/* ── VALIDATION MÉDECIN ── */
+.validation-row { display: flex; gap: 10px; align-items: center; }
+.validation-status { padding: 10px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; border: 2px solid transparent; cursor: pointer; transition: all 0.2s; background: white; }
+.validation-status:hover { transform: translateY(-1px); }
+.validation-status.valid { border-color: var(--green); color: var(--green); }
+.validation-status.valid.selected { background: var(--green); color: white; }
+.validation-status.invalid { border-color: var(--red); color: var(--red); }
+.validation-status.invalid.selected { background: var(--red); color: white; }
+
+/* ── LOADER ── */
+.loader { display: none; align-items: center; gap: 12px; padding: 16px; color: var(--blue); font-size: 14px; }
+.loader.active { display: flex; }
+.spinner { width: 20px; height: 20px; border: 2px solid var(--blue-light); border-top-color: var(--blue); border-radius: 50%; animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── FEATURE TABLE ── */
+.feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
+.feature-item { background: var(--gray-light); border-radius: 7px; padding: 8px 12px; }
+.feature-key { font-size: 11px; color: var(--text-muted); margin-bottom: 2px; }
+.feature-val { font-size: 15px; font-weight: 600; color: var(--text); }
+
+/* ── HIDDEN ── */
+.hidden { display: none !important; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── SECTION HEADER ── */
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.section-title { font-size: 20px; font-weight: 600; color: var(--blue-dark); }
+.section-subtitle { font-size: 14px; color: var(--text-muted); margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">EXOFIT</div>
+      <div class="topbar-subtitle">Assistance médicale par IA · Centrale Lille MIAS M2</div>
+    </div>
+    <div class="role-tabs">
+      <button class="role-tab active" onclick="setRole('infirmiere')">Infirmière</button>
+      <button class="role-tab" onclick="setRole('medecin')">Médecin</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div id="nav-infirmiere">
+        <div class="nav-section">Partie 1 — Diagnostic</div>
+        <button class="nav-item active" onclick="showPage('p1-patient')">
+          <span class="nav-dot" style="background:#2E75B6"></span> Saisie patient
+        </button>
+        <button class="nav-item" onclick="showPage('p1-result')">
+          <span class="nav-dot" style="background:#1D9E75"></span> Résultat diagnostic
+        </button>
+        <div class="nav-section">Partie 2 — ECG</div>
+        <button class="nav-item" onclick="showPage('p2-ecg')">
+          <span class="nav-dot" style="background:#7F77DD"></span> Analyser ECG
+        </button>
+        <button class="nav-item" onclick="showPage('p2-result')">
+          <span class="nav-dot" style="background:#D85A30"></span> Résultat ECG
+        </button>
+        <div class="nav-section">Partie 3 — Prédiction</div>
+        <button class="nav-item" onclick="showPage('p3-prediction')">
+          <span class="nav-dot" style="background:#4F8C3A"></span> Prédiction patient
+        </button>
+      </div>
+      <div id="nav-medecin" class="hidden">
+        <div class="nav-section">Validation médecin</div>
+        <button class="nav-item active" onclick="showPage('med-validation')">
+          <span class="nav-dot" style="background:#1B4F8A"></span> Valider diagnostic
+        </button>
+        <button class="nav-item" onclick="showPage('med-stats')">
+          <span class="nav-dot" style="background:#639922"></span> Statistiques
+        </button>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- PAGE : SAISIE PATIENT -->
+      <div class="page active" id="page-p1-patient">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Saisie patient</div>
+            <div class="section-subtitle">Choisissez un cas du professeur ou remplissez le formulaire pour obtenir un diagnostic IA</div>
+          </div>
+          <button class="btn btn-primary btn-lg" onclick="submitDiagnostic()">
+            Obtenir diagnostic IA
+          </button>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Cas cliniques du professeur</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Cas à analyser</label>
+              <select id="case-select">
+                <option value="">-- Charger les cas disponibles --</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Actions</label>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn btn-outline" type="button" onclick="loadSelectedCase()">Charger dans le formulaire</button>
+                <button class="btn btn-primary" type="button" onclick="submitSelectedCase()">Diagnostiquer le cas</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Modèles génératifs à comparer</label>
+            <div class="symptomes-grid" id="providers-grid"></div>
+          </div>
+          <div id="case-meta" style="font-size:13px;color:var(--text-muted)"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Identité & anthropométrie</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Âge (ans) *</label>
+              <input type="number" id="age" placeholder="ex: 58" min="0" max="120">
+            </div>
+            <div class="form-group">
+              <label>Sexe *</label>
+              <select id="sexe">
+                <option value="">-- Sélectionner --</option>
+                <option value="M">Masculin</option>
+                <option value="F">Féminin</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Taille (cm)</label>
+              <input type="number" id="taille" placeholder="ex: 175">
+            </div>
+            <div class="form-group">
+              <label>Poids (kg)</label>
+              <input type="number" id="poids" placeholder="ex: 82" step="0.1">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Constantes vitales</div>
+          <div class="form-row-3">
+            <div class="form-group">
+              <label>TA systolique (mmHg)</label>
+              <input type="number" id="ta_sys" placeholder="ex: 130">
+            </div>
+            <div class="form-group">
+              <label>TA diastolique (mmHg)</label>
+              <input type="number" id="ta_dia" placeholder="ex: 80">
+            </div>
+            <div class="form-group">
+              <label>Fréquence cardiaque (bpm)</label>
+              <input type="number" id="fc" placeholder="ex: 78">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Température (°C)</label>
+              <input type="number" id="temp" placeholder="ex: 37.2" step="0.1">
+            </div>
+            <div class="form-group">
+              <label>SpO2 (%)</label>
+              <input type="number" id="spo2" placeholder="ex: 98" min="0" max="100">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Symptômes</div>
+          <div class="symptomes-grid" id="symptomes-grid">
+            <!-- Généré par JS -->
+          </div>
+          <div class="form-group" style="margin-top:12px">
+            <label>Description libre du patient</label>
+            <textarea id="symptome_libre" placeholder="Ex : douleur oppressive irradiant dans le bras gauche depuis 30 minutes..."></textarea>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Antécédents & traitements</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Antécédents (un par ligne)</label>
+              <textarea id="antecedents" placeholder="HTA&#10;Diabète type 2&#10;Tabagisme"></textarea>
+            </div>
+            <div class="form-group">
+              <label>Traitements en cours (un par ligne)</label>
+              <textarea id="traitements" placeholder="Metformine 1g&#10;Amlodipine 5mg"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Examens réalisés</div>
+          <div class="symptomes-grid" id="examens-grid"><!-- Généré par JS --></div>
+          <div class="form-group" style="margin-top:12px">
+            <label>Résultats (un par ligne : nom: valeur)</label>
+            <textarea id="resultats_examens" placeholder="ECG: Sus-décalage ST en V1-V4&#10;CRP: 45 mg/L&#10;Hémoglobine: 10 g/dL"></textarea>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin: 20px 0">
+          <button class="btn btn-primary btn-lg" onclick="submitDiagnostic()">
+            Obtenir diagnostic IA
+          </button>
+          <div class="loader" id="loader-diagnostic" style="justify-content:center;margin-top:12px">
+            <div class="spinner"></div>
+            Analyse en cours...
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE : RÉSULTAT DIAGNOSTIC -->
+      <div class="page" id="page-p1-result">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Résultat — Diagnostic IA</div>
+            <div class="section-subtitle">Diagnostic préliminaire à valider par le télémédecin</div>
+          </div>
+          <button class="btn btn-outline" onclick="showPage('p1-patient')">← Nouvelle saisie</button>
+        </div>
+        <div id="diagnostic-output">
+          <div style="color:var(--text-muted); padding:40px; text-align:center;">
+            Aucun diagnostic disponible. Remplissez le formulaire patient.
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE : ECG UPLOAD -->
+      <div class="page" id="page-p2-ecg">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Analyse ECG automatique</div>
+            <div class="section-subtitle">Importez un fichier ECG 12 dérivations au format CSV</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Importer un fichier ECG</div>
+          <div class="ecg-drop" id="ecg-drop" onclick="document.getElementById('ecg-file').click()"
+               ondragover="event.preventDefault();this.classList.add('dragover')"
+               ondragleave="this.classList.remove('dragover')"
+               ondrop="handleECGDrop(event)">
+            <div class="ecg-drop-icon">⬆</div>
+            <p>Glissez votre fichier ECG ici ou cliquez pour parcourir</p>
+            <small>Format CSV — 12 colonnes (dérivations I, II, III, aVR, aVL, aVF, V1–V6)</small>
+          </div>
+          <input type="file" id="ecg-file" accept=".csv" style="display:none" onchange="handleECGFile(this)">
+
+          <div style="margin-top:16px; display:flex; gap:10px; align-items:center;">
+            <button class="btn btn-teal" onclick="generateDemoECG()">Générer ECG synthétique (démo)</button>
+            <select id="demo-pathologie" style="width:260px">
+              <option value="normal">ECG normal</option>
+              <option value="fibrillation_auriculaire">Fibrillation auriculaire</option>
+              <option value="bradycardie">Bradycardie</option>
+              <option value="infarctus_du_myocarde">Infarctus du myocarde</option>
+              <option value="tachycardie_ventriculaire">Tachycardie ventriculaire</option>
+            </select>
+          </div>
+
+          <div class="loader" id="loader-ecg" style="margin-top:12px">
+            <div class="spinner"></div>
+            Analyse ECG en cours...
+          </div>
+        </div>
+
+        <div class="card" id="ecg-preview" style="display:none">
+          <div class="card-title">Aperçu du signal ECG</div>
+          <canvas id="ecg-canvas" style="width:100%;height:1200px;background:#fff5f5;border-radius:6px;display:block;"></canvas>
+        </div>
+
+        <div class="card" id="ecg-demo-preview" style="display:none">
+          <div class="card-title">Aperçu ECG synthétique (démo)</div>
+          <canvas id="ecg-demo-canvas" style="width:100%;height:1200px;background:#fff5f5;border-radius:6px;display:block;"></canvas>
+        </div>
+      </div>
+
+      <!-- PAGE : RÉSULTAT ECG -->
+        <div class="card" id="ecg-inline-result" style="display:none">
+          <div class="card-title">Diagnostic ECG</div>
+          <div id="ecg-inline-output"></div>
+        </div>
+      <div class="page" id="page-p2-result">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Résultat — Analyse ECG</div>
+            <div class="section-subtitle">Classification automatique des pathologies cardiaques</div>
+          </div>
+          <button class="btn btn-outline" onclick="showPage('p2-ecg')">← Nouvel ECG</button>
+        </div>
+        <div id="ecg-output">
+          <div style="color:var(--text-muted); padding:40px; text-align:center;">
+            Aucune analyse disponible. Importez un fichier ECG.
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE : VALIDATION MÉDECIN -->
+      <div class="page" id="page-p3-prediction">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Prédiction patient</div>
+            <div class="section-subtitle">Entraînez le modèle puis prédisez une maladie future à partir de plusieurs ECG</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Statut du module</div>
+          <div id="prediction-status" style="font-size:14px;color:var(--text-muted)">Chargement...</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Entraînement</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ratio de test</label>
+              <input type="number" id="prediction-test-ratio" min="0.1" max="0.5" step="0.05" value="0.2">
+            </div>
+            <div class="form-group">
+              <label>Actions</label>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn btn-primary" type="button" onclick="trainPredictionModel()">Entraîner le modèle</button>
+                <button class="btn btn-outline" type="button" onclick="loadPredictionStatus()">Actualiser</button>
+              </div>
+            </div>
+          </div>
+          <div id="prediction-metrics" class="stats-grid" style="margin-top:12px">
+            <div class="stat-card">
+              <div class="stat-value">-</div>
+              <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">-</div>
+              <div class="stat-label">Précision macro</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">-</div>
+              <div class="stat-label">Rappel macro</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">-</div>
+              <div class="stat-label">F1 macro</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">-</div>
+              <div class="stat-label">Échantillons train</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">-</div>
+              <div class="stat-label">Échantillons test</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">-</div>
+              <div class="stat-label">Patients uniques</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">-</div>
+              <div class="stat-label">Classes apprises</div>
+            </div>
+          </div>
+          <div id="prediction-train-output" style="font-size:13px;color:var(--text-muted)"></div>
+        </div>
+        <div class="card">
+          <div class="card-title">Prédiction patient</div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Patient</label>
+              <select id="prediction-patient-select" onchange="loadPredictionPatientECGs()">
+                <option value="">-- Sélectionner un patient --</option>
+              </select>
+            </div>
+          </div>
+          <textarea id="prediction-ecg-files" readonly hidden></textarea>
+          <div id="prediction-case-meta" style="font-size:13px;color:var(--text-muted);margin-top:4px"></div>
+          <button class="btn btn-green" type="button" onclick="predictFutureDisease()">Lancer la prÃ©diction</button>
+        </div>
+        <div class="card">
+          <div class="card-title">RÃ©sultat prÃ©diction</div>
+          <div id="prediction-output" style="color:var(--text-muted)">Aucune prÃ©diction lancÃ©e.</div>
+        </div>
+      </div>
+
+      <div class="page" id="page-med-validation">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Validation médecin</div>
+            <div class="section-subtitle">Vérifiez et validez le diagnostic IA proposé</div>
+          </div>
+        </div>
+        <div id="medecin-output">
+          <div style="color:var(--text-muted); padding:40px; text-align:center;">
+            Aucun diagnostic à valider. Passez en vue Infirmière et obtenez un diagnostic d'abord.
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGE : STATISTIQUES -->
+      <div class="page" id="page-med-stats">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Statistiques de fiabilité</div>
+            <div class="section-subtitle">Évaluation des performances diagnostiques</div>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="loadStats()">Actualiser</button>
+        </div>
+        <div id="stats-output">
+          <div style="color:var(--text-muted); padding:40px; text-align:center;">
+            Chargement des statistiques...
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<script>
+const API = 'http://localhost:8000/api';
+let currentRole = 'infirmiere';
+let currentDiagnostic = null;
+let currentECGResult = null;
+let availableECGFiles = [];
+let availableCases = [];
+let availableProviders = [];
+let predictionEcgLoading = false;
+const validations = JSON.parse(localStorage.getItem('exofit_validations') || '[]');
+const PROVIDER_LABELS = {
+  google: 'Gemini',
+  qwen: 'Qwen (Hugging Face)',
+  deepseek_hf: 'DeepSeek (Hugging Face)',
+  mistral: 'Mistral',
+};
+
+// ── SYMPTÔMES & EXAMENS ──
+const SYMPTOMES = [
+  {id:'douleur_thoracique', label:'Douleur thoracique'},
+  {id:'dyspnee', label:'Dyspnée'},
+  {id:'palpitations', label:'Palpitations'},
+  {id:'syncope', label:'Syncope'},
+  {id:'fievre', label:'Fièvre'},
+  {id:'toux', label:'Toux'},
+  {id:'cephalees', label:'Céphalées'},
+  {id:'douleur_abdominale', label:'Douleur abdominale'},
+  {id:'nausees_vomissements', label:'Nausées / vomissements'},
+  {id:'asthenie', label:'Asthénie'},
+  {id:'oedemes_membres', label:'Œdèmes membres inf.'},
+  {id:'vertiges', label:'Vertiges'},
+];
+const EXAMENS = [
+  {id:'ecg', label:'ECG'},
+  {id:'nfs', label:'NFS'},
+  {id:'crp', label:'CRP'},
+  {id:'bilan_metabolique', label:'Bilan métabolique'},
+  {id:'troponine', label:'Troponine'},
+  {id:'rx_thorax', label:'Rx thorax'},
+];
+
+function toPercent(value) {
+  const numeric = Number(value || 0);
+  return Math.round(numeric <= 1 ? numeric * 100 : numeric);
+}
+
+function normalizePredictionUIText() {
+  document.querySelectorAll('.card-title').forEach(el => {
+    const text = (el.textContent || '').trim();
+    if (text.includes('Entra')) el.textContent = 'Entraînement';
+    if (text.includes('Pr') && text.includes('diction patient')) el.textContent = 'Prédiction patient';
+    if (text.includes('R') && text.includes('sultat pr') && text.includes('diction')) el.textContent = 'Résultat prédiction';
+  });
+
+  const predictionSelect = document.getElementById('prediction-patient-select') || document.getElementById('prediction-case-select');
+  if (predictionSelect && predictionSelect.options.length) {
+    predictionSelect.options[0].textContent = '-- Sélectionner un patient --';
+  }
+
+  document.querySelectorAll('label').forEach(el => {
+    const text = (el.textContent || '').trim();
+    if (text.includes('Patient metadata') || text.includes('Cas clinique')) el.textContent = 'Patient';
+  });
+
+  const predictionEcgFiles = document.getElementById('prediction-ecg-files');
+  if (predictionEcgFiles) {
+    predictionEcgFiles.placeholder = "Les ECG liés au patient sélectionné s'afficheront ici";
+  }
+
+  const predictionButton = [...document.querySelectorAll('button')].find(
+    btn => (btn.textContent || '').includes('Lancer la pr')
+  );
+  if (predictionButton) predictionButton.textContent = 'Lancer la prédiction';
+
+  const predictionOutput = document.getElementById('prediction-output');
+  if (predictionOutput && !predictionOutput.innerHTML.trim()) {
+    predictionOutput.textContent = 'Aucune prédiction lancée.';
+  }
+}
+
+function cleanupPredictionText(text) {
+  return String(text || '')
+    .replaceAll('EntraÃƒÂ®nement', 'Entraînement')
+    .replaceAll('EntraÃƒÂ®ner le modÃƒÂ¨le', 'Entraîner le modèle')
+    .replaceAll('PrÃƒÂ©diction patient', 'Prédiction patient')
+    .replaceAll('RÃƒÂ©sultat prÃƒÂ©diction', 'Résultat prédiction')
+    .replaceAll('Aucune prÃƒÂ©diction lancÃƒÂ©e.', 'Aucune prédiction lancée.')
+    .replaceAll('SÃƒÂ©lectionner', 'Sélectionner')
+    .replaceAll('associÃƒÆ’Ã‚Â©s', 'associés')
+    .replaceAll('ModÃƒÂ¨le', 'Modèle')
+    .replaceAll('mappÃƒÂ©s', 'mappés')
+    .replaceAll('prÃƒÂ©diction', 'prédiction')
+    .replaceAll('EntraÃ®nement', 'Entraînement')
+    .replaceAll('EntraÃ®ner le modÃ¨le', 'Entraîner le modèle')
+    .replaceAll('PrÃ©diction patient', 'Prédiction patient')
+    .replaceAll('RÃ©sultat prÃ©diction', 'Résultat prédiction')
+    .replaceAll('Aucune prÃ©diction lancÃ©e.', 'Aucune prédiction lancée.')
+    .replaceAll('prÃ©diction', 'prédiction')
+    .replaceAll('PrÃ©diction', 'Prédiction')
+    .replaceAll('RÃ©sultat', 'Résultat')
+    .replaceAll('EntraÃ®nÃ©', 'Entraîné')
+    .replaceAll('entraÃ®nement', 'entraînement')
+    .replaceAll('associÃ©s', 'associés')
+    .replaceAll('sÃ©lectionnÃ©', 'sélectionné')
+    .replaceAll('liÃ©s', 'liés')
+    .replaceAll('Â·', '·');
+}
+
+function initGrids() {
+  const sg = document.getElementById('symptomes-grid');
+  sg.innerHTML = SYMPTOMES.map(s =>
+    `<label class="symptome-item" id="s-${s.id}" onclick="toggleCheck(this,'s-${s.id}')">
+      <input type="checkbox" value="${s.id}"> ${s.label}
+    </label>`
+  ).join('');
+  const eg = document.getElementById('examens-grid');
+  eg.innerHTML = EXAMENS.map(e =>
+    `<label class="symptome-item" id="e-${e.id}" onclick="toggleCheck(this,'e-${e.id}')">
+      <input type="checkbox" value="${e.id}"> ${e.label}
+    </label>`
+  ).join('');
+}
+
+function toggleCheck(el, id) {
+  const cb = el.querySelector('input');
+  cb.checked = !cb.checked;
+  el.classList.toggle('checked', cb.checked);
+}
+
+function getChecked(prefix) {
+  return [...document.querySelectorAll(`[id^="${prefix}"].checked input`)].map(i => i.value);
+}
+
+function setCheckedValues(prefix, values) {
+  document.querySelectorAll(`[id^="${prefix}"]`).forEach(el => {
+    const cb = el.querySelector('input');
+    if (!cb) return;
+    cb.checked = values.includes(cb.value);
+    el.classList.toggle('checked', cb.checked);
+  });
+}
+
+function parseResultatsText(resultats = {}) {
+  return Object.entries(resultats).map(([k, v]) => `${k}: ${v}`).join('\n');
+}
+
+async function initCaseSelector() {
+  try {
+    const res = await fetch(`${API}/cases`);
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    availableCases = data.cases || [];
+    availableProviders = data.available_providers || [];
+
+    document.getElementById('case-select').innerHTML = `
+      <option value="">-- Sélectionner un cas --</option>
+      ${availableCases.map(c => `<option value="${c.id}">${c.description}</option>`).join('')}
+    `;
+    document.getElementById('providers-grid').innerHTML = availableProviders.map(provider => `
+      <label class="symptome-item checked" id="p-${provider}" onclick="toggleCheck(this,'p-${provider}')">
+        <input type="checkbox" value="${provider}" checked> ${PROVIDER_LABELS[provider] || provider}
+      </label>
+    `).join('');
+    document.getElementById('case-meta').textContent = `${availableCases.length} cas chargés depuis data/cas_cliniques/parsed`;
+    await loadPredictionPatients();
+    normalizePredictionUIText();
+  } catch (e) {
+    document.getElementById('case-select').innerHTML = `<option value="">-- API indisponible --</option>`;
+    document.getElementById('case-meta').textContent =
+      `Impossible de charger la liste des cas depuis l'API (${e.message}). Vérifiez que le backend tourne sur http://localhost:8000.`;
+    normalizePredictionUIText();
+  }
+}
+
+async function loadPredictionPatients() {
+  const patientSelect = document.getElementById('prediction-patient-select') || document.getElementById('prediction-case-select');
+  const metaEl = document.getElementById('prediction-case-meta');
+  const ecgField = document.getElementById('prediction-ecg-files');
+  if (!patientSelect) return;
+
+  try {
+    const res = await fetch(`${API}/prediction/patients?limit=500`);
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    const patients = data.patients || [];
+    patientSelect.innerHTML = `
+      <option value="">-- Sélectionner un patient --</option>
+      ${patients.map(patient => `<option value="${patient.patient_id}">${patient.patient_id} · ${patient.primary_label || 'non classé'} · ${patient.ecg_count} ECG</option>`).join('')}
+    `;
+    if (ecgField) ecgField.value = '';
+    if (metaEl) metaEl.textContent = `${patients.length} patients metadata chargés depuis df_meta.pkl`;
+    normalizePredictionUIText();
+  } catch (e) {
+    patientSelect.innerHTML = `<option value="">-- Patients indisponibles --</option>`;
+    if (ecgField) ecgField.value = '';
+    if (metaEl) metaEl.textContent = `Impossible de charger les patients metadata (${e.message}).`;
+  }
+}
+
+async function loadECGFiles() {
+  const rawSelect = document.getElementById('ecg-raw-select');
+  const rawMeta = document.getElementById('ecg-raw-meta');
+  if (!rawSelect || !rawMeta) return;
+
+  try {
+    const res = await fetch(`${API}/ecg/files?limit=200`);
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    availableECGFiles = data.files || [];
+
+    rawSelect.innerHTML = `
+      <option value="">-- SÃ©lectionner un ECG patient --</option>
+      ${availableECGFiles.map(file => `<option value="${file.id}">${file.filename}</option>`).join('')}
+    `;
+
+    rawMeta.textContent =
+      `${data.returned || availableECGFiles.length} ECG affichÃ©s sur ${data.total || availableECGFiles.length} disponibles dans data/ecg/raw`;
+  } catch (e) {
+    rawSelect.innerHTML = `<option value="">-- API ECG indisponible --</option>`;
+    rawMeta.textContent =
+      `Impossible de charger la liste des ECG (${e.message}).`;
+  }
+}
+
+async function loadSelectedCase() {
+  const caseId = document.getElementById('case-select').value;
+  if (!caseId) { alert('Sélectionnez un cas'); return; }
+
+  const res = await fetch(`${API}/cases/${caseId}`);
+  if (!res.ok) {
+    alert('Impossible de charger ce cas');
+    return;
+  }
+
+  const data = await res.json();
+  const p = data.patient || {};
+  document.getElementById('age').value = p.age || '';
+  document.getElementById('sexe').value = p.sexe || '';
+  document.getElementById('taille').value = p.taille_cm || '';
+  document.getElementById('poids').value = p.poids_kg || '';
+  document.getElementById('ta_sys').value = p.tension_systolique || '';
+  document.getElementById('ta_dia').value = p.tension_diastolique || '';
+  document.getElementById('fc').value = p.frequence_cardiaque || '';
+  document.getElementById('temp').value = p.temperature || '';
+  document.getElementById('spo2').value = p.spo2 || '';
+  document.getElementById('symptome_libre').value = p.symptome_libre || '';
+  document.getElementById('antecedents').value = (p.antecedents || []).join('\n');
+  document.getElementById('traitements').value = (p.traitements_en_cours || []).join('\n');
+  document.getElementById('resultats_examens').value = parseResultatsText(p.resultats_examens || {});
+  setCheckedValues('s-', p.symptomes || []);
+  setCheckedValues('e-', p.examens_realises || []);
+
+  document.getElementById('case-meta').textContent =
+    `${data.description || caseId} · Source: ${data.source_document || 'N/A'}`;
+}
+
+async function submitSelectedCase() {
+  const caseId = document.getElementById('case-select').value;
+  if (!caseId) { alert('Sélectionnez un cas'); return; }
+
+  const providers = getChecked('p-');
+  if (!providers.length) { alert('Sélectionnez au moins un modèle'); return; }
+
+  document.getElementById('loader-diagnostic').classList.add('active');
+  try {
+    const res = await fetch(`${API}/diagnostic/case`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ case_id: caseId, providers })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    currentDiagnostic = {
+      id: data.case_id,
+      patient: data.patient,
+      comparison: data,
+      result: (data.comparisons || []).find(x => x.status === 'ok')?.result || null,
+      timestamp: new Date().toISOString()
+    };
+    renderCaseComparisonResult(data);
+    showPage('p1-result');
+  } catch (e) {
+    alert(`Erreur pendant le diagnostic: ${e.message}`);
+  } finally {
+    document.getElementById('loader-diagnostic').classList.remove('active');
+  }
+}
+
+// ── NAVIGATION ──
+function setRole(role) {
+  currentRole = role;
+  document.querySelectorAll('.role-tab').forEach((t,i) => t.classList.toggle('active', (i===0&&role==='infirmiere')||(i===1&&role==='medecin')));
+  document.getElementById('nav-infirmiere').classList.toggle('hidden', role !== 'infirmiere');
+  document.getElementById('nav-medecin').classList.toggle('hidden', role !== 'medecin');
+  if (role === 'medecin') { showPage('med-validation'); renderMedecinView(); }
+  else showPage('p1-patient');
+}
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + id);
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const ni = [...document.querySelectorAll('.nav-item')].find(n => n.getAttribute('onclick')?.includes(id));
+  if (ni) ni.classList.add('active');
+  if (id === 'med-stats') loadStats();
+}
+
+// ── DIAGNOSTIC IA ──
+async function submitDiagnostic() {
+  const age = document.getElementById('age').value;
+  const sexe = document.getElementById('sexe').value;
+  if (!age || !sexe) { alert('Âge et sexe sont obligatoires'); return; }
+
+  const resultats = {};
+  document.getElementById('resultats_examens').value.split('\n').forEach(line => {
+    const [k,...v] = line.split(':');
+    if (k && v.length) resultats[k.trim()] = v.join(':').trim();
+  });
+
+  const patient = {
+    age: parseInt(age), sexe,
+    taille_cm: parseInt(document.getElementById('taille').value) || null,
+    poids_kg: parseFloat(document.getElementById('poids').value) || null,
+    symptomes: getChecked('s-'),
+    symptome_libre: document.getElementById('symptome_libre').value || null,
+    tension_systolique: parseInt(document.getElementById('ta_sys').value) || null,
+    tension_diastolique: parseInt(document.getElementById('ta_dia').value) || null,
+    frequence_cardiaque: parseInt(document.getElementById('fc').value) || null,
+    temperature: parseFloat(document.getElementById('temp').value) || null,
+    spo2: parseInt(document.getElementById('spo2').value) || null,
+    antecedents: document.getElementById('antecedents').value.split('\n').filter(Boolean),
+    traitements_en_cours: document.getElementById('traitements').value.split('\n').filter(Boolean),
+    examens_realises: getChecked('e-'),
+    resultats_examens: resultats,
+  };
+
+  document.getElementById('loader-diagnostic').classList.add('active');
+
+  try {
+    const res = await fetch(`${API}/diagnostic`, {
+      method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(patient)
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    currentDiagnostic = { patient, result: data, timestamp: new Date().toISOString(), id: 'cas_' + Date.now() };
+    renderDiagnosticResult(data);
+    showPage('p1-result');
+  } catch(e) {
+    // Mode démo offline
+    currentDiagnostic = { patient, result: getDemoResult(patient), timestamp: new Date().toISOString(), id: 'cas_' + Date.now() };
+    renderDiagnosticResult(currentDiagnostic.result);
+    showPage('p1-result');
+  } finally {
+    document.getElementById('loader-diagnostic').classList.remove('active');
+  }
+}
+
+function getDemoResult(patient) {
+  const hasChestPain = patient.symptomes.includes('douleur_thoracique');
+  const hasECG = patient.resultats_examens?.ecg?.toLowerCase().includes('sus-décalage');
+  const urgence = (hasChestPain && hasECG) ? 'critique' : hasChestPain ? 'eleve' : 'modere';
+  return {
+    diagnostic_preliminaire: hasChestPain ? 'Syndrome coronarien aigu probable — infarctus du myocarde à exclure en urgence' : 'Bilan complémentaire nécessaire pour orientation diagnostique',
+    explication_diagnostic: hasChestPain
+      ? "Le choix repose sur la presence de douleur thoracique et sur des elements ECG evocateurs d'une atteinte coronarienne a prendre en charge rapidement."
+      : "Les donnees actuelles restent incompletes et orientent surtout vers la necessite d'un bilan complementaire avant conclusion plus certaine.",
+    diagnostics_differentiels: hasChestPain
+      ? [
+          { nom: 'Infarctus du myocarde (STEMI)', explication: "Compatible avec douleur thoracique typique et signes ECG evocateurs.", credibilite: 84 },
+          { nom: 'Syndrome coronarien sans sus-décalage (NSTEMI)', explication: "A discuter si la clinique est compatible sans criteres complets de STEMI.", credibilite: 12 },
+          { nom: 'Péricardite aiguë', explication: "Differentiel possible selon le contexte douloureux et l'evolution.", credibilite: 4 },
+        ]
+      : [
+          { nom: 'Trouble du rythme cardiaque', explication: "Peut expliquer une symptomatologie peu specifique sans orientation unique.", credibilite: 18 },
+          { nom: 'Insuffisance cardiaque décompensée', explication: "A envisager selon les constantes, la dyspnee et les antecedents.", credibilite: 12 },
+          { nom: 'Pathologie infectieuse', explication: "Reste possible si la presentation est associee a des signes generaux.", credibilite: 8 },
+        ],
+    questions_complementaires: [
+      'La douleur irradie-t-elle dans le bras gauche ou la mâchoire ?',
+      'Y a-t-il eu une douleur similaire dans les semaines précédentes ?',
+      'Le patient a-t-il pris de la trinitrine avec soulagement ?',
+    ],
+    examens_proposes: ['Troponine urgente (si non fait)', 'ECG 12 dérivations répété à 30 min', 'Glycémie capillaire'],
+    traitements_proposes: [
+      'Mettre le patient au repos et surveiller les constantes',
+      'Administrer oxygene si saturation basse selon protocole local',
+      'Organiser une teleconsultation medicale rapide pour validation du traitement'
+    ],
+    niveau_urgence: urgence,
+    confiance: hasECG ? 85 : 62,
+    modele_utilise: 'demo/offline'
+  };
+}
+
+function renderDiagnosticResult(data) {
+  const urg = data.niveau_urgence || 'default';
+  const confPct = toPercent(data.confiance);
+  const confColor = confPct >= 70 ? 'var(--green)' : confPct >= 40 ? 'var(--amber)' : 'var(--red)';
+  const diffHtml = (data.diagnostics_differentiels||[]).map(d => {
+    const credibility = toPercent(d.credibilite);
+    return `<li>
+      <div style="font-weight:600">${d.nom ?? d}</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-top:2px">${d.explication || ''}</div>
+      <div style="font-size:12px;color:var(--blue-dark);margin-top:4px">Crédibilité : ${credibility}%</div>
+    </li>`;
+  }).join('');
+
+  const html = `
+    <div class="diagnostic-result ${urg}">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div class="result-main">${data.diagnostic_preliminaire}</div>
+        <span class="badge badge-${urg}">${urg.toUpperCase()}</span>
+      </div>
+      <div class="confidence-bar">
+        <div class="confidence-label">
+          <span>Taux de crédibilité</span>
+          <span style="color:${confColor};font-weight:600">${confPct}%</span>
+        </div>
+        <div class="confidence-track">
+          <div class="confidence-fill" style="width:${confPct}%;background:${confColor}"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="result-section">
+        <div class="result-section-title">Explication du choix diagnostique</div>
+        <div style="font-size:14px;line-height:1.6">${data.explication_diagnostic || 'Non fournie'}</div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Diagnostics différentiels</div>
+        <ul class="result-list">${diffHtml}</ul>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Questions à poser au patient</div>
+        <ul class="result-list">${(data.questions_complementaires||[]).map(q=>`<li>${q}</li>`).join('')}</ul>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Examens proposés</div>
+        <ul class="result-list">${(data.examens_proposes||[]).map(e=>`<li>${e}</li>`).join('')}</ul>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Traitements proposés</div>
+        <ul class="result-list">${(data.traitements_proposes||[]).map(t=>`<li>${t}</li>`).join('')}</ul>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">
+        Modèle : ${data.modele_utilise} · Ce diagnostic est préliminaire — validation médecin requise
+      </div>
+    </div>`;
+  document.getElementById('diagnostic-output').innerHTML = html;
+}
+
+function renderCaseComparisonResult(data) {
+  const blocks = (data.comparisons || []).map(item => {
+    if (item.status !== 'ok') {
+      return `
+        <div class="card">
+          <div class="card-title">${PROVIDER_LABELS[item.provider] || item.provider}</div>
+          <div style="color:var(--red);font-size:14px">Erreur: ${item.error}</div>
+        </div>`;
+    }
+
+    const r = item.result;
+    const urg = r.niveau_urgence || 'default';
+    const confPct = toPercent(r.confiance);
+    const diffHtml = (r.diagnostics_differentiels||[]).map(d => {
+      const credibility = toPercent(d.credibilite);
+      return `<li>
+        <div style="font-weight:600">${d.nom ?? d}</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:2px">${d.explication || ''}</div>
+        <div style="font-size:12px;color:var(--blue-dark);margin-top:4px">Crédibilité : ${credibility}%</div>
+      </li>`;
+    }).join('');
+    return `
+      <div class="card">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div class="card-title" style="margin-bottom:0">${PROVIDER_LABELS[item.provider] || item.provider}</div>
+          <span class="badge badge-${urg}">${urg.toUpperCase()}</span>
+        </div>
+        <div class="result-main" style="margin-top:12px">${r.diagnostic_preliminaire}</div>
+        <div class="confidence-bar">
+          <div class="confidence-label"><span>Taux de crédibilité</span><span style="font-weight:600">${confPct}%</span></div>
+          <div class="confidence-track"><div class="confidence-fill" style="width:${confPct}%"></div></div>
+        </div>
+        <div class="result-section">
+          <div class="result-section-title">Explication du choix diagnostique</div>
+          <div style="font-size:14px;line-height:1.6">${r.explication_diagnostic || 'Non fournie'}</div>
+        </div>
+        <div class="result-section">
+          <div class="result-section-title">Diagnostics différentiels</div>
+          <ul class="result-list">${diffHtml}</ul>
+        </div>
+        <div class="result-section">
+          <div class="result-section-title">Questions complémentaires</div>
+          <ul class="result-list">${(r.questions_complementaires||[]).map(x => `<li>${x}</li>`).join('')}</ul>
+        </div>
+        <div class="result-section">
+          <div class="result-section-title">Examens proposés</div>
+          <ul class="result-list">${(r.examens_proposes||[]).map(x => `<li>${x}</li>`).join('')}</ul>
+        </div>
+        <div class="result-section">
+          <div class="result-section-title">Traitements proposés</div>
+          <ul class="result-list">${(r.traitements_proposes||[]).map(x => `<li>${x}</li>`).join('')}</ul>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">Modèle: ${r.modele_utilise}</div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('diagnostic-output').innerHTML = `
+    <div class="card">
+      <div class="card-title">Cas sélectionné</div>
+      <div style="font-size:14px">${data.description}</div>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:6px">Source: ${data.source_document || 'N/A'}</div>
+    </div>
+    ${blocks}
+  `;
+}
+
+// ── ECG ──
+async function loadPredictionStatus() {
+  const statusEl = document.getElementById('prediction-status');
+  if (!statusEl) return;
+
+  statusEl.textContent = 'Chargement du statut...';
+  try {
+    const res = await fetch(`${API}/prediction/status`);
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    statusEl.innerHTML = `
+      Dataset meta: <strong>${data.metadata_exists ? 'oui' : 'non'}</strong> ·
+      ECG meta: <strong>${data.metadata_rows ?? 0}</strong> ·
+      Patients meta: <strong>${data.metadata_patients ?? 0}</strong><br>
+      Mapping: <strong>${data.mapping_exists ? 'oui' : 'non'}</strong> ·
+      ModÃ¨le: <strong>${data.model_exists ? 'oui' : 'non'}</strong> ·
+      Patients mappÃ©s: <strong>${data.mapped_patients}</strong> ·
+      Cas disponibles: <strong>${data.available_cases}</strong> ·
+      Features: <strong>${data.feature_count}</strong>
+      <div style="font-size:12px;color:var(--text-muted);margin-top:6px">
+        Meta: ${data.metadata_path || 'N/A'}<br>
+        Mapping: ${data.mapping_path}<br>
+        ModÃ¨le: ${data.model_path}
+        ${data.metadata_error ? `<br>Erreur meta: ${data.metadata_error}` : ''}
+      </div>
+    `;
+  } catch (e) {
+    statusEl.textContent = cleanupPredictionText(`Erreur statut prédiction: ${e.message}`);
+  }
+}
+
+async function loadPredictionPatientECGs() {
+  const patientId = (document.getElementById('prediction-patient-select') || document.getElementById('prediction-case-select'))?.value;
+  const ecgField = document.getElementById('prediction-ecg-files');
+  const metaEl = document.getElementById('prediction-case-meta');
+  if (!ecgField || !metaEl) return;
+
+  if (!patientId) {
+    ecgField.value = '';
+    metaEl.textContent = '';
+    return;
+  }
+
+  predictionEcgLoading = true;
+  ecgField.value = 'Chargement des ECG associés...';
+  metaEl.textContent = '';
+  try {
+    const res = await fetch(`${API}/prediction/patient/${patientId}`);
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    const files = data.ecg_files || [];
+    ecgField.value = files.join('\n');
+    if (!files.length) {
+      metaEl.textContent = "Aucun ECG associé automatiquement à ce patient dans df_meta.pkl.";
+      return;
+    }
+
+    const labels = (data.labels || []).join(', ') || 'N/A';
+    const age = data.age ?? 'NC';
+    const gender = data.gender || 'NC';
+    metaEl.textContent = `Patient: ${data.patient_id} · Âge: ${age} · Sexe: ${gender} · ECG associés: ${files.length} · Labels: ${labels}`;
+  } catch (e) {
+    ecgField.value = '';
+    metaEl.textContent = `Erreur chargement ECG liés: ${e.message}`;
+  } finally {
+    predictionEcgLoading = false;
+  }
+}
+
+async function trainPredictionModel() {
+  const outputEl = document.getElementById('prediction-train-output');
+  const metricsEl = document.getElementById('prediction-metrics');
+  const ratio = parseFloat(document.getElementById('prediction-test-ratio')?.value || '0.2');
+  if (metricsEl) metricsEl.innerHTML = '';
+  outputEl.textContent = cleanupPredictionText("Entraînement du modèle en cours...");
+
+  try {
+    const res = await fetch(`${API}/prediction/train`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ test_ratio: ratio }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    const evaluation = data.evaluation || {};
+    const accuracy = evaluation.accuracy == null ? 'N/A' : `${Math.round(Number(evaluation.accuracy) * 100)}%`;
+    const macroPrecision = evaluation.macro_precision == null ? 'N/A' : `${Math.round(Number(evaluation.macro_precision) * 100)}%`;
+    const macroRecall = evaluation.macro_recall == null ? 'N/A' : `${Math.round(Number(evaluation.macro_recall) * 100)}%`;
+    const macroF1 = evaluation.macro_f1 == null ? 'N/A' : `${Math.round(Number(evaluation.macro_f1) * 100)}%`;
+    const perLabel = Object.entries(evaluation.per_label || {});
+    const uniquePatients = data.unique_patients ?? 0;
+    const modelType = data.model_type || 'N/A';
+    const labelsCount = Array.isArray(data.labels) ? data.labels.length : 0;
+
+    if (metricsEl) {
+      metricsEl.innerHTML = `
+        <div class="stat-card">
+          <div class="stat-value">${accuracy}</div>
+          <div class="stat-label">Accuracy</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${macroPrecision}</div>
+          <div class="stat-label">Précision macro</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${macroRecall}</div>
+          <div class="stat-label">Rappel macro</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${macroF1}</div>
+          <div class="stat-label">F1 macro</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${data.train_samples ?? 0}</div>
+          <div class="stat-label">Échantillons train</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${data.test_samples ?? 0}</div>
+          <div class="stat-label">Échantillons test</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${uniquePatients}</div>
+          <div class="stat-label">Patients uniques</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">${labelsCount}</div>
+          <div class="stat-label">Classes apprises</div>
+        </div>
+      `;
+    }
+
+    outputEl.innerHTML = `
+      <div style="margin-bottom:10px">
+        Modèle entraîné avec succès.<br>
+        Type de modèle : <strong>${modelType}</strong> ·
+        Source : <strong>${data.data_source || 'N/A'}</strong>
+      </div>
+      ${perLabel.length ? `
+        <div style="margin-top:12px;overflow-x:auto">
+          <table style="width:100%;border-collapse:collapse;font-size:13px">
+            <thead>
+              <tr style="text-align:left;border-bottom:1px solid var(--border)">
+                <th style="padding:6px">Classe</th>
+                <th style="padding:6px">Support</th>
+                <th style="padding:6px">Précision</th>
+                <th style="padding:6px">Rappel</th>
+                <th style="padding:6px">F1</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${perLabel.map(([label, stats]) => `
+                <tr style="border-bottom:1px solid var(--border)">
+                  <td style="padding:6px">${label}</td>
+                  <td style="padding:6px">${stats.support}</td>
+                  <td style="padding:6px">${Math.round(Number(stats.precision || 0) * 100)}%</td>
+                  <td style="padding:6px">${Math.round(Number(stats.recall || 0) * 100)}%</td>
+                  <td style="padding:6px">${Math.round(Number(stats.f1 || 0) * 100)}%</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      ` : ''}
+    `;
+    await loadPredictionStatus();
+  } catch (e) {
+    if (metricsEl) metricsEl.innerHTML = '';
+    outputEl.textContent = `Erreur entraÃ®nement: ${e.message}`;
+  }
+}
+
+function renderPredictionResult(data) {
+  const outputEl = document.getElementById('prediction-output');
+  const confPct = Math.round(Number(data.confidence || 0) * 100);
+  const probaEntries = Object.entries(data.probabilities || {}).sort((a, b) => b[1] - a[1]);
+  const distanceEntries = Object.entries(data.distances || {}).sort((a, b) => a[1] - b[1]);
+
+  outputEl.innerHTML = `
+    <div class="diagnostic-result default">
+      <div class="result-main">${data.prediction}</div>
+      <div class="confidence-bar">
+        <div class="confidence-label">
+          <span>Confiance</span>
+          <span style="font-weight:600">${confPct}%</span>
+        </div>
+        <div class="confidence-track">
+          <div class="confidence-fill" style="width:${confPct}%"></div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:13px;color:var(--text-muted)">
+        Patient: ${data.patient_id || 'N/A'} · ECG utilisés: ${data.n_ecg_used}
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Fichiers ECG utilisés</div>
+        <ul class="result-list">${(data.ecg_files || []).map(file => `<li>${file}</li>`).join('')}</ul>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Probabilités</div>
+        <div class="proba-list">
+          ${probaEntries.map(([label, value]) => `
+            <div class="proba-item">
+              <div class="proba-name">${label}</div>
+              <div class="proba-track"><div class="proba-fill" style="width:${Math.round(Number(value) * 100)}%"></div></div>
+              <div class="proba-value">${Math.round(Number(value) * 100)}%</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Distances au modèle</div>
+        <ul class="result-list">
+          ${distanceEntries.map(([label, value]) => `<li>${label}: ${Number(value).toFixed(3)}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+async function predictFutureDisease() {
+  const patientId = (document.getElementById('prediction-patient-select') || document.getElementById('prediction-case-select'))?.value;
+  const ecgFiles = (document.getElementById('prediction-ecg-files')?.value || '')
+    .split(/\r?\n/)
+    .map(line => line.trim())
+    .filter(line => line && /\.csv$/i.test(line));
+
+  if (!patientId) {
+    alert('Sélectionnez un patient');
+    return;
+  }
+  if (predictionEcgLoading) {
+    alert('Patientez pendant le chargement automatique des ECG.');
+    return;
+  }
+  if (!ecgFiles.length) {
+    alert('Aucun fichier ECG valide n’est encore chargé pour ce patient.');
+    return;
+  }
+
+  const outputEl = document.getElementById('prediction-output');
+  outputEl.textContent = cleanupPredictionText('Prédiction en cours...');
+
+  try {
+    const res = await fetch(`${API}/prediction/predict`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ patient_id: patientId, ecg_files: ecgFiles }),
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    renderPredictionResult(data);
+  } catch (e) {
+    outputEl.textContent = cleanupPredictionText(`Erreur prédiction: ${e.message}`);
+  }
+}
+
+function handleECGFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => processECGData(e.target.result, file);
+  reader.readAsText(file);
+}
+
+function handleECGDrop(e) {
+  e.preventDefault();
+  document.getElementById('ecg-drop').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.name.endsWith('.csv')) {
+    const reader = new FileReader();
+    reader.onload = ev => processECGData(ev.target.result, file);
+    reader.readAsText(file);
+  }
+}
+
+function processECGData(csvText, file) {
+  const leads = parseECGPreview12(csvText);
+  if (!leads.II?.length) {
+    alert("Impossible de lire ce fichier ECG");
+    return;
+  }
+  drawECGPreviewFromLeads(leads);
+  uploadECGFile(file);
+}
+
+function parseECGPreview12(csvText) {
+  const leadNames = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6'];
+  const rows = csvText
+    .split(/\r?\n/)
+    .map(line => line.split(',').map(part => part.trim()).filter(Boolean))
+    .filter(parts => parts.length);
+
+  const numericRows = rows
+    .map(parts => parts.map(value => Number(value)))
+    .filter(parts => parts.length >= 12 && parts.every(Number.isFinite))
+    .slice(0, 5000);
+
+  const leads = Object.fromEntries(leadNames.map(name => [name, []]));
+  numericRows.forEach(parts => {
+    leadNames.forEach((lead, index) => leads[lead].push(parts[index]));
+  });
+  return leads;
+}
+
+async function uploadECGFile(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  document.getElementById('loader-ecg').classList.add('active');
+  try {
+    const res = await fetch(`${API}/ecg/analyser`, { method: 'POST', body: formData });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    if (data.preview_12_leads && Object.keys(data.preview_12_leads).length) {
+      drawECGPreviewFromLeads(data.preview_12_leads);
+    } else if (Array.isArray(data.preview_signal) && data.preview_signal.length) {
+      drawECGPreviewFromSignal(data.preview_signal);
+    }
+    currentECGResult = data;
+    renderECGResult(data);
+    showPage('p2-result');
+  } catch (e) {
+    alert(`Erreur pendant l'analyse ECG: ${e.message}`);
+  } finally {
+    document.getElementById('loader-ecg').classList.remove('active');
+  }
+}
+
+async function analyzeSelectedRawECG() {
+  const fileId = document.getElementById('ecg-raw-select').value;
+  if (!fileId) {
+    alert("SÃ©lectionnez un ECG patient");
+    return;
+  }
+
+  document.getElementById('loader-ecg').classList.add('active');
+  try {
+    const res = await fetch(`${API}/ecg/analyser-fichier`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ file_id: fileId })
+    });
+    if (!res.ok) throw new Error(await res.text());
+    const data = await res.json();
+    if (data.preview_12_leads && Object.keys(data.preview_12_leads).length) {
+      drawECGPreviewFromLeads(data.preview_12_leads);
+    } else if (Array.isArray(data.preview_signal) && data.preview_signal.length) {
+      drawECGPreviewFromSignal(data.preview_signal);
+    }
+    currentECGResult = data;
+    renderECGResult(data);
+    showPage('p2-result');
+  } catch (e) {
+    alert(`Erreur pendant l'analyse ECG: ${e.message}`);
+  } finally {
+    document.getElementById('loader-ecg').classList.remove('active');
+  }
+}
+
+function generateDemoECG() {
+  const patho = document.getElementById('demo-pathologie').value;
+  const data = generateSyntheticECG(patho);
+  drawECGPreview(data, 'ecg-demo-preview', 'ecg-demo-canvas');
+  analyzeECGLocally(data, patho);
+}
+
+function generateSyntheticECG(patho) {
+  const fs = 500, sec = 10, n = fs * sec;
+  const t = Array.from({length:n}, (_,i) => i/fs);
+  const signal = generateLead(t, patho);
+  const leads = generateSynthetic12Leads(signal);
+  return {signal, leads, patho, t};
+}
+
+function generateSynthetic12Leads(baseSignal) {
+  const leadConfigs = {
+    I:   { scale: 0.9, offset: 0.00, invert: false },
+    II:  { scale: 1.0, offset: 0.00, invert: false },
+    III: { scale: 0.7, offset: 0.00, invert: true },
+    aVR: { scale: 0.8, offset: 0.00, invert: true },
+    aVL: { scale: 0.6, offset: 0.00, invert: false },
+    aVF: { scale: 0.65, offset: 0.00, invert: false },
+    V1:  { scale: 0.55, offset: -0.05, invert: true },
+    V2:  { scale: 0.7, offset: -0.02, invert: true },
+    V3:  { scale: 0.5, offset: 0.02, invert: false },
+    V4:  { scale: 0.75, offset: 0.03, invert: false },
+    V5:  { scale: 1.05, offset: 0.00, invert: false },
+    V6:  { scale: 0.35, offset: 0.00, invert: false },
+  };
+
+  return Object.fromEntries(
+    Object.entries(leadConfigs).map(([lead, cfg]) => [
+      lead,
+      baseSignal.map((value, index) => {
+        const shaped = cfg.invert ? -value : value;
+        const baselineNoise = 0.003 * Math.sin(index / 80);
+        return shaped * cfg.scale + cfg.offset + baselineNoise;
+      }),
+    ])
+  );
+}
+
+function generateLead(t, patho) {
+  const fs = 500;
+  return t.map((ti, idx) => {
+    let v = 0;
+    const hr = patho === 'bradycardie' ? 42 : patho === 'tachycardie_ventriculaire' ? 150 : patho === 'fibrillation_auriculaire' ? 110 : 70;
+    const rr = 60 / hr;
+    const phase = ti % rr;
+
+    if (patho === 'fibrillation_auriculaire') {
+      // Trémulations basales
+      v += 0.05 * Math.sin(2*Math.PI*7*ti) + 0.03 * Math.sin(2*Math.PI*10*ti);
+      // Complexes QRS irréguliers
+      const noiseRR = rr * (1 + 0.3 * Math.sin(ti * 1.3));
+      const phaseFA = ti % noiseRR;
+      if (phaseFA < 0.02) v += Math.exp(-((phaseFA - 0.01)**2) / 0.00003) * 1.2;
+    } else {
+      // Onde P
+      if (patho !== 'bloc_auriculo_ventriculaire') {
+        v += 0.15 * Math.exp(-((phase - 0.10)**2) / 0.0003);
+      }
+      // Complexe QRS
+      const qrsW = patho === 'tachycardie_ventriculaire' ? 0.018 : patho === 'bloc_auriculo_ventriculaire' ? 0.025 : 0.009;
+      v -= 0.06 * Math.exp(-((phase - 0.175)**2) / (qrsW * 2));
+      v += 1.00 * Math.exp(-((phase - 0.18 )**2) / qrsW);
+      v -= 0.18 * Math.exp(-((phase - 0.185)**2) / qrsW);
+      // ST + onde T
+      const stDev = patho === 'infarctus_du_myocarde' ? 0.35 : patho === 'ischemie_myocardique' ? -0.15 : 0;
+      v += stDev * Math.exp(-((phase - 0.25)**2) / 0.002);
+      v += 0.30 * Math.exp(-((phase - 0.36)**2) / 0.0006);
+    }
+    v += (Math.random() - 0.5) * 0.025;
+    return v;
+  });
+}
+
+function drawECGPreview(data, cardId = 'ecg-preview', canvasId = 'ecg-canvas') {
+  if (data.leads) {
+    drawECGPreviewFromLeads(data.leads, cardId, canvasId);
+    return;
+  }
+  drawECGPreviewFromSignal(data.signal.slice(0, 5000), cardId, canvasId);
+}
+
+function drawECGPreviewFromSignal(signal, cardId = 'ecg-preview', canvasId = 'ecg-canvas') {
+  drawECGPreviewFromLeads({ II: signal }, cardId, canvasId);
+}
+
+function drawECGPreviewFromLeads(leads, cardId = 'ecg-preview', canvasId = 'ecg-canvas') {
+  const card = document.getElementById(cardId);
+  card.style.display = 'block';
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  canvas.width = canvas.offsetWidth * devicePixelRatio;
+  canvas.height = 1200 * devicePixelRatio;
+  ctx.scale(devicePixelRatio, devicePixelRatio);
+  const w = canvas.offsetWidth, h = 1200;
+  ctx.clearRect(0,0,w,h);
+
+  const orderedLeads = ['I', 'II', 'III', 'aVR', 'aVL', 'aVF', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6'];
+  const rows = orderedLeads.length;
+  const panelWidth = w;
+  const panelHeight = h / rows;
+
+  orderedLeads.forEach((leadName, index) => {
+    const x0 = 0;
+    const y0 = index * panelHeight;
+    const signal = (leads[leadName] || []).slice(0, 5000);
+
+    ctx.strokeStyle = 'rgba(220,100,100,0.18)';
+    ctx.lineWidth = 0.5;
+    for (let x = x0; x < x0 + panelWidth; x += 20) {
+      ctx.beginPath(); ctx.moveTo(x, y0); ctx.lineTo(x, y0 + panelHeight); ctx.stroke();
+    }
+    for (let y = y0; y < y0 + panelHeight; y += 20) {
+      ctx.beginPath(); ctx.moveTo(x0, y); ctx.lineTo(x0 + panelWidth, y); ctx.stroke();
+    }
+
+    ctx.strokeStyle = 'rgba(220,100,100,0.35)';
+    ctx.strokeRect(x0 + 0.5, y0 + 0.5, panelWidth - 1, panelHeight - 1);
+
+    ctx.fillStyle = '#1B4F8A';
+    ctx.font = '12px Segoe UI';
+    ctx.fillText(leadName, x0 + 8, y0 + 16);
+
+    if (!signal.length) return;
+
+    const maxAbs = Math.max(...signal.map(v => Math.abs(v)), 1);
+    const scale = (panelHeight * 0.32) / maxAbs;
+    const mid = y0 + panelHeight / 2;
+
+    ctx.strokeStyle = '#1a1a1a';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    signal.forEach((value, sampleIndex) => {
+      const x = x0 + (sampleIndex / Math.max(signal.length - 1, 1)) * (panelWidth - 12) + 6;
+      const y = mid - value * scale;
+      sampleIndex === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+  });
+}
+
+function analyzeECGLocally(data, truePatho) {
+  document.getElementById('loader-ecg').classList.add('active');
+  setTimeout(() => {
+    document.getElementById('loader-ecg').classList.remove('active');
+    const result = classifyECG(data.signal, truePatho);
+    currentECGResult = result;
+    renderECGResult(result);
+    showPage('p2-result');
+  }, 800);
+}
+
+function classifyECG(signal, patho) {
+  // Classification par règles mathématiques (côté client, démo)
+  const fs = 500;
+  const hr = estimateHR(signal, fs);
+  const irregularity = estimateIrregularity(signal, fs);
+  const stDev = estimateST(signal, fs);
+
+  const LABELS = {
+    normal: 'Rythme normal (sinusal)',
+    fibrillation_auriculaire: 'Fibrillation auriculaire',
+    tachycardie_ventriculaire: 'Tachycardie ventriculaire',
+    bradycardie: 'Bradycardie',
+    infarctus_du_myocarde: 'Infarctus du myocarde',
+    ischemie_myocardique: 'Ischémie myocardique',
+    bloc_auriculo_ventriculaire: 'Bloc auriculo-ventriculaire',
+    hypertrophie_ventriculaire_gauche: 'Hypertrophie ventriculaire gauche',
+  };
+
+  // Scores par règles
+  const scores = {};
+  Object.keys(LABELS).forEach(k => scores[k] = 0.05);
+  if (irregularity > 0.2) scores.fibrillation_auriculaire += 0.6;
+  if (hr > 120) scores.tachycardie_ventriculaire += 0.6;
+  if (hr < 55 && hr > 0) scores.bradycardie += 0.7;
+  if (stDev > 0.2) scores.infarctus_du_myocarde += 0.65;
+  if (stDev < -0.1) scores.ischemie_myocardique += 0.5;
+
+  const total = Object.values(scores).reduce((a,b)=>a+b,0);
+  const probs = {};
+  Object.entries(scores).forEach(([k,v]) => probs[k] = +(v/total).toFixed(3));
+  probs.normal = Math.max(0, 1 - Object.entries(probs).filter(([k])=>k!=='normal').reduce((a,[,v])=>a+v,0));
+
+  const best = Object.entries(probs).sort((a,b)=>b[1]-a[1])[0];
+  const RECO = {
+    infarctus_du_myocarde: 'URGENCE ABSOLUE — Appeler SAMU, aspirine 250 mg',
+    fibrillation_auriculaire: 'Téléconsultation cardiologique — anticoagulation à évaluer',
+    tachycardie_ventriculaire: 'URGENCE — Monitoring continu, téléconsultation immédiate',
+    bradycardie: 'Surveiller FC, consulter si symptômes (syncope, dyspnée)',
+    normal: 'ECG dans les limites normales — poursuivre bilan clinique',
+    ischemie_myocardique: 'Consultation cardiologique urgente',
+    bloc_auriculo_ventriculaire: 'ECG complet + téléconsultation cardiologique',
+    hypertrophie_ventriculaire_gauche: 'Bilan HTA, consultation cardiologique programmée',
+  };
+
+  return {
+    pathologie_detectee: LABELS[best[0]] || best[0],
+    pathologie_id: best[0],
+    probabilites: Object.fromEntries(Object.entries(probs).map(([k,v])=>[LABELS[k]||k, v])),
+    features_extraites: { heart_rate_bpm: hr, rr_irregularity_ratio: +irregularity.toFixed(3), st_mean_deviation: +stDev.toFixed(3) },
+    confiance: +best[1].toFixed(3),
+    recommandation: RECO[best[0]] || 'Téléconsultation médicale recommandée',
+    methode: 'règles mathématiques (client)',
+    true_patho: patho
+  };
+}
+
+function estimateHR(signal, fs) {
+  const n = Math.min(signal.length, fs * 10);
+  const s = signal.slice(0, n);
+  const max = Math.max(...s);
+  const threshold = max * 0.5;
+  let peaks = 0, inPeak = false, lastPeak = 0;
+  const minDist = fs * 0.3;
+  for (let i = 1; i < s.length; i++) {
+    if (s[i] > threshold && !inPeak && (i - lastPeak) > minDist) {
+      peaks++; inPeak = true; lastPeak = i;
+    } else if (s[i] < threshold * 0.7) inPeak = false;
+  }
+  return Math.round(peaks * 60 / (n / fs));
+}
+
+function estimateIrregularity(signal, fs) {
+  const n = Math.min(signal.length, fs * 10);
+  const s = signal.slice(0, n);
+  const max = Math.max(...s);
+  const threshold = max * 0.5;
+  const peaks = [];
+  let inPeak = false, lastPeak = 0;
+  for (let i = 1; i < s.length; i++) {
+    if (s[i] > threshold && !inPeak && (i - lastPeak) > fs * 0.3) {
+      peaks.push(i); inPeak = true; lastPeak = i;
+    } else if (s[i] < threshold * 0.7) inPeak = false;
+  }
+  if (peaks.length < 3) return 0;
+  const rr = peaks.slice(1).map((p,i) => p - peaks[i]);
+  const mean = rr.reduce((a,b)=>a+b,0) / rr.length;
+  const std = Math.sqrt(rr.reduce((a,b)=>a+(b-mean)**2,0) / rr.length);
+  return std / mean;
+}
+
+function estimateST(signal, fs) {
+  const n = Math.min(signal.length, fs * 10);
+  const s = signal.slice(0, n);
+  const baseline = s.reduce((a,b)=>a+b,0) / s.length;
+  const max = Math.max(...s);
+  const threshold = max * 0.5;
+  const stValues = [];
+  let lastPeak = 0;
+  for (let i = 1; i < s.length; i++) {
+    if (s[i] > threshold && (i - lastPeak) > fs * 0.3) {
+      const stIdx = i + Math.round(0.08 * fs);
+      if (stIdx < s.length) stValues.push(s[stIdx] - baseline);
+      lastPeak = i;
+    }
+  }
+  return stValues.length ? stValues.reduce((a,b)=>a+b,0) / stValues.length : 0;
+}
+
+function renderECGResult(data) {
+  const topProbs = Object.entries(data.probabilites).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const confPct = Math.round(data.confiance * 100);
+  const pathoId = data.pathologie_id || '';
+  const urgClass = pathoId === 'infarctus_du_myocarde' || pathoId === 'tachycardie_ventriculaire' ? 'critique' :
+    pathoId === 'fibrillation_auriculaire' || pathoId === 'ischemie_myocardique' ? 'eleve' :
+    pathoId === 'normal' ? 'faible' : 'modere';
+
+  const probaHtml = topProbs.map(([name, prob]) => {
+    const pct = Math.round(prob * 100);
+    return `<div class="proba-item">
+      <span class="proba-name">${name}</span>
+      <div class="proba-track"><div class="proba-fill" style="width:${pct}%"></div></div>
+      <span class="proba-value">${pct}%</span>
+    </div>`;
+  }).join('');
+
+  const feats = data.features_extraites || {};
+  if (feats.st_mean_deviation === undefined && feats.st_mean_deviation_mm !== undefined) {
+    feats.st_mean_deviation = feats.st_mean_deviation_mm;
+  }
+  document.getElementById('ecg-output').innerHTML = `
+    <div class="diagnostic-result ${urgClass}">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap">
+        <div class="result-main">${data.pathologie_detectee}</div>
+        <span class="badge badge-${urgClass}">${urgClass.toUpperCase()}</span>
+      </div>
+      <div class="confidence-bar">
+        <div class="confidence-label"><span>Confiance</span><span style="font-weight:600">${confPct}%</span></div>
+        <div class="confidence-track"><div class="confidence-fill" style="width:${confPct}%"></div></div>
+      </div>
+      <div style="margin-top:12px;font-size:14px;line-height:1.5">${data.recommandation}</div>
+      ${data.source_fichier ? `<div style="margin-top:8px;font-size:12px;color:var(--text-muted)">Source ECG : ${data.source_fichier}</div>` : ''}
+    </div>
+
+    <div class="card" style="margin-top:16px">
+      <div class="card-title">Probabilités par pathologie</div>
+      <div class="proba-list">${probaHtml}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Features extraites du signal</div>
+      <div class="feature-grid">
+        <div class="feature-item"><div class="feature-key">Fréquence cardiaque</div><div class="feature-val">${feats.heart_rate_bpm} bpm</div></div>
+        <div class="feature-item"><div class="feature-key">Irrégularité RR</div><div class="feature-val">${feats.rr_irregularity_ratio}</div></div>
+        <div class="feature-item"><div class="feature-key">Déviation ST moyenne</div><div class="feature-val">${feats.st_mean_deviation} mV</div></div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-muted)">
+        Méthode : ${data.methode} · Branchement CNN disponible après entraînement sur les 30 000 ECG
+      </div>
+    </div>`;
+}
+
+// ── VUE MÉDECIN ──
+function renderMedecinView() {
+  if (!currentDiagnostic) {
+    document.getElementById('medecin-output').innerHTML = `
+      <div style="color:var(--text-muted);padding:40px;text-align:center;">
+        Aucun diagnostic à valider. Passez en vue Infirmière et obtenez un diagnostic d'abord.
+      </div>`;
+    return;
+  }
+  const d = currentDiagnostic.result;
+  document.getElementById('medecin-output').innerHTML = `
+    <div class="card">
+      <div class="card-title">Diagnostic IA à valider</div>
+      <div class="diagnostic-result default" style="margin-bottom:16px">
+        <div class="result-main">${d.diagnostic_preliminaire}</div>
+        <span class="badge badge-${d.niveau_urgence}" style="margin-top:8px;display:inline-flex">${(d.niveau_urgence||'').toUpperCase()}</span>
+        <div style="margin-top:8px;font-size:13px;color:var(--text-muted)">Modèle : ${d.modele_utilise} · Taux de crédibilité : ${toPercent(d.confiance)}%</div>
+      </div>
+      <div style="margin-bottom:12px">
+        <div class="result-section-title" style="font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.6px;color:var(--text-muted);margin-bottom:8px">Votre décision</div>
+        <div class="validation-row">
+          <button class="validation-status valid" id="btn-valid" onclick="selectValidation(true)">Diagnostic correct</button>
+          <button class="validation-status invalid" id="btn-invalid" onclick="selectValidation(false)">Diagnostic incorrect</button>
+        </div>
+      </div>
+      <div class="form-group" id="correction-group" style="display:none">
+        <label>Diagnostic corrigé</label>
+        <input type="text" id="diagnostic-corrige" placeholder="Entrez le diagnostic correct...">
+      </div>
+      <div class="form-group">
+        <label>Commentaire (optionnel)</label>
+        <textarea id="commentaire-medecin" placeholder="Observations cliniques, justification..."></textarea>
+      </div>
+      <div style="margin-top:16px">
+        <button class="btn btn-primary" onclick="saveValidation()">Enregistrer la validation</button>
+        <span id="validation-confirm" style="margin-left:12px;color:var(--green);font-size:14px;display:none">Validation enregistrée</span>
+      </div>
+    </div>`;
+}
+
+let validChoice = null;
+function selectValidation(isValid) {
+  validChoice = isValid;
+  document.getElementById('btn-valid').classList.toggle('selected', isValid);
+  document.getElementById('btn-invalid').classList.toggle('selected', !isValid);
+  document.getElementById('correction-group').style.display = isValid ? 'none' : 'block';
+}
+
+async function saveValidation() {
+  if (validChoice === null) { alert('Sélectionnez une décision (correct/incorrect)'); return; }
+  const validation = {
+    cas_id: currentDiagnostic.id,
+    diagnostic_valide: validChoice,
+    diagnostic_corrige: validChoice ? null : document.getElementById('diagnostic-corrige').value,
+    commentaire: document.getElementById('commentaire-medecin').value,
+    medecin_id: 'medecin_1',
+    timestamp: new Date().toISOString()
+  };
+  validations.push(validation);
+  localStorage.setItem('exofit_validations', JSON.stringify(validations));
+  try {
+    await fetch(`${API}/validation`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(validation) });
+  } catch(e) {}
+  document.getElementById('validation-confirm').style.display = 'inline';
+  setTimeout(() => document.getElementById('validation-confirm').style.display = 'none', 3000);
+}
+
+// ── STATISTIQUES ──
+function loadStats() {
+  const total = validations.length;
+  const corrects = validations.filter(v => v.diagnostic_valide).length;
+  const accuracy = total > 0 ? (corrects / total * 100).toFixed(1) : '-';
+
+  document.getElementById('stats-output').innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px">
+      <div class="card" style="text-align:center">
+        <div style="font-size:36px;font-weight:700;color:var(--blue)">${total}</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">Cas validés</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:36px;font-weight:700;color:var(--green)">${corrects}</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">Diagnostics corrects</div>
+      </div>
+      <div class="card" style="text-align:center">
+        <div style="font-size:36px;font-weight:700;color:var(--amber)">${accuracy}%</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px">Accuracy globale</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Note sur les métriques</div>
+      <p style="font-size:14px;color:var(--text-muted);line-height:1.7">
+        L'accuracy seule est insuffisante en contexte médical. Pour une évaluation rigoureuse,
+        brancher ce module sur les cas tests labellisés des médecins experts pour calculer
+        <strong>précision</strong>, <strong>rappel</strong> (sensibilité) et <strong>F1 par pathologie</strong>.
+        Le rappel est la métrique prioritaire — un faux négatif (pathologie manquée) est
+        toujours plus grave qu'un faux positif.
+      </p>
+    </div>`;
+}
+
+// ── INIT ──
+initGrids();
+normalizePredictionUIText();
+initCaseSelector();
+loadECGFiles();
+loadPredictionStatus();
+</script>
+</body>
+</html>

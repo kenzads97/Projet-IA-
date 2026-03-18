@@ -1,0 +1,35 @@
+{
+  "id": "6_cas_supplementaires_sans_diag_cas_003",
+  "source_document": "6 cas supplementaires sans diag.docx",
+  "case_number": 3,
+  "patient": {
+    "age": 28,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique",
+      "fievre",
+      "toux",
+      "asthenie"
+    ],
+    "symptome_libre": "toux fébrile depuis 4 jours\nSymptômes :\nFièvre à 38,5°C\nToux productive avec expectorations jaunes verdâtres\nDouleurs thoraciques augmentées à l'inspiration\nFatigue, frissons\nRésultats de l’examen clinique :\nTempérature : 38,7°C\nTension artérielle : 120/75 mmHg\nFréquence cardiaque : 105 bpm\nFréquence respiratoire : 24/min\nSaturation en O2 : 94% à l’air ambiant\nCouleur de peau : teint normal, absence de cyanose\ncrépitants à l’auscultation basale droite, diminution du murmure vésiculaire\nSignes associés : douleurs thoraciques pleurétiques\nPrésentation du patient :\nHomme de 28 ans",
+    "tension_systolique": 120,
+    "tension_diastolique": 75,
+    "frequence_cardiaque": 105,
+    "temperature": 38.7,
+    "spo2": 94,
+    "antecedents": [
+      "aucun"
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [
+      "radiographie"
+    ],
+    "resultats_examens": {
+      "Signes associés": "douleurs thoraciques pleurétiques"
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 3 :\nPrésentation du patient :\nHomme de 28 ans\nAntécédents : aucun\nMotif de consultation : toux fébrile depuis 4 jours\nSymptômes :\nFièvre à 38,5°C\nToux productive avec expectorations jaunes verdâtres\nDouleurs thoraciques augmentées à l'inspiration\nFatigue, frissons\nRésultats de l’examen clinique :\nTempérature : 38,7°C\nTension artérielle : 120/75 mmHg\nFréquence cardiaque : 105 bpm\nFréquence respiratoire : 24/min\nSaturation en O2 : 94% à l’air ambiant\nCouleur de peau : teint normal, absence de cyanose\nExamen pulmonaire : crépitants à l’auscultation basale droite, diminution du murmure vésiculaire\nSignes associés : douleurs thoraciques pleurétiques"
+}

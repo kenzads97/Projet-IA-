@@ -1,0 +1,33 @@
+{
+  "id": "6_cas_supplementaires_sans_diag_cas_002",
+  "source_document": "6 cas supplementaires sans diag.docx",
+  "case_number": 2,
+  "patient": {
+    "age": 55,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique",
+      "dyspnee",
+      "fievre",
+      "nausees_vomissements"
+    ],
+    "symptome_libre": "douleur thoracique brutale\nSymptômes :\nDouleur thoracique constrictive, irradiant dans le bras gauche\nSueurs froides, nausées\nSensation d'oppression, angoisse\nDyspnée modérée\nRésultats de l’examen clinique :\nTempérature : 37°C\nTension artérielle : 150/90 mmHg\nFréquence cardiaque : 95 bpm\nFréquence respiratoire : 20/min\nSaturation en O2 : 97% à l’air ambiant\nCouleur de peau : pâleur, sueurs profuses\nbruits du cœur réguliers, absence de souffle\nSignes associés : douleur persistante malgré le repos\nPrésentation du patient :\nHomme de 55 ans",
+    "tension_systolique": 150,
+    "tension_diastolique": 90,
+    "frequence_cardiaque": 95,
+    "temperature": 37.0,
+    "spo2": 97,
+    "antecedents": [
+      "tabagisme (30 PA), dyslipidémie, HTA non traitée"
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {
+      "Signes associés": "douleur persistante malgré le repos"
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 2 :\nPrésentation du patient :\nHomme de 55 ans\nAntécédents : tabagisme (30 PA), dyslipidémie, HTA non traitée\nMotif de consultation : douleur thoracique brutale\nSymptômes :\nDouleur thoracique constrictive, irradiant dans le bras gauche\nSueurs froides, nausées\nSensation d'oppression, angoisse\nDyspnée modérée\nRésultats de l’examen clinique :\nTempérature : 37°C\nTension artérielle : 150/90 mmHg\nFréquence cardiaque : 95 bpm\nFréquence respiratoire : 20/min\nSaturation en O2 : 97% à l’air ambiant\nCouleur de peau : pâleur, sueurs profuses\nExamen cardiovasculaire : bruits du cœur réguliers, absence de souffle\nSignes associés : douleur persistante malgré le repos"
+}

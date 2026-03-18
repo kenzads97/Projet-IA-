@@ -1,0 +1,31 @@
+{
+  "id": "6_cas_supplementaires_sans_diag_cas_006",
+  "source_document": "6 cas supplementaires sans diag.docx",
+  "case_number": 6,
+  "patient": {
+    "age": 50,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "syncope",
+      "fievre",
+      "cephalees",
+      "nausees_vomissements"
+    ],
+    "symptome_libre": "céphalée brutale et perte de connaissance transitoire\nSymptômes :\nCéphalée en coup de tonnerre (début brutal)\nPhotophobie, vomissements\nPerte de connaissance brève avec confusion au réveil\nRaideur de la nuque\nRésultats de l’examen clinique :\nTempérature : 37,2°C\nTension artérielle : 180/100 mmHg\nFréquence cardiaque : 75 bpm\nFréquence respiratoire : 18/min\nSaturation en O2 : 97% à l’air ambiant\nCouleur de peau : normale\nExamen neurologique :\nRaideur méningée marquée (signe de Brudzinski et Kernig positifs)\nPas de déficit moteur ni sensitif\nRéflexes normaux\nPrésentation du patient :\nHomme de 50 ans",
+    "tension_systolique": 180,
+    "tension_diastolique": 100,
+    "frequence_cardiaque": 75,
+    "temperature": 37.2,
+    "spo2": 97,
+    "antecedents": [
+      "HTA non contrôlée"
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 6 :\nPrésentation du patient :\nHomme de 50 ans\nAntécédents : HTA non contrôlée\nMotif de consultation : céphalée brutale et perte de connaissance transitoire\nSymptômes :\nCéphalée en coup de tonnerre (début brutal)\nPhotophobie, vomissements\nPerte de connaissance brève avec confusion au réveil\nRaideur de la nuque\nRésultats de l’examen clinique :\nTempérature : 37,2°C\nTension artérielle : 180/100 mmHg\nFréquence cardiaque : 75 bpm\nFréquence respiratoire : 18/min\nSaturation en O2 : 97% à l’air ambiant\nCouleur de peau : normale\nExamen neurologique :\nRaideur méningée marquée (signe de Brudzinski et Kernig positifs)\nPas de déficit moteur ni sensitif\nRéflexes normaux"
+}

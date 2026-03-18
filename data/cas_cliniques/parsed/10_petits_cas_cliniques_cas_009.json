@@ -1,0 +1,28 @@
+{
+  "id": "10_petits_cas_cliniques_cas_009",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 9,
+  "patient": {
+    "age": 50,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "fievre"
+    ],
+    "symptome_libre": "Douleur interscapulaire aiguë après avoir soulevé un objet lourd.\nPas de fièvre, pas de signe inflammatoire local, douleur décrite comme lancinante, pression artérielle asymétrique entre les deux bras.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Hypertension artérielle non traitée."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 9 :\nPatient : Homme, 50 ans\nMotif de consultation : Douleur interscapulaire aiguë après avoir soulevé un objet lourd.\nAntécédents : Hypertension artérielle non traitée.\nSignes cliniques : Pas de fièvre, pas de signe inflammatoire local, douleur décrite comme lancinante, pression artérielle asymétrique entre les deux bras."
+}

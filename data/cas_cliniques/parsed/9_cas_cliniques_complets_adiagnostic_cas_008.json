@@ -1,0 +1,29 @@
+{
+  "id": "9_cas_cliniques_complets_adiagnostic_cas_008",
+  "source_document": "9 cas cliniques complets adiagnostic.docx",
+  "case_number": 8,
+  "patient": {
+    "age": 75,
+    "sexe": "",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "dyspnee",
+      "fievre",
+      "toux",
+      "asthenie"
+    ],
+    "symptome_libre": "Patient de 75 ans, consulte pour une dyspnée aiguë, apparue depuis 24 heures, s'aggravant progressivement jusqu'à être présente au repos. Il signale une toux sèche et nocturne, accompagnée d'une orthopnée (nécessitant 3 oreillers pour dormir) et d’une fatigue intense.\nConstantes vitales\nTempérature : 37,2 °C, tension artérielle : 160/95 mmHg\nSaturation en oxygène : 90 % à l’air ambiant, fréquence cardiaque : 110 bpm, régulière\nFréquence respiratoire : 24/min\nAntécédents médicaux :\nHypertension artérielle non contrôlée, diabète de type 2, IMC : 30,4\nTraitement en cours : Inhibiteur de l’enzyme de conversion et Metformine\nCardiovasculaire : Tachycardie à 110 bpm\nPulmonaire : Crépitants bilatéraux aux bases.  Pas de sifflements\nVasculaire : Pouls périphériques présents et symétriques, Œdème discret des membres inférieurs (godet +)\nRadiographie thoracique :\nŒdème interstitiel bilatéral avec flou péri-hilaire\nÉpanchement pleural minime bilatéral\nCardiomégalie\nBiologie :\nBNP : augmenté à 1500 pg/mL\nTroponines : normales\nCréatinine : 120 µmol/L\nGlycémie : 11 mmol/L\nIonogramme : hyponatrémie (130 mmol/L)",
+    "tension_systolique": 160,
+    "tension_diastolique": 95,
+    "frequence_cardiaque": 110,
+    "temperature": 37.2,
+    "spo2": 90,
+    "antecedents": [],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 8 :\nPatient de 75 ans, consulte pour une dyspnée aiguë, apparue depuis 24 heures, s'aggravant progressivement jusqu'à être présente au repos. Il signale une toux sèche et nocturne, accompagnée d'une orthopnée (nécessitant 3 oreillers pour dormir) et d’une fatigue intense.\nConstantes vitales\nTempérature : 37,2 °C, tension artérielle : 160/95 mmHg\nSaturation en oxygène : 90 % à l’air ambiant, fréquence cardiaque : 110 bpm, régulière\nFréquence respiratoire : 24/min\nAntécédents médicaux :\nHypertension artérielle non contrôlée, diabète de type 2, IMC : 30,4\nTraitement en cours : Inhibiteur de l’enzyme de conversion et Metformine\nCardiovasculaire : Tachycardie à 110 bpm\nPulmonaire : Crépitants bilatéraux aux bases.  Pas de sifflements\nVasculaire : Pouls périphériques présents et symétriques, Œdème discret des membres inférieurs (godet +)\nRadiographie thoracique :\nŒdème interstitiel bilatéral avec flou péri-hilaire\nÉpanchement pleural minime bilatéral\nCardiomégalie\nBiologie :\nBNP : augmenté à 1500 pg/mL\nTroponines : normales\nCréatinine : 120 µmol/L\nGlycémie : 11 mmol/L\nIonogramme : hyponatrémie (130 mmol/L)"
+}

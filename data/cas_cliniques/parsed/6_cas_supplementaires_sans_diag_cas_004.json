@@ -1,0 +1,34 @@
+{
+  "id": "6_cas_supplementaires_sans_diag_cas_004",
+  "source_document": "6 cas supplementaires sans diag.docx",
+  "case_number": 4,
+  "patient": {
+    "age": 40,
+    "sexe": "F",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "syncope",
+      "fievre",
+      "douleur_abdominale",
+      "nausees_vomissements",
+      "asthenie"
+    ],
+    "symptome_libre": "malaise intense, hypotension et hyperpigmentation\nSymptômes :\nAsthénie marquée depuis plusieurs mois\nPerte de poids de 5 kg en 3 mois\nNausées, vomissements, douleurs abdominales diffuses\nSensation de malaise avec hypotension brutale\nRésultats de l’examen clinique :\nTempérature : 37,5°C\nTension artérielle : 80/50 mmHg\nFréquence cardiaque : 95 bpm\nFréquence respiratoire : 18/min\nSaturation en O2 : 98% à l’air ambiant\nCouleur de peau : hyperpigmentation des plis palmaires et des cicatrices\ndouleurs diffuses, mais absence de défense\nSignes neurologiques : confusion modérée, hypotonie\nPrésentation du patient :\nFemme de 40 ans",
+    "tension_systolique": 80,
+    "tension_diastolique": 50,
+    "frequence_cardiaque": 95,
+    "temperature": 37.5,
+    "spo2": 98,
+    "antecedents": [
+      "hypothyroïdie auto-immune"
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {
+      "Signes neurologiques": "confusion modérée, hypotonie"
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 4 :\nPrésentation du patient :\nFemme de 40 ans\nAntécédents : hypothyroïdie auto-immune\nMotif de consultation : malaise intense, hypotension et hyperpigmentation\nSymptômes :\nAsthénie marquée depuis plusieurs mois\nPerte de poids de 5 kg en 3 mois\nNausées, vomissements, douleurs abdominales diffuses\nSensation de malaise avec hypotension brutale\nRésultats de l’examen clinique :\nTempérature : 37,5°C\nTension artérielle : 80/50 mmHg\nFréquence cardiaque : 95 bpm\nFréquence respiratoire : 18/min\nSaturation en O2 : 98% à l’air ambiant\nCouleur de peau : hyperpigmentation des plis palmaires et des cicatrices\nExamen abdominal : douleurs diffuses, mais absence de défense\nSignes neurologiques : confusion modérée, hypotonie"
+}

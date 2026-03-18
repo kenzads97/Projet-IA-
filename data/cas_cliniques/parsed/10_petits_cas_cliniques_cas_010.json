@@ -1,0 +1,30 @@
+{
+  "id": "10_petits_cas_cliniques_cas_010",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 10,
+  "patient": {
+    "age": 15,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "fievre",
+      "douleur_abdominale",
+      "nausees_vomissements"
+    ],
+    "symptome_libre": "Douleur abdominale diffuse associée à des nausées et un épisode de diarrhée.\nFièvre légère (37,8°C), douleur qui migre vers la fosse iliaque droite à la palpation, défense modérée.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Aucun."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 10 :\nPatient : Adolescente, 15 ans\nMotif de consultation : Douleur abdominale diffuse associée à des nausées et un épisode de diarrhée.\nAntécédents : Aucun.\nSignes cliniques : Fièvre légère (37,8°C), douleur qui migre vers la fosse iliaque droite à la palpation, défense modérée."
+}

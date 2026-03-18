@@ -1,0 +1,32 @@
+[
+  {
+    "patient_id": "patient_001",
+    "case_id": "9_cas_cliniques_complets_adiagnostic_cas_004",
+    "target_label": "fibrillation_auriculaire",
+    "notes": "Exemple de patient avec plusieurs ECG associes au meme cas clinique.",
+    "ecg_files": [
+      "rectifie_encrypted_MUSE_20230130_164502_08000.csv",
+      "rectifie_encrypted_MUSE_20230130_164523_08000.csv"
+    ]
+  },
+  {
+    "patient_id": "patient_002",
+    "case_id": "10_petits_cas_cliniques_cas_002",
+    "target_label": "syndrome_coronarien_aigu",
+    "notes": "Exemple a adapter si ces ECG correspondent a un contexte coronarien.",
+    "ecg_files": [
+      "rectifie_encrypted_MUSE_20230130_164507_55000.csv",
+      "rectifie_encrypted_MUSE_20230130_164510_49000.csv"
+    ]
+  },
+  {
+    "patient_id": "patient_003",
+    "case_id": "10_petits_cas_cliniques_cas_001",
+    "target_label": "rythme_normal_sinusal",
+    "notes": "Exemple de cas rassurant ou de controle. A verifier selon vos donnees reelles.",
+    "ecg_files": [
+      "rectifie_encrypted_MUSE_20230130_164503_25000.csv",
+      "rectifie_encrypted_MUSE_20230130_164504_36000.csv"
+    ]
+  }
+]

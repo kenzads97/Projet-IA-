@@ -1,0 +1,28 @@
+{
+  "id": "10_petits_cas_cliniques_cas_008",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 8,
+  "patient": {
+    "age": 40,
+    "sexe": "F",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique"
+    ],
+    "symptome_libre": "Difficulté à respirer et oppression thoracique survenue après un effort physique.\nSaturation en oxygène à 94 %, sifflements à l’auscultation.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Asthme connu, traitement de fond mal suivi."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 8 :\nPatient : Femme, 40 ans\nMotif de consultation : Difficulté à respirer et oppression thoracique survenue après un effort physique.\nAntécédents : Asthme connu, traitement de fond mal suivi.\nSignes cliniques : Saturation en oxygène à 94 %, sifflements à l’auscultation."
+}

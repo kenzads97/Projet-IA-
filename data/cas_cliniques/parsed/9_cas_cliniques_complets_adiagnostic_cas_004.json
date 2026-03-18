@@ -1,0 +1,36 @@
+{
+  "id": "9_cas_cliniques_complets_adiagnostic_cas_004",
+  "source_document": "9 cas cliniques complets adiagnostic.docx",
+  "case_number": 4,
+  "patient": {
+    "age": 70,
+    "sexe": "",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique",
+      "dyspnee",
+      "palpitations",
+      "fievre",
+      "asthenie"
+    ],
+    "symptome_libre": "Le patient consulte pour des palpitations ressenties depuis 48 heures. Ces palpitations s'accompagnent d'une sensation d'oppression thoracique modérée et d'une dyspnée d'effort.\nIl signale également une fatigue inhabituelle.\nRythme cardiaque irrégulier à l'auscultation.\nFréquence cardiaque à 130 bpm.\nAbsence de souffle ou de bruits cardiaques anormaux.\nPas de douleur thoracique à la palpation.\nPas d’œdèmes des membres inférieurs.\nÉtat général conservé.\nExamens biologiques : sans particularités\nInformations générales :\nPatient de 70 ans, IMC à 27,8",
+    "tension_systolique": 140,
+    "tension_diastolique": 90,
+    "frequence_cardiaque": 130,
+    "temperature": 36.8,
+    "spo2": 98,
+    "antecedents": [
+      "Hypertension artérielle sous inhibiteur de l'enzyme de conversion"
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [
+      "radiographie"
+    ],
+    "resultats_examens": {
+      "Examens biologiques": "sans particularités"
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 4 :\nInformations générales :\nPatient de 70 ans, IMC à 27,8\nMotif de consultation :Le patient consulte pour des palpitations ressenties depuis 48 heures. Ces palpitations s'accompagnent d'une sensation d'oppression thoracique modérée et d'une dyspnée d'effort.\nIl signale également une fatigue inhabituelle.\nAntécédents médicaux : Hypertension artérielle sous inhibiteur de l'enzyme de conversion\nConstantes\nTempérature : 36,8 °C\nTension artérielle : 140/90 mmHg\nSaturation en oxygène : 98%\nFréquence cardiaque : 130 bpm, irrégulière\nExamen clinique\nRythme cardiaque irrégulier à l'auscultation.\nFréquence cardiaque à 130 bpm.\nAbsence de souffle ou de bruits cardiaques anormaux.\nPas de douleur thoracique à la palpation.\nPas d’œdèmes des membres inférieurs.\nÉtat général conservé.\nExamens biologiques : sans particularités"
+}

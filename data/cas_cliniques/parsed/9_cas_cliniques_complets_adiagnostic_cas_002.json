@@ -1,0 +1,46 @@
+{
+  "id": "9_cas_cliniques_complets_adiagnostic_cas_002",
+  "source_document": "9 cas cliniques complets adiagnostic.docx",
+  "case_number": 2,
+  "patient": {
+    "age": 68,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "dyspnee",
+      "fievre",
+      "toux",
+      "asthenie"
+    ],
+    "symptome_libre": "Dyspnée d'effort, augmentée depuis 6 mois.\nToux chronique productive (expectorations blanches, parfois jaunâtres).\nFatigue chronique.\nEpisodes de sifflements respiratoires, surtout nocturnes.\nAggravation de la toux et fièvre modérée (38,2°C).\nPatient asthénique, IMC : 22 kg/m².\nExamen des voies respiratoires :\nCyanose labiale modérée.\nMurmure vésiculaire diminué bilatéralement, présence de ronchi et sibilants diffus.\nSaturation en oxygène (SpO₂) : 88 % à l'air ambiant.\nFréquence respiratoire : 24 cycles/min.\nGaz du sang artériel :\nPaO₂ : 60 mmHg.\nPaCO₂ : 48 mmHg.\npH : 7,36 (acidose respiratoire compensée).\nRadiographie thoracique :\nHyperclarté diffuse\nBiologie :\nCRP : 18 mg/L (modérément élevée).\nNumération formule sanguine (NFS) : Hyperleucocytose modérée.\n68 ans, Sexe : Masculin\nHypertension artérielle (HTA) sous traitement (amlodipine).\nDyslipidémie.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [],
+    "traitements_en_cours": [],
+    "examens_realises": [
+      "biologie",
+      "radiographie",
+      "gaz_du_sang"
+    ],
+    "resultats_examens": {
+      "Patient asthénique, IMC": "22 kg/m².",
+      "Examen des voies respiratoires": "",
+      "Saturation en oxygène (SpO₂)": "88 % à l'air ambiant.",
+      "Fréquence respiratoire": "24 cycles/min.",
+      "Gaz du sang artériel": "",
+      "PaO₂": "60 mmHg.",
+      "PaCO₂": "48 mmHg.",
+      "pH": "7,36 (acidose respiratoire compensée).",
+      "Radiographie thoracique": "",
+      "Biologie": "",
+      "CRP": "18 mg/L (modérément élevée).",
+      "Numération formule sanguine (NFS)": "Hyperleucocytose modérée."
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 2 :\n68 ans, Sexe : Masculin\nHypertension artérielle (HTA) sous traitement (amlodipine).\nDyslipidémie.\nMotif de consultation\nDyspnée d'effort, augmentée depuis 6 mois.\nToux chronique productive (expectorations blanches, parfois jaunâtres).\nFatigue chronique.\nEpisodes de sifflements respiratoires, surtout nocturnes.\nAggravation de la toux et fièvre modérée (38,2°C).\nExamen clinique\nPatient asthénique, IMC : 22 kg/m².\nExamen des voies respiratoires :\nCyanose labiale modérée.\nMurmure vésiculaire diminué bilatéralement, présence de ronchi et sibilants diffus.\nSaturation en oxygène (SpO₂) : 88 % à l'air ambiant.\nFréquence respiratoire : 24 cycles/min.\nExamens complémentaires\nGaz du sang artériel :\nPaO₂ : 60 mmHg.\nPaCO₂ : 48 mmHg.\npH : 7,36 (acidose respiratoire compensée).\nRadiographie thoracique :\nHyperclarté diffuse\nBiologie :\nCRP : 18 mg/L (modérément élevée).\nNumération formule sanguine (NFS) : Hyperleucocytose modérée."
+}

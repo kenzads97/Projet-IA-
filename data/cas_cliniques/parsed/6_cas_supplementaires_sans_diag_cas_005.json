@@ -1,0 +1,29 @@
+{
+  "id": "6_cas_supplementaires_sans_diag_cas_005",
+  "source_document": "6 cas supplementaires sans diag.docx",
+  "case_number": 5,
+  "patient": {
+    "age": 35,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "fievre",
+      "asthenie"
+    ],
+    "symptome_libre": "faiblesse progressive des jambes\nSymptômes :\nDébut par paresthésies aux pieds évoluant vers une faiblesse ascendante\nDifficulté à marcher, sensation de jambes lourdes\nAbsence de fièvre, mais fatigue importante\nProgression rapide en 48h avec atteinte des bras\nRésultats de l’examen clinique :\nTempérature : 37°C\nTension artérielle : 130/80 mmHg\nFréquence cardiaque : 88 bpm\nFréquence respiratoire : 16/min\nSaturation en O2 : 99% à l’air ambiant\nExamen neurologique :\nRéflexes ostéo-tendineux abolis aux membres inférieurs\nFaiblesse musculaire symétrique, plus marquée aux jambes\nSensibilité conservée\nAtteinte des nerfs crâniens débutante (paralysie faciale partielle)\nPrésentation du patient :\nHomme de 35 ans",
+    "tension_systolique": 130,
+    "tension_diastolique": 80,
+    "frequence_cardiaque": 88,
+    "temperature": 37.0,
+    "spo2": 99,
+    "antecedents": [
+      "infection digestive récente (diarrhée 2 semaines avant)"
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 5 :\nPrésentation du patient :\nHomme de 35 ans\nAntécédents : infection digestive récente (diarrhée 2 semaines avant)\nMotif de consultation : faiblesse progressive des jambes\nSymptômes :\nDébut par paresthésies aux pieds évoluant vers une faiblesse ascendante\nDifficulté à marcher, sensation de jambes lourdes\nAbsence de fièvre, mais fatigue importante\nProgression rapide en 48h avec atteinte des bras\nRésultats de l’examen clinique :\nTempérature : 37°C\nTension artérielle : 130/80 mmHg\nFréquence cardiaque : 88 bpm\nFréquence respiratoire : 16/min\nSaturation en O2 : 99% à l’air ambiant\nExamen neurologique :\nRéflexes ostéo-tendineux abolis aux membres inférieurs\nFaiblesse musculaire symétrique, plus marquée aux jambes\nSensibilité conservée\nAtteinte des nerfs crâniens débutante (paralysie faciale partielle)"
+}

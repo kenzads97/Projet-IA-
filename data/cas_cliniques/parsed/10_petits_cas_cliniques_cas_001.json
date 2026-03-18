@@ -1,0 +1,31 @@
+{
+  "id": "10_petits_cas_cliniques_cas_001",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 1,
+  "patient": {
+    "age": 25,
+    "sexe": "F",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "fievre",
+      "douleur_abdominale"
+    ],
+    "symptome_libre": "Brûlures urinaires et besoin fréquent d'uriner.\nPas de fièvre, douleur légère au bas-ventre.\nPrésence de leucocytes et nitrites.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Aucun antécédent médical significatif."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [
+      "analyse_urinaire"
+    ],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 1 :\nPatient : Femme, 25 ans\nMotif de consultation : Brûlures urinaires et besoin fréquent d'uriner.\nAntécédents : Aucun antécédent médical significatif.\nSignes cliniques : Pas de fièvre, douleur légère au bas-ventre.\nAnalyse urinaire rapide : Présence de leucocytes et nitrites."
+}

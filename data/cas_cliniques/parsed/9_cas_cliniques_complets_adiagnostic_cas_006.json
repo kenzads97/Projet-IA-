@@ -1,0 +1,27 @@
+{
+  "id": "9_cas_cliniques_complets_adiagnostic_cas_006",
+  "source_document": "9 cas cliniques complets adiagnostic.docx",
+  "case_number": 6,
+  "patient": {
+    "age": 78,
+    "sexe": "",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique",
+      "fievre"
+    ],
+    "symptome_libre": "Un patient de 78 ans se présente aux urgences pour des douleurs thoraciques apparues il y a environ 3 heures.\nDouleur rétro-sternale oppressive irradiant vers le bras gauche, associée à des sueurs profuses.\nAntécédents médicaux :\nHypertension artérielle mal contrôlée.\nHypercholestérolémie.\nTabagisme actif (1 paquet/jour depuis 35 ans).\nMédicaments : Aucun traitement régulier connu.\nExamen clinique :\nSignes vitaux :\nPression artérielle : 145/90 mmHg.\nFréquence cardiaque : 92 bpm.\nSaturation en oxygène : 96% à l'air ambiant.\nTempérature : 36,8 °C.\nExamen physique :\nPatient en sueur, pâle et anxieux.\nAuscultation cardiaque : rythme régulier, absence de souffle audible.\nBiologie :\nTroponine élevée (troponine I : 4,2 ng/mL, seuil > 0,04 ng/mL).\nCréatinine normale.\nCholestérol total: 6,8 mmol/L (HDL : 0",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": 92,
+    "temperature": 36.8,
+    "spo2": 96,
+    "antecedents": [],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 6 :\nUn patient de 78 ans se présente aux urgences pour des douleurs thoraciques apparues il y a environ 3 heures.\nDouleur rétro-sternale oppressive irradiant vers le bras gauche, associée à des sueurs profuses.\nAntécédents médicaux :\nHypertension artérielle mal contrôlée.\nHypercholestérolémie.\nTabagisme actif (1 paquet/jour depuis 35 ans).\nMédicaments : Aucun traitement régulier connu.\nExamen clinique :\nSignes vitaux :\nPression artérielle : 145/90 mmHg.\nFréquence cardiaque : 92 bpm.\nSaturation en oxygène : 96% à l'air ambiant.\nTempérature : 36,8 °C.\nExamen physique :\nPatient en sueur, pâle et anxieux.\nAuscultation cardiaque : rythme régulier, absence de souffle audible.\nBiologie :\nTroponine élevée (troponine I : 4,2 ng/mL, seuil > 0,04 ng/mL).\nCréatinine normale.\nCholestérol total: 6,8 mmol/L (HDL : 0"
+}

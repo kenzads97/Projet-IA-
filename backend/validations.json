@@ -1,0 +1,9 @@
+[
+  {
+    "cas_id": "10_petits_cas_cliniques_cas_007",
+    "diagnostic_valide": true,
+    "diagnostic_corrige": null,
+    "commentaire": "",
+    "medecin_id": "medecin_1"
+  }
+]

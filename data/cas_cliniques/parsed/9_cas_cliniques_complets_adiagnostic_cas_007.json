@@ -1,0 +1,40 @@
+{
+  "id": "9_cas_cliniques_complets_adiagnostic_cas_007",
+  "source_document": "9 cas cliniques complets adiagnostic.docx",
+  "case_number": 7,
+  "patient": {
+    "age": 70,
+    "sexe": "",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique",
+      "dyspnee",
+      "palpitations",
+      "fievre",
+      "asthenie"
+    ],
+    "symptome_libre": "Rythme cardiaque irrégulier à l’auscultation\nFréquence cardiaque : 130 bpm\nAbsence de souffle ou de bruits anormaux\nBiologie sanguine :\nBNP : modérément augmenté\nTroponines : normales\nIonogramme, TSH et T4L : normaux\nRadiographie thoracique :\nTaille cardiaque normale\nAbsence de signes de congestion pulmonaire\nPoids : 85 kg\nTaille : 175 cm\nIMC : 27,8\nPatient de 70 ans, consulte pour des palpitations ressenties depuis 48 heures, accompagnées de dyspnée d’effort et d’une sensation de fatigue. Il décrit une oppression thoracique modérée.\nConstantes vitales\nTempérature : 36,8 °C\nTension artérielle : 140/90 mmHg\nSaturation en oxygène : 98 %\nFréquence cardiaque : 130 bpm\nAntécédents médicaux :\nHypertension artérielle mal contrôlée depuis 10 ans\nTraitement en cours : Inhibiteur de l’enzyme de conversion",
+    "tension_systolique": 140,
+    "tension_diastolique": 90,
+    "frequence_cardiaque": 130,
+    "temperature": 36.8,
+    "spo2": 98,
+    "antecedents": [],
+    "traitements_en_cours": [],
+    "examens_realises": [
+      "biologie",
+      "radiographie"
+    ],
+    "resultats_examens": {
+      "Fréquence cardiaque": "130 bpm",
+      "Biologie sanguine": "",
+      "BNP": "modérément augmenté",
+      "Troponines": "normales",
+      "Ionogramme, TSH et T4L": "normaux",
+      "Radiographie thoracique": ""
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 7 :\nPoids : 85 kg\nTaille : 175 cm\nIMC : 27,8\nPatient de 70 ans, consulte pour des palpitations ressenties depuis 48 heures, accompagnées de dyspnée d’effort et d’une sensation de fatigue. Il décrit une oppression thoracique modérée.\nConstantes vitales\nTempérature : 36,8 °C\nTension artérielle : 140/90 mmHg\nSaturation en oxygène : 98 %\nFréquence cardiaque : 130 bpm\nAntécédents médicaux :\nHypertension artérielle mal contrôlée depuis 10 ans\nTraitement en cours : Inhibiteur de l’enzyme de conversion\nExamen clinique\nRythme cardiaque irrégulier à l’auscultation\nFréquence cardiaque : 130 bpm\nAbsence de souffle ou de bruits anormaux\nBiologie sanguine :\nBNP : modérément augmenté\nTroponines : normales\nIonogramme, TSH et T4L : normaux\nRadiographie thoracique :\nTaille cardiaque normale\nAbsence de signes de congestion pulmonaire"
+}

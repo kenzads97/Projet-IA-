@@ -1,0 +1,31 @@
+{
+  "id": "6_cas_supplementaires_sans_diag_cas_001",
+  "source_document": "6 cas supplementaires sans diag.docx",
+  "case_number": 1,
+  "patient": {
+    "age": 72,
+    "sexe": "F",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "fievre",
+      "asthenie"
+    ],
+    "symptome_libre": "fièvre et douleurs lombaires\nSymptômes :\nFièvre à 39°C\nDouleurs lombaires droites\nDysurie, pollakiurie, urgenturie\nAsthénie, confusion modérée\nRésultats de l’examen clinique :\nTempérature : 39,2°C\nTension artérielle : 100/60 mmHg\nFréquence cardiaque : 110 bpm\nFréquence respiratoire : 22/min\nSaturation en O2 : 96% à l’air ambiant\nCouleur de peau : pâleur modérée, absence de cyanose\ndouleur à la palpation de la fosse lombaire droite\nSignes associés : douleur au tapotement lombaire (signe de Giordano positif)\nPrésentation du patient :\nFemme de 72 ans",
+    "tension_systolique": 100,
+    "tension_diastolique": 60,
+    "frequence_cardiaque": 110,
+    "temperature": 39.2,
+    "spo2": 96,
+    "antecedents": [
+      "diabète de type 2, hypertension artérielle"
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {
+      "Signes associés": "douleur au tapotement lombaire (signe de Giordano positif)"
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 1 :\nPrésentation du patient :\nFemme de 72 ans\nAntécédents : diabète de type 2, hypertension artérielle\nMotif de consultation : fièvre et douleurs lombaires\nSymptômes :\nFièvre à 39°C\nDouleurs lombaires droites\nDysurie, pollakiurie, urgenturie\nAsthénie, confusion modérée\nRésultats de l’examen clinique :\nTempérature : 39,2°C\nTension artérielle : 100/60 mmHg\nFréquence cardiaque : 110 bpm\nFréquence respiratoire : 22/min\nSaturation en O2 : 96% à l’air ambiant\nCouleur de peau : pâleur modérée, absence de cyanose\nExamen abdominal : douleur à la palpation de la fosse lombaire droite\nSignes associés : douleur au tapotement lombaire (signe de Giordano positif)"
+}

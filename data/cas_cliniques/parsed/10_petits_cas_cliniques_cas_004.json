@@ -1,0 +1,26 @@
+{
+  "id": "10_petits_cas_cliniques_cas_004",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 4,
+  "patient": {
+    "age": 30,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [],
+    "symptome_libre": "Douleur à la cheville droite après une torsion lors d'un match de football.\nGonflement modéré, douleur à la palpation sur le ligament latéral externe, patient capable de marcher avec douleur.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Entorse similaire il y a 2 ans."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 4 :\nPatient : Homme, 30 ans\nMotif de consultation : Douleur à la cheville droite après une torsion lors d'un match de football.\nAntécédents : Entorse similaire il y a 2 ans.\nSignes cliniques : Gonflement modéré, douleur à la palpation sur le ligament latéral externe, patient capable de marcher avec douleur."
+}

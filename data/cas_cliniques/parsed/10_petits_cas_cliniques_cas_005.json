@@ -1,0 +1,30 @@
+{
+  "id": "10_petits_cas_cliniques_cas_005",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 5,
+  "patient": {
+    "age": 25,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "fievre",
+      "cephalees",
+      "asthenie"
+    ],
+    "symptome_libre": "Fièvre (38,5°C), fatigue, maux de tête, raideur légère du cou.\nPatient alerte, légère photophobie, aucun rash cutané.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Aucun notable."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 5 :\nPatient : Homme, 25 ans\nMotif de consultation : Fièvre (38,5°C), fatigue, maux de tête, raideur légère du cou.\nAntécédents : Aucun notable.\nSignes cliniques : Patient alerte, légère photophobie, aucun rash cutané."
+}

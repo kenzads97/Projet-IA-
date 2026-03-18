@@ -1,0 +1,28 @@
+{
+  "id": "10_petits_cas_cliniques_cas_007",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 7,
+  "patient": {
+    "age": 60,
+    "sexe": "M",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "asthenie"
+    ],
+    "symptome_libre": "Fatigue, soif excessive, et urines fréquentes.\nIMC de 30, glycémie capillaire à 250 mg/dL.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Diabète de type 2 diagnostiqué il y a 5 ans, non suivi régulièrement."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 7 :\nPatient : Homme, 60 ans\nMotif de consultation : Fatigue, soif excessive, et urines fréquentes.\nAntécédents : Diabète de type 2 diagnostiqué il y a 5 ans, non suivi régulièrement.\nSignes cliniques : IMC de 30, glycémie capillaire à 250 mg/dL."
+}

@@ -1,0 +1,49 @@
+{
+  "id": "9_cas_cliniques_complets_adiagnostic_cas_009",
+  "source_document": "9 cas cliniques complets adiagnostic.docx",
+  "case_number": 9,
+  "patient": {
+    "age": 45,
+    "sexe": "",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique",
+      "dyspnee",
+      "palpitations",
+      "syncope",
+      "fievre"
+    ],
+    "symptome_libre": "Constantes vitales :\nTA : 110/70 mmHg\nFC : 150 bpm, régulière\nSaturation en O2 : 98% à l’air ambiant\nTempérature : 36,8°C\nExamen physique :\nAuscultation cardiaque : bruits du cœur réguliers, pas de souffle.\nBiologie :\nIonogramme : K+ 4,2 mmol/L, Na+ 138 mmol/L\nTroponine : négative\nFonction rénale : normale\nTSH : normale\nUn Patient de 45 ans se présente aux urgences pour des palpitations survenues brutalement il y a 2 heures.\nIl décrit une sensation de battements cardiaques rapides accompagnée d’un malaise général.\nIl n’a pas de douleur thoracique, pas de syncope, mais rapporte une légère dyspnée.",
+    "tension_systolique": 110,
+    "tension_diastolique": 70,
+    "frequence_cardiaque": 150,
+    "temperature": 36.8,
+    "spo2": 98,
+    "antecedents": [
+      "Hypertension artérielle modérée sous amlodipine 5 mg/jour.",
+      "Tabagisme : 10 paquets-années, arrêté depuis 2 ans.",
+      "Pas de diabète, pas d'antécédents cardiovasculaires connus."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [
+      "biologie"
+    ],
+    "resultats_examens": {
+      "Constantes vitales": "",
+      "TA": "110/70 mmHg",
+      "FC": "150 bpm, régulière",
+      "Saturation en O2": "98% à l’air ambiant",
+      "Température": "36,8°C",
+      "Examen physique": "",
+      "Auscultation cardiaque": "bruits du cœur réguliers, pas de souffle.",
+      "Biologie": "",
+      "Ionogramme": "K+ 4,2 mmol/L, Na+ 138 mmol/L",
+      "Troponine": "négative",
+      "Fonction rénale": "normale",
+      "TSH": "normale"
+    }
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 9 :\nUn Patient de 45 ans se présente aux urgences pour des palpitations survenues brutalement il y a 2 heures.\nIl décrit une sensation de battements cardiaques rapides accompagnée d’un malaise général.\nIl n’a pas de douleur thoracique, pas de syncope, mais rapporte une légère dyspnée.\nAntécédents\nHypertension artérielle modérée sous amlodipine 5 mg/jour.\nTabagisme : 10 paquets-années, arrêté depuis 2 ans.\nPas de diabète, pas d'antécédents cardiovasculaires connus.\nExamen clinique\nConstantes vitales :\nTA : 110/70 mmHg\nFC : 150 bpm, régulière\nSaturation en O2 : 98% à l’air ambiant\nTempérature : 36,8°C\nExamen physique :\nAuscultation cardiaque : bruits du cœur réguliers, pas de souffle.\nBiologie :\nIonogramme : K+ 4,2 mmol/L, Na+ 138 mmol/L\nTroponine : négative\nFonction rénale : normale\nTSH : normale"
+}

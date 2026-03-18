@@ -1,0 +1,31 @@
+{
+  "id": "10_petits_cas_cliniques_cas_002",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 2,
+  "patient": {
+    "age": 65,
+    "sexe": "F",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique",
+      "dyspnee",
+      "douleur_abdominale",
+      "nausees_vomissements"
+    ],
+    "symptome_libre": "Douleur épigastrique, nausées et sensation de brûlure.\nPas de douleur thoracique classique, mais légère dyspnée, sueurs froides.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Hypercholestérolémie, tabagisme, hypertension."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 2 :\nPatient : Femme, 65 ans\nMotif de consultation : Douleur épigastrique, nausées et sensation de brûlure.\nAntécédents : Hypercholestérolémie, tabagisme, hypertension.\nSignes cliniques : Pas de douleur thoracique classique, mais légère dyspnée, sueurs froides."
+}

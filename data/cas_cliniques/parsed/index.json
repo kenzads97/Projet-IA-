@@ -1,0 +1,843 @@
+[
+  {
+    "id": "10_petits_cas_cliniques_cas_001",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 1,
+    "patient": {
+      "age": 25,
+      "sexe": "F",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "fievre",
+        "douleur_abdominale"
+      ],
+      "symptome_libre": "Brûlures urinaires et besoin fréquent d'uriner.\nPas de fièvre, douleur légère au bas-ventre.\nPrésence de leucocytes et nitrites.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Aucun antécédent médical significatif."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [
+        "analyse_urinaire"
+      ],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 1 :\nPatient : Femme, 25 ans\nMotif de consultation : Brûlures urinaires et besoin fréquent d'uriner.\nAntécédents : Aucun antécédent médical significatif.\nSignes cliniques : Pas de fièvre, douleur légère au bas-ventre.\nAnalyse urinaire rapide : Présence de leucocytes et nitrites."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_002",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 2,
+    "patient": {
+      "age": 65,
+      "sexe": "F",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "dyspnee",
+        "douleur_abdominale",
+        "nausees_vomissements"
+      ],
+      "symptome_libre": "Douleur épigastrique, nausées et sensation de brûlure.\nPas de douleur thoracique classique, mais légère dyspnée, sueurs froides.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Hypercholestérolémie, tabagisme, hypertension."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 2 :\nPatient : Femme, 65 ans\nMotif de consultation : Douleur épigastrique, nausées et sensation de brûlure.\nAntécédents : Hypercholestérolémie, tabagisme, hypertension.\nSignes cliniques : Pas de douleur thoracique classique, mais légère dyspnée, sueurs froides."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_003",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 3,
+    "patient": {
+      "age": 6,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "fievre",
+        "toux"
+      ],
+      "symptome_libre": "Fièvre modérée (38,2°C) depuis 24 heures, écoulement nasal clair, toux sèche.\nGorge légèrement rouge, absence de signes d’angine bactérienne ou d’otite.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Pas d’allergies, carnet de vaccination à jour."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 3 :\nPatient : Enfant, 6 ans\nMotif de consultation : Fièvre modérée (38,2°C) depuis 24 heures, écoulement nasal clair, toux sèche.\nAntécédents : Pas d’allergies, carnet de vaccination à jour.\nSignes cliniques : Gorge légèrement rouge, absence de signes d’angine bactérienne ou d’otite."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_004",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 4,
+    "patient": {
+      "age": 30,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [],
+      "symptome_libre": "Douleur à la cheville droite après une torsion lors d'un match de football.\nGonflement modéré, douleur à la palpation sur le ligament latéral externe, patient capable de marcher avec douleur.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Entorse similaire il y a 2 ans."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 4 :\nPatient : Homme, 30 ans\nMotif de consultation : Douleur à la cheville droite après une torsion lors d'un match de football.\nAntécédents : Entorse similaire il y a 2 ans.\nSignes cliniques : Gonflement modéré, douleur à la palpation sur le ligament latéral externe, patient capable de marcher avec douleur."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_005",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 5,
+    "patient": {
+      "age": 25,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "fievre",
+        "cephalees",
+        "asthenie"
+      ],
+      "symptome_libre": "Fièvre (38,5°C), fatigue, maux de tête, raideur légère du cou.\nPatient alerte, légère photophobie, aucun rash cutané.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Aucun notable."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 5 :\nPatient : Homme, 25 ans\nMotif de consultation : Fièvre (38,5°C), fatigue, maux de tête, raideur légère du cou.\nAntécédents : Aucun notable.\nSignes cliniques : Patient alerte, légère photophobie, aucun rash cutané."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_006",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 6,
+    "patient": {
+      "age": 35,
+      "sexe": "F",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "dyspnee",
+        "palpitations"
+      ],
+      "symptome_libre": "Palpitations, essoufflement soudain, sensation d'oppression thoracique.\nSaturation en oxygène normale (96 %), tachycardie à 110 bpm, douleur thoracique augmentée à l’inspiration profonde.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Contraception orale, voyage récent en avion."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 6 :\nPatient : Femme, 35 ans\nMotif de consultation : Palpitations, essoufflement soudain, sensation d'oppression thoracique.\nAntécédents : Contraception orale, voyage récent en avion.\nSignes cliniques : Saturation en oxygène normale (96 %), tachycardie à 110 bpm, douleur thoracique augmentée à l’inspiration profonde."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_007",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 7,
+    "patient": {
+      "age": 60,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "asthenie"
+      ],
+      "symptome_libre": "Fatigue, soif excessive, et urines fréquentes.\nIMC de 30, glycémie capillaire à 250 mg/dL.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Diabète de type 2 diagnostiqué il y a 5 ans, non suivi régulièrement."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 7 :\nPatient : Homme, 60 ans\nMotif de consultation : Fatigue, soif excessive, et urines fréquentes.\nAntécédents : Diabète de type 2 diagnostiqué il y a 5 ans, non suivi régulièrement.\nSignes cliniques : IMC de 30, glycémie capillaire à 250 mg/dL."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_008",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 8,
+    "patient": {
+      "age": 40,
+      "sexe": "F",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique"
+      ],
+      "symptome_libre": "Difficulté à respirer et oppression thoracique survenue après un effort physique.\nSaturation en oxygène à 94 %, sifflements à l’auscultation.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Asthme connu, traitement de fond mal suivi."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 8 :\nPatient : Femme, 40 ans\nMotif de consultation : Difficulté à respirer et oppression thoracique survenue après un effort physique.\nAntécédents : Asthme connu, traitement de fond mal suivi.\nSignes cliniques : Saturation en oxygène à 94 %, sifflements à l’auscultation."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_009",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 9,
+    "patient": {
+      "age": 50,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "fievre"
+      ],
+      "symptome_libre": "Douleur interscapulaire aiguë après avoir soulevé un objet lourd.\nPas de fièvre, pas de signe inflammatoire local, douleur décrite comme lancinante, pression artérielle asymétrique entre les deux bras.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Hypertension artérielle non traitée."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 9 :\nPatient : Homme, 50 ans\nMotif de consultation : Douleur interscapulaire aiguë après avoir soulevé un objet lourd.\nAntécédents : Hypertension artérielle non traitée.\nSignes cliniques : Pas de fièvre, pas de signe inflammatoire local, douleur décrite comme lancinante, pression artérielle asymétrique entre les deux bras."
+  },
+  {
+    "id": "10_petits_cas_cliniques_cas_010",
+    "source_document": "10 petits Cas cliniques.docx",
+    "case_number": 10,
+    "patient": {
+      "age": 15,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "fievre",
+        "douleur_abdominale",
+        "nausees_vomissements"
+      ],
+      "symptome_libre": "Douleur abdominale diffuse associée à des nausées et un épisode de diarrhée.\nFièvre légère (37,8°C), douleur qui migre vers la fosse iliaque droite à la palpation, défense modérée.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [
+        "Aucun."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 10 :\nPatient : Adolescente, 15 ans\nMotif de consultation : Douleur abdominale diffuse associée à des nausées et un épisode de diarrhée.\nAntécédents : Aucun.\nSignes cliniques : Fièvre légère (37,8°C), douleur qui migre vers la fosse iliaque droite à la palpation, défense modérée."
+  },
+  {
+    "id": "6_cas_supplementaires_sans_diag_cas_001",
+    "source_document": "6 cas supplementaires sans diag.docx",
+    "case_number": 1,
+    "patient": {
+      "age": 72,
+      "sexe": "F",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "fievre",
+        "asthenie"
+      ],
+      "symptome_libre": "fièvre et douleurs lombaires\nSymptômes :\nFièvre à 39°C\nDouleurs lombaires droites\nDysurie, pollakiurie, urgenturie\nAsthénie, confusion modérée\nRésultats de l’examen clinique :\nTempérature : 39,2°C\nTension artérielle : 100/60 mmHg\nFréquence cardiaque : 110 bpm\nFréquence respiratoire : 22/min\nSaturation en O2 : 96% à l’air ambiant\nCouleur de peau : pâleur modérée, absence de cyanose\ndouleur à la palpation de la fosse lombaire droite\nSignes associés : douleur au tapotement lombaire (signe de Giordano positif)\nPrésentation du patient :\nFemme de 72 ans",
+      "tension_systolique": 100,
+      "tension_diastolique": 60,
+      "frequence_cardiaque": 110,
+      "temperature": 39.2,
+      "spo2": 96,
+      "antecedents": [
+        "diabète de type 2, hypertension artérielle"
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {
+        "Signes associés": "douleur au tapotement lombaire (signe de Giordano positif)"
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 1 :\nPrésentation du patient :\nFemme de 72 ans\nAntécédents : diabète de type 2, hypertension artérielle\nMotif de consultation : fièvre et douleurs lombaires\nSymptômes :\nFièvre à 39°C\nDouleurs lombaires droites\nDysurie, pollakiurie, urgenturie\nAsthénie, confusion modérée\nRésultats de l’examen clinique :\nTempérature : 39,2°C\nTension artérielle : 100/60 mmHg\nFréquence cardiaque : 110 bpm\nFréquence respiratoire : 22/min\nSaturation en O2 : 96% à l’air ambiant\nCouleur de peau : pâleur modérée, absence de cyanose\nExamen abdominal : douleur à la palpation de la fosse lombaire droite\nSignes associés : douleur au tapotement lombaire (signe de Giordano positif)"
+  },
+  {
+    "id": "6_cas_supplementaires_sans_diag_cas_002",
+    "source_document": "6 cas supplementaires sans diag.docx",
+    "case_number": 2,
+    "patient": {
+      "age": 55,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "dyspnee",
+        "fievre",
+        "nausees_vomissements"
+      ],
+      "symptome_libre": "douleur thoracique brutale\nSymptômes :\nDouleur thoracique constrictive, irradiant dans le bras gauche\nSueurs froides, nausées\nSensation d'oppression, angoisse\nDyspnée modérée\nRésultats de l’examen clinique :\nTempérature : 37°C\nTension artérielle : 150/90 mmHg\nFréquence cardiaque : 95 bpm\nFréquence respiratoire : 20/min\nSaturation en O2 : 97% à l’air ambiant\nCouleur de peau : pâleur, sueurs profuses\nbruits du cœur réguliers, absence de souffle\nSignes associés : douleur persistante malgré le repos\nPrésentation du patient :\nHomme de 55 ans",
+      "tension_systolique": 150,
+      "tension_diastolique": 90,
+      "frequence_cardiaque": 95,
+      "temperature": 37.0,
+      "spo2": 97,
+      "antecedents": [
+        "tabagisme (30 PA), dyslipidémie, HTA non traitée"
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {
+        "Signes associés": "douleur persistante malgré le repos"
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 2 :\nPrésentation du patient :\nHomme de 55 ans\nAntécédents : tabagisme (30 PA), dyslipidémie, HTA non traitée\nMotif de consultation : douleur thoracique brutale\nSymptômes :\nDouleur thoracique constrictive, irradiant dans le bras gauche\nSueurs froides, nausées\nSensation d'oppression, angoisse\nDyspnée modérée\nRésultats de l’examen clinique :\nTempérature : 37°C\nTension artérielle : 150/90 mmHg\nFréquence cardiaque : 95 bpm\nFréquence respiratoire : 20/min\nSaturation en O2 : 97% à l’air ambiant\nCouleur de peau : pâleur, sueurs profuses\nExamen cardiovasculaire : bruits du cœur réguliers, absence de souffle\nSignes associés : douleur persistante malgré le repos"
+  },
+  {
+    "id": "6_cas_supplementaires_sans_diag_cas_003",
+    "source_document": "6 cas supplementaires sans diag.docx",
+    "case_number": 3,
+    "patient": {
+      "age": 28,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "fievre",
+        "toux",
+        "asthenie"
+      ],
+      "symptome_libre": "toux fébrile depuis 4 jours\nSymptômes :\nFièvre à 38,5°C\nToux productive avec expectorations jaunes verdâtres\nDouleurs thoraciques augmentées à l'inspiration\nFatigue, frissons\nRésultats de l’examen clinique :\nTempérature : 38,7°C\nTension artérielle : 120/75 mmHg\nFréquence cardiaque : 105 bpm\nFréquence respiratoire : 24/min\nSaturation en O2 : 94% à l’air ambiant\nCouleur de peau : teint normal, absence de cyanose\ncrépitants à l’auscultation basale droite, diminution du murmure vésiculaire\nSignes associés : douleurs thoraciques pleurétiques\nPrésentation du patient :\nHomme de 28 ans",
+      "tension_systolique": 120,
+      "tension_diastolique": 75,
+      "frequence_cardiaque": 105,
+      "temperature": 38.7,
+      "spo2": 94,
+      "antecedents": [
+        "aucun"
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [
+        "radiographie"
+      ],
+      "resultats_examens": {
+        "Signes associés": "douleurs thoraciques pleurétiques"
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 3 :\nPrésentation du patient :\nHomme de 28 ans\nAntécédents : aucun\nMotif de consultation : toux fébrile depuis 4 jours\nSymptômes :\nFièvre à 38,5°C\nToux productive avec expectorations jaunes verdâtres\nDouleurs thoraciques augmentées à l'inspiration\nFatigue, frissons\nRésultats de l’examen clinique :\nTempérature : 38,7°C\nTension artérielle : 120/75 mmHg\nFréquence cardiaque : 105 bpm\nFréquence respiratoire : 24/min\nSaturation en O2 : 94% à l’air ambiant\nCouleur de peau : teint normal, absence de cyanose\nExamen pulmonaire : crépitants à l’auscultation basale droite, diminution du murmure vésiculaire\nSignes associés : douleurs thoraciques pleurétiques"
+  },
+  {
+    "id": "6_cas_supplementaires_sans_diag_cas_004",
+    "source_document": "6 cas supplementaires sans diag.docx",
+    "case_number": 4,
+    "patient": {
+      "age": 40,
+      "sexe": "F",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "syncope",
+        "fievre",
+        "douleur_abdominale",
+        "nausees_vomissements",
+        "asthenie"
+      ],
+      "symptome_libre": "malaise intense, hypotension et hyperpigmentation\nSymptômes :\nAsthénie marquée depuis plusieurs mois\nPerte de poids de 5 kg en 3 mois\nNausées, vomissements, douleurs abdominales diffuses\nSensation de malaise avec hypotension brutale\nRésultats de l’examen clinique :\nTempérature : 37,5°C\nTension artérielle : 80/50 mmHg\nFréquence cardiaque : 95 bpm\nFréquence respiratoire : 18/min\nSaturation en O2 : 98% à l’air ambiant\nCouleur de peau : hyperpigmentation des plis palmaires et des cicatrices\ndouleurs diffuses, mais absence de défense\nSignes neurologiques : confusion modérée, hypotonie\nPrésentation du patient :\nFemme de 40 ans",
+      "tension_systolique": 80,
+      "tension_diastolique": 50,
+      "frequence_cardiaque": 95,
+      "temperature": 37.5,
+      "spo2": 98,
+      "antecedents": [
+        "hypothyroïdie auto-immune"
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {
+        "Signes neurologiques": "confusion modérée, hypotonie"
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 4 :\nPrésentation du patient :\nFemme de 40 ans\nAntécédents : hypothyroïdie auto-immune\nMotif de consultation : malaise intense, hypotension et hyperpigmentation\nSymptômes :\nAsthénie marquée depuis plusieurs mois\nPerte de poids de 5 kg en 3 mois\nNausées, vomissements, douleurs abdominales diffuses\nSensation de malaise avec hypotension brutale\nRésultats de l’examen clinique :\nTempérature : 37,5°C\nTension artérielle : 80/50 mmHg\nFréquence cardiaque : 95 bpm\nFréquence respiratoire : 18/min\nSaturation en O2 : 98% à l’air ambiant\nCouleur de peau : hyperpigmentation des plis palmaires et des cicatrices\nExamen abdominal : douleurs diffuses, mais absence de défense\nSignes neurologiques : confusion modérée, hypotonie"
+  },
+  {
+    "id": "6_cas_supplementaires_sans_diag_cas_005",
+    "source_document": "6 cas supplementaires sans diag.docx",
+    "case_number": 5,
+    "patient": {
+      "age": 35,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "fievre",
+        "asthenie"
+      ],
+      "symptome_libre": "faiblesse progressive des jambes\nSymptômes :\nDébut par paresthésies aux pieds évoluant vers une faiblesse ascendante\nDifficulté à marcher, sensation de jambes lourdes\nAbsence de fièvre, mais fatigue importante\nProgression rapide en 48h avec atteinte des bras\nRésultats de l’examen clinique :\nTempérature : 37°C\nTension artérielle : 130/80 mmHg\nFréquence cardiaque : 88 bpm\nFréquence respiratoire : 16/min\nSaturation en O2 : 99% à l’air ambiant\nExamen neurologique :\nRéflexes ostéo-tendineux abolis aux membres inférieurs\nFaiblesse musculaire symétrique, plus marquée aux jambes\nSensibilité conservée\nAtteinte des nerfs crâniens débutante (paralysie faciale partielle)\nPrésentation du patient :\nHomme de 35 ans",
+      "tension_systolique": 130,
+      "tension_diastolique": 80,
+      "frequence_cardiaque": 88,
+      "temperature": 37.0,
+      "spo2": 99,
+      "antecedents": [
+        "infection digestive récente (diarrhée 2 semaines avant)"
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 5 :\nPrésentation du patient :\nHomme de 35 ans\nAntécédents : infection digestive récente (diarrhée 2 semaines avant)\nMotif de consultation : faiblesse progressive des jambes\nSymptômes :\nDébut par paresthésies aux pieds évoluant vers une faiblesse ascendante\nDifficulté à marcher, sensation de jambes lourdes\nAbsence de fièvre, mais fatigue importante\nProgression rapide en 48h avec atteinte des bras\nRésultats de l’examen clinique :\nTempérature : 37°C\nTension artérielle : 130/80 mmHg\nFréquence cardiaque : 88 bpm\nFréquence respiratoire : 16/min\nSaturation en O2 : 99% à l’air ambiant\nExamen neurologique :\nRéflexes ostéo-tendineux abolis aux membres inférieurs\nFaiblesse musculaire symétrique, plus marquée aux jambes\nSensibilité conservée\nAtteinte des nerfs crâniens débutante (paralysie faciale partielle)"
+  },
+  {
+    "id": "6_cas_supplementaires_sans_diag_cas_006",
+    "source_document": "6 cas supplementaires sans diag.docx",
+    "case_number": 6,
+    "patient": {
+      "age": 50,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "syncope",
+        "fievre",
+        "cephalees",
+        "nausees_vomissements"
+      ],
+      "symptome_libre": "céphalée brutale et perte de connaissance transitoire\nSymptômes :\nCéphalée en coup de tonnerre (début brutal)\nPhotophobie, vomissements\nPerte de connaissance brève avec confusion au réveil\nRaideur de la nuque\nRésultats de l’examen clinique :\nTempérature : 37,2°C\nTension artérielle : 180/100 mmHg\nFréquence cardiaque : 75 bpm\nFréquence respiratoire : 18/min\nSaturation en O2 : 97% à l’air ambiant\nCouleur de peau : normale\nExamen neurologique :\nRaideur méningée marquée (signe de Brudzinski et Kernig positifs)\nPas de déficit moteur ni sensitif\nRéflexes normaux\nPrésentation du patient :\nHomme de 50 ans",
+      "tension_systolique": 180,
+      "tension_diastolique": 100,
+      "frequence_cardiaque": 75,
+      "temperature": 37.2,
+      "spo2": 97,
+      "antecedents": [
+        "HTA non contrôlée"
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 6 :\nPrésentation du patient :\nHomme de 50 ans\nAntécédents : HTA non contrôlée\nMotif de consultation : céphalée brutale et perte de connaissance transitoire\nSymptômes :\nCéphalée en coup de tonnerre (début brutal)\nPhotophobie, vomissements\nPerte de connaissance brève avec confusion au réveil\nRaideur de la nuque\nRésultats de l’examen clinique :\nTempérature : 37,2°C\nTension artérielle : 180/100 mmHg\nFréquence cardiaque : 75 bpm\nFréquence respiratoire : 18/min\nSaturation en O2 : 97% à l’air ambiant\nCouleur de peau : normale\nExamen neurologique :\nRaideur méningée marquée (signe de Brudzinski et Kernig positifs)\nPas de déficit moteur ni sensitif\nRéflexes normaux"
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_001",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 1,
+    "patient": {
+      "age": 67,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "dyspnee",
+        "palpitations",
+        "syncope",
+        "vertiges"
+      ],
+      "symptome_libre": "M. Dupont décrit une douleur thoracique oppressante, irradiant parfois vers le bras gauche, apparaissant après 15 minutes de marche rapide et s'atténuant au repos en 5-10 minutes. Associée à une légère dyspnée et des palpitations. Aucun épisode de syncope ou de vertige.\nTA : 150/90 mm Hg\nFC : 92 bpm, régulière\nSaturation O2 : 98 % à l'air ambiant\nAuscultation cardiaque : souffle systolique au foyer mitral.\nAuscultation pulmonaire : sans bruits surajoutés\nExamen périphérique : pas d'œdèmes des membres inférieurs.\nTroponine ultra-sensible : 65 ng/L (norme < 14).\nNT-pro BNP : 1200 pg/ml (élevé).\nCréatinine : 1,2 mg/dl, clairance estimée à 65 ml/min.\nHbA1c : 8,5 %.",
+      "tension_systolique": 150,
+      "tension_diastolique": 90,
+      "frequence_cardiaque": 92,
+      "temperature": null,
+      "spo2": 98,
+      "antecedents": [
+        "Hypertension artérielle (HTA) diagnostiquée il y a 10 ans, mal contrôlée (dernière mesure : 160/95 mm Hg).",
+        "Diabète de type 2 sous traitement oral (Metformine).",
+        "Hypercholestérolémie non traitée."
+      ],
+      "traitements_en_cours": [
+        "Perindopril 5 mg/j",
+        "Metformine 850 mg x 2/j,"
+      ],
+      "examens_realises": [
+        "biologie"
+      ],
+      "resultats_examens": {
+        "TA": "150/90 mm Hg",
+        "FC": "92 bpm, régulière",
+        "Saturation O2": "98 % à l'air ambiant",
+        "Auscultation cardiaque": "souffle systolique au foyer mitral.",
+        "Auscultation pulmonaire": "sans bruits surajoutés",
+        "Examen périphérique": "pas d'œdèmes des membres inférieurs.",
+        "Troponine ultra-sensible": "65 ng/L (norme < 14).",
+        "NT-pro BNP": "1200 pg/ml (élevé).",
+        "Créatinine": "1,2 mg/dl, clairance estimée à 65 ml/min.",
+        "HbA1c": "8,5 %."
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 1 :\nPatient : M. Dupont, 67 ans, retraité.Motif de consultation : douleurs thoraciques et dyspnée à l'effort depuis une semaine.\nHistoire de la maladie\nM. Dupont décrit une douleur thoracique oppressante, irradiant parfois vers le bras gauche, apparaissant après 15 minutes de marche rapide et s'atténuant au repos en 5-10 minutes. Associée à une légère dyspnée et des palpitations. Aucun épisode de syncope ou de vertige.\nAntécédents médicaux\nHypertension artérielle (HTA) diagnostiquée il y a 10 ans, mal contrôlée (dernière mesure : 160/95 mm Hg).\nDiabète de type 2 sous traitement oral (Metformine).\nHypercholestérolémie non traitée.\nTraitements actuels\nPerindopril 5 mg/j\nMetformine 850 mg x 2/j,\nExamen clinique\nTA : 150/90 mm Hg\nFC : 92 bpm, régulière\nSaturation O2 : 98 % à l'air ambiant\nAuscultation cardiaque : souffle systolique au foyer mitral.\nAuscultation pulmonaire : sans bruits surajoutés\nExamen périphérique : pas d'œdèmes des membres inférieurs.\nBiologie sanguine\nTroponine ultra-sensible : 65 ng/L (norme < 14).\nNT-pro BNP : 1200 pg/ml (élevé).\nCréatinine : 1,2 mg/dl, clairance estimée à 65 ml/min.\nHbA1c : 8,5 %."
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_002",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 2,
+    "patient": {
+      "age": 68,
+      "sexe": "M",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "dyspnee",
+        "fievre",
+        "toux",
+        "asthenie"
+      ],
+      "symptome_libre": "Dyspnée d'effort, augmentée depuis 6 mois.\nToux chronique productive (expectorations blanches, parfois jaunâtres).\nFatigue chronique.\nEpisodes de sifflements respiratoires, surtout nocturnes.\nAggravation de la toux et fièvre modérée (38,2°C).\nPatient asthénique, IMC : 22 kg/m².\nExamen des voies respiratoires :\nCyanose labiale modérée.\nMurmure vésiculaire diminué bilatéralement, présence de ronchi et sibilants diffus.\nSaturation en oxygène (SpO₂) : 88 % à l'air ambiant.\nFréquence respiratoire : 24 cycles/min.\nGaz du sang artériel :\nPaO₂ : 60 mmHg.\nPaCO₂ : 48 mmHg.\npH : 7,36 (acidose respiratoire compensée).\nRadiographie thoracique :\nHyperclarté diffuse\nBiologie :\nCRP : 18 mg/L (modérément élevée).\nNumération formule sanguine (NFS) : Hyperleucocytose modérée.\n68 ans, Sexe : Masculin\nHypertension artérielle (HTA) sous traitement (amlodipine).\nDyslipidémie.",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": null,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [],
+      "traitements_en_cours": [],
+      "examens_realises": [
+        "biologie",
+        "radiographie",
+        "gaz_du_sang"
+      ],
+      "resultats_examens": {
+        "Patient asthénique, IMC": "22 kg/m².",
+        "Examen des voies respiratoires": "",
+        "Saturation en oxygène (SpO₂)": "88 % à l'air ambiant.",
+        "Fréquence respiratoire": "24 cycles/min.",
+        "Gaz du sang artériel": "",
+        "PaO₂": "60 mmHg.",
+        "PaCO₂": "48 mmHg.",
+        "pH": "7,36 (acidose respiratoire compensée).",
+        "Radiographie thoracique": "",
+        "Biologie": "",
+        "CRP": "18 mg/L (modérément élevée).",
+        "Numération formule sanguine (NFS)": "Hyperleucocytose modérée."
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 2 :\n68 ans, Sexe : Masculin\nHypertension artérielle (HTA) sous traitement (amlodipine).\nDyslipidémie.\nMotif de consultation\nDyspnée d'effort, augmentée depuis 6 mois.\nToux chronique productive (expectorations blanches, parfois jaunâtres).\nFatigue chronique.\nEpisodes de sifflements respiratoires, surtout nocturnes.\nAggravation de la toux et fièvre modérée (38,2°C).\nExamen clinique\nPatient asthénique, IMC : 22 kg/m².\nExamen des voies respiratoires :\nCyanose labiale modérée.\nMurmure vésiculaire diminué bilatéralement, présence de ronchi et sibilants diffus.\nSaturation en oxygène (SpO₂) : 88 % à l'air ambiant.\nFréquence respiratoire : 24 cycles/min.\nExamens complémentaires\nGaz du sang artériel :\nPaO₂ : 60 mmHg.\nPaCO₂ : 48 mmHg.\npH : 7,36 (acidose respiratoire compensée).\nRadiographie thoracique :\nHyperclarté diffuse\nBiologie :\nCRP : 18 mg/L (modérément élevée).\nNumération formule sanguine (NFS) : Hyperleucocytose modérée."
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_003",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 3,
+    "patient": {
+      "age": 56,
+      "sexe": "F",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "asthenie"
+      ],
+      "symptome_libre": "Fatigue chronique\nÉpisodes de confusion mentale et troubles de concentration\nAugmentation du volume de l’abdomen\nHémoglobine : 10.5 g/dl et plaquettes : 80 g/l\nALAT : 55 UI/L (N : <40) , ASAT : 90 UI/L (N : <40)\nGamma-GT : 180 UI/L (N : <35), Phosphatases alcalines : 150 UI/L (N : <130)\nBilirubine totale : 3.5 mg/dL (N : <1.2), Albumine : 2.8 g/dL (N : 3.5-5.5)\nINR : 1.8, Sodium : 130 mmol/l, Potassium : 4.2 mmol/l, Urée : 25 mg/dL\nCréatinine : 1.2 mg/dL\nÉchographie abdominale :\nFoie de taille réduite, contours irréguliers\nAscite modérée\nSplénomégalie\nPatiente de 56 ans\nConsommation d'alcool chronique (équivalent de 4 verres/jour pendant 15 ans, arrêt depuis 2 ans), obésité avec IMC à 32 et hypertension artérielle traitée",
+      "tension_systolique": 110,
+      "tension_diastolique": 70,
+      "frequence_cardiaque": 85,
+      "temperature": null,
+      "spo2": null,
+      "antecedents": [],
+      "traitements_en_cours": [],
+      "examens_realises": [
+        "biologie",
+        "echographie"
+      ],
+      "resultats_examens": {
+        "Hémoglobine": "10.5 g/dl et plaquettes : 80 g/l",
+        "ALAT": "55 UI/L (N : <40) , ASAT : 90 UI/L (N : <40)",
+        "Gamma-GT": "180 UI/L (N : <35), Phosphatases alcalines : 150 UI/L (N : <130)",
+        "Bilirubine totale": "3.5 mg/dL (N : <1.2), Albumine : 2.8 g/dL (N : 3.5-5.5)",
+        "INR": "1.8, Sodium : 130 mmol/l, Potassium : 4.2 mmol/l, Urée : 25 mg/dL",
+        "Créatinine": "1.2 mg/dL",
+        "Échographie abdominale": ""
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 3 :\nPatiente de 56 ans\nConsommation d'alcool chronique (équivalent de 4 verres/jour pendant 15 ans, arrêt depuis 2 ans), obésité avec IMC à 32 et hypertension artérielle traitée\nSymptômes actuels\nFatigue chronique\nÉpisodes de confusion mentale et troubles de concentration\nAugmentation du volume de l’abdomen\nExamen clinique\nConstantes\nTension artérielle : 110/70 mmHg\nFréquence cardiaque : 85 bpm\nInspection :\nIctère conjonctival\nPalpation abdominale :\nHépatomégalie modérée\nInvestigations biologiques\nHémoglobine : 10.5 g/dl et plaquettes : 80 g/l\nALAT : 55 UI/L (N : <40) , ASAT : 90 UI/L (N : <40)\nGamma-GT : 180 UI/L (N : <35), Phosphatases alcalines : 150 UI/L (N : <130)\nBilirubine totale : 3.5 mg/dL (N : <1.2), Albumine : 2.8 g/dL (N : 3.5-5.5)\nINR : 1.8, Sodium : 130 mmol/l, Potassium : 4.2 mmol/l, Urée : 25 mg/dL\nCréatinine : 1.2 mg/dL\nÉchographie abdominale :\nFoie de taille réduite, contours irréguliers\nAscite modérée\nSplénomégalie"
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_004",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 4,
+    "patient": {
+      "age": 70,
+      "sexe": "",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "dyspnee",
+        "palpitations",
+        "fievre",
+        "asthenie"
+      ],
+      "symptome_libre": "Le patient consulte pour des palpitations ressenties depuis 48 heures. Ces palpitations s'accompagnent d'une sensation d'oppression thoracique modérée et d'une dyspnée d'effort.\nIl signale également une fatigue inhabituelle.\nRythme cardiaque irrégulier à l'auscultation.\nFréquence cardiaque à 130 bpm.\nAbsence de souffle ou de bruits cardiaques anormaux.\nPas de douleur thoracique à la palpation.\nPas d’œdèmes des membres inférieurs.\nÉtat général conservé.\nExamens biologiques : sans particularités\nInformations générales :\nPatient de 70 ans, IMC à 27,8",
+      "tension_systolique": 140,
+      "tension_diastolique": 90,
+      "frequence_cardiaque": 130,
+      "temperature": 36.8,
+      "spo2": 98,
+      "antecedents": [
+        "Hypertension artérielle sous inhibiteur de l'enzyme de conversion"
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [
+        "radiographie"
+      ],
+      "resultats_examens": {
+        "Examens biologiques": "sans particularités"
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 4 :\nInformations générales :\nPatient de 70 ans, IMC à 27,8\nMotif de consultation :Le patient consulte pour des palpitations ressenties depuis 48 heures. Ces palpitations s'accompagnent d'une sensation d'oppression thoracique modérée et d'une dyspnée d'effort.\nIl signale également une fatigue inhabituelle.\nAntécédents médicaux : Hypertension artérielle sous inhibiteur de l'enzyme de conversion\nConstantes\nTempérature : 36,8 °C\nTension artérielle : 140/90 mmHg\nSaturation en oxygène : 98%\nFréquence cardiaque : 130 bpm, irrégulière\nExamen clinique\nRythme cardiaque irrégulier à l'auscultation.\nFréquence cardiaque à 130 bpm.\nAbsence de souffle ou de bruits cardiaques anormaux.\nPas de douleur thoracique à la palpation.\nPas d’œdèmes des membres inférieurs.\nÉtat général conservé.\nExamens biologiques : sans particularités"
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_005",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 5,
+    "patient": {
+      "age": 68,
+      "sexe": "",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "dyspnee",
+        "palpitations",
+        "syncope",
+        "fievre",
+        "asthenie"
+      ],
+      "symptome_libre": "Paramètres vitaux :\nTension artérielle : 140/90 mmHg\nFréquence cardiaque : 130 bpm\nSaturation en O2 : 96 % à l’air ambiant\nTempérature : 37,2 °C\nExamen cardiovasculaire :\nBruits du cœur réguliers mais rapides.\nAutres examens cliniques : Sans particularité\nHbA1c : 7,2 %.\nTroponines : négatives.\nPatient de 68 ans, retraité, se présente aux urgences pour des palpitations ressenties depuis environ 48 heures, associées à une fatigue inhabituelle et un essoufflement modéré à l’effort. Il rapporte également une sensation de malaise sans douleur thoracique. Aucun épisode similaire n’est noté dans ses antécédents.\nAntécédents médicaux :\nHypertension artérielle (HTA) connue depuis 10 ans,\nDiabète de type 2 traité par metformine.\nMédicaments :\nAmlodipine 5 mg/jour.\nMetformine 850 mg x 2/jour.",
+      "tension_systolique": 140,
+      "tension_diastolique": 90,
+      "frequence_cardiaque": 130,
+      "temperature": 37.2,
+      "spo2": 96,
+      "antecedents": [],
+      "traitements_en_cours": [],
+      "examens_realises": [
+        "biologie"
+      ],
+      "resultats_examens": {
+        "Paramètres vitaux": "",
+        "Tension artérielle": "140/90 mmHg",
+        "Fréquence cardiaque": "130 bpm",
+        "Saturation en O2": "96 % à l’air ambiant",
+        "Température": "37,2 °C",
+        "Examen cardiovasculaire": "",
+        "Autres examens cliniques": "Sans particularité",
+        "HbA1c": "7,2 %.",
+        "Troponines": "négatives."
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas Clinique 5 :\nPatient de 68 ans, retraité, se présente aux urgences pour des palpitations ressenties depuis environ 48 heures, associées à une fatigue inhabituelle et un essoufflement modéré à l’effort. Il rapporte également une sensation de malaise sans douleur thoracique. Aucun épisode similaire n’est noté dans ses antécédents.\nAntécédents médicaux :\nHypertension artérielle (HTA) connue depuis 10 ans,\nDiabète de type 2 traité par metformine.\nMédicaments :\nAmlodipine 5 mg/jour.\nMetformine 850 mg x 2/jour.\nExamen Clinique\nParamètres vitaux :\nTension artérielle : 140/90 mmHg\nFréquence cardiaque : 130 bpm\nSaturation en O2 : 96 % à l’air ambiant\nTempérature : 37,2 °C\nExamen cardiovasculaire :\nBruits du cœur réguliers mais rapides.\nAutres examens cliniques : Sans particularité\nBiologie\nHbA1c : 7,2 %.\nTroponines : négatives."
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_006",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 6,
+    "patient": {
+      "age": 78,
+      "sexe": "",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "fievre"
+      ],
+      "symptome_libre": "Un patient de 78 ans se présente aux urgences pour des douleurs thoraciques apparues il y a environ 3 heures.\nDouleur rétro-sternale oppressive irradiant vers le bras gauche, associée à des sueurs profuses.\nAntécédents médicaux :\nHypertension artérielle mal contrôlée.\nHypercholestérolémie.\nTabagisme actif (1 paquet/jour depuis 35 ans).\nMédicaments : Aucun traitement régulier connu.\nExamen clinique :\nSignes vitaux :\nPression artérielle : 145/90 mmHg.\nFréquence cardiaque : 92 bpm.\nSaturation en oxygène : 96% à l'air ambiant.\nTempérature : 36,8 °C.\nExamen physique :\nPatient en sueur, pâle et anxieux.\nAuscultation cardiaque : rythme régulier, absence de souffle audible.\nBiologie :\nTroponine élevée (troponine I : 4,2 ng/mL, seuil > 0,04 ng/mL).\nCréatinine normale.\nCholestérol total: 6,8 mmol/L (HDL : 0",
+      "tension_systolique": null,
+      "tension_diastolique": null,
+      "frequence_cardiaque": 92,
+      "temperature": 36.8,
+      "spo2": 96,
+      "antecedents": [],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 6 :\nUn patient de 78 ans se présente aux urgences pour des douleurs thoraciques apparues il y a environ 3 heures.\nDouleur rétro-sternale oppressive irradiant vers le bras gauche, associée à des sueurs profuses.\nAntécédents médicaux :\nHypertension artérielle mal contrôlée.\nHypercholestérolémie.\nTabagisme actif (1 paquet/jour depuis 35 ans).\nMédicaments : Aucun traitement régulier connu.\nExamen clinique :\nSignes vitaux :\nPression artérielle : 145/90 mmHg.\nFréquence cardiaque : 92 bpm.\nSaturation en oxygène : 96% à l'air ambiant.\nTempérature : 36,8 °C.\nExamen physique :\nPatient en sueur, pâle et anxieux.\nAuscultation cardiaque : rythme régulier, absence de souffle audible.\nBiologie :\nTroponine élevée (troponine I : 4,2 ng/mL, seuil > 0,04 ng/mL).\nCréatinine normale.\nCholestérol total: 6,8 mmol/L (HDL : 0"
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_007",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 7,
+    "patient": {
+      "age": 70,
+      "sexe": "",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "dyspnee",
+        "palpitations",
+        "fievre",
+        "asthenie"
+      ],
+      "symptome_libre": "Rythme cardiaque irrégulier à l’auscultation\nFréquence cardiaque : 130 bpm\nAbsence de souffle ou de bruits anormaux\nBiologie sanguine :\nBNP : modérément augmenté\nTroponines : normales\nIonogramme, TSH et T4L : normaux\nRadiographie thoracique :\nTaille cardiaque normale\nAbsence de signes de congestion pulmonaire\nPoids : 85 kg\nTaille : 175 cm\nIMC : 27,8\nPatient de 70 ans, consulte pour des palpitations ressenties depuis 48 heures, accompagnées de dyspnée d’effort et d’une sensation de fatigue. Il décrit une oppression thoracique modérée.\nConstantes vitales\nTempérature : 36,8 °C\nTension artérielle : 140/90 mmHg\nSaturation en oxygène : 98 %\nFréquence cardiaque : 130 bpm\nAntécédents médicaux :\nHypertension artérielle mal contrôlée depuis 10 ans\nTraitement en cours : Inhibiteur de l’enzyme de conversion",
+      "tension_systolique": 140,
+      "tension_diastolique": 90,
+      "frequence_cardiaque": 130,
+      "temperature": 36.8,
+      "spo2": 98,
+      "antecedents": [],
+      "traitements_en_cours": [],
+      "examens_realises": [
+        "biologie",
+        "radiographie"
+      ],
+      "resultats_examens": {
+        "Fréquence cardiaque": "130 bpm",
+        "Biologie sanguine": "",
+        "BNP": "modérément augmenté",
+        "Troponines": "normales",
+        "Ionogramme, TSH et T4L": "normaux",
+        "Radiographie thoracique": ""
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 7 :\nPoids : 85 kg\nTaille : 175 cm\nIMC : 27,8\nPatient de 70 ans, consulte pour des palpitations ressenties depuis 48 heures, accompagnées de dyspnée d’effort et d’une sensation de fatigue. Il décrit une oppression thoracique modérée.\nConstantes vitales\nTempérature : 36,8 °C\nTension artérielle : 140/90 mmHg\nSaturation en oxygène : 98 %\nFréquence cardiaque : 130 bpm\nAntécédents médicaux :\nHypertension artérielle mal contrôlée depuis 10 ans\nTraitement en cours : Inhibiteur de l’enzyme de conversion\nExamen clinique\nRythme cardiaque irrégulier à l’auscultation\nFréquence cardiaque : 130 bpm\nAbsence de souffle ou de bruits anormaux\nBiologie sanguine :\nBNP : modérément augmenté\nTroponines : normales\nIonogramme, TSH et T4L : normaux\nRadiographie thoracique :\nTaille cardiaque normale\nAbsence de signes de congestion pulmonaire"
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_008",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 8,
+    "patient": {
+      "age": 75,
+      "sexe": "",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "dyspnee",
+        "fievre",
+        "toux",
+        "asthenie"
+      ],
+      "symptome_libre": "Patient de 75 ans, consulte pour une dyspnée aiguë, apparue depuis 24 heures, s'aggravant progressivement jusqu'à être présente au repos. Il signale une toux sèche et nocturne, accompagnée d'une orthopnée (nécessitant 3 oreillers pour dormir) et d’une fatigue intense.\nConstantes vitales\nTempérature : 37,2 °C, tension artérielle : 160/95 mmHg\nSaturation en oxygène : 90 % à l’air ambiant, fréquence cardiaque : 110 bpm, régulière\nFréquence respiratoire : 24/min\nAntécédents médicaux :\nHypertension artérielle non contrôlée, diabète de type 2, IMC : 30,4\nTraitement en cours : Inhibiteur de l’enzyme de conversion et Metformine\nCardiovasculaire : Tachycardie à 110 bpm\nPulmonaire : Crépitants bilatéraux aux bases.  Pas de sifflements\nVasculaire : Pouls périphériques présents et symétriques, Œdème discret des membres inférieurs (godet +)\nRadiographie thoracique :\nŒdème interstitiel bilatéral avec flou péri-hilaire\nÉpanchement pleural minime bilatéral\nCardiomégalie\nBiologie :\nBNP : augmenté à 1500 pg/mL\nTroponines : normales\nCréatinine : 120 µmol/L\nGlycémie : 11 mmol/L\nIonogramme : hyponatrémie (130 mmol/L)",
+      "tension_systolique": 160,
+      "tension_diastolique": 95,
+      "frequence_cardiaque": 110,
+      "temperature": 37.2,
+      "spo2": 90,
+      "antecedents": [],
+      "traitements_en_cours": [],
+      "examens_realises": [],
+      "resultats_examens": {}
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 8 :\nPatient de 75 ans, consulte pour une dyspnée aiguë, apparue depuis 24 heures, s'aggravant progressivement jusqu'à être présente au repos. Il signale une toux sèche et nocturne, accompagnée d'une orthopnée (nécessitant 3 oreillers pour dormir) et d’une fatigue intense.\nConstantes vitales\nTempérature : 37,2 °C, tension artérielle : 160/95 mmHg\nSaturation en oxygène : 90 % à l’air ambiant, fréquence cardiaque : 110 bpm, régulière\nFréquence respiratoire : 24/min\nAntécédents médicaux :\nHypertension artérielle non contrôlée, diabète de type 2, IMC : 30,4\nTraitement en cours : Inhibiteur de l’enzyme de conversion et Metformine\nCardiovasculaire : Tachycardie à 110 bpm\nPulmonaire : Crépitants bilatéraux aux bases.  Pas de sifflements\nVasculaire : Pouls périphériques présents et symétriques, Œdème discret des membres inférieurs (godet +)\nRadiographie thoracique :\nŒdème interstitiel bilatéral avec flou péri-hilaire\nÉpanchement pleural minime bilatéral\nCardiomégalie\nBiologie :\nBNP : augmenté à 1500 pg/mL\nTroponines : normales\nCréatinine : 120 µmol/L\nGlycémie : 11 mmol/L\nIonogramme : hyponatrémie (130 mmol/L)"
+  },
+  {
+    "id": "9_cas_cliniques_complets_adiagnostic_cas_009",
+    "source_document": "9 cas cliniques complets adiagnostic.docx",
+    "case_number": 9,
+    "patient": {
+      "age": 45,
+      "sexe": "",
+      "taille_cm": null,
+      "poids_kg": null,
+      "symptomes": [
+        "douleur_thoracique",
+        "dyspnee",
+        "palpitations",
+        "syncope",
+        "fievre"
+      ],
+      "symptome_libre": "Constantes vitales :\nTA : 110/70 mmHg\nFC : 150 bpm, régulière\nSaturation en O2 : 98% à l’air ambiant\nTempérature : 36,8°C\nExamen physique :\nAuscultation cardiaque : bruits du cœur réguliers, pas de souffle.\nBiologie :\nIonogramme : K+ 4,2 mmol/L, Na+ 138 mmol/L\nTroponine : négative\nFonction rénale : normale\nTSH : normale\nUn Patient de 45 ans se présente aux urgences pour des palpitations survenues brutalement il y a 2 heures.\nIl décrit une sensation de battements cardiaques rapides accompagnée d’un malaise général.\nIl n’a pas de douleur thoracique, pas de syncope, mais rapporte une légère dyspnée.",
+      "tension_systolique": 110,
+      "tension_diastolique": 70,
+      "frequence_cardiaque": 150,
+      "temperature": 36.8,
+      "spo2": 98,
+      "antecedents": [
+        "Hypertension artérielle modérée sous amlodipine 5 mg/jour.",
+        "Tabagisme : 10 paquets-années, arrêté depuis 2 ans.",
+        "Pas de diabète, pas d'antécédents cardiovasculaires connus."
+      ],
+      "traitements_en_cours": [],
+      "examens_realises": [
+        "biologie"
+      ],
+      "resultats_examens": {
+        "Constantes vitales": "",
+        "TA": "110/70 mmHg",
+        "FC": "150 bpm, régulière",
+        "Saturation en O2": "98% à l’air ambiant",
+        "Température": "36,8°C",
+        "Examen physique": "",
+        "Auscultation cardiaque": "bruits du cœur réguliers, pas de souffle.",
+        "Biologie": "",
+        "Ionogramme": "K+ 4,2 mmol/L, Na+ 138 mmol/L",
+        "Troponine": "négative",
+        "Fonction rénale": "normale",
+        "TSH": "normale"
+      }
+    },
+    "diagnostic_reference": null,
+    "raw_text": "Cas clinique 9 :\nUn Patient de 45 ans se présente aux urgences pour des palpitations survenues brutalement il y a 2 heures.\nIl décrit une sensation de battements cardiaques rapides accompagnée d’un malaise général.\nIl n’a pas de douleur thoracique, pas de syncope, mais rapporte une légère dyspnée.\nAntécédents\nHypertension artérielle modérée sous amlodipine 5 mg/jour.\nTabagisme : 10 paquets-années, arrêté depuis 2 ans.\nPas de diabète, pas d'antécédents cardiovasculaires connus.\nExamen clinique\nConstantes vitales :\nTA : 110/70 mmHg\nFC : 150 bpm, régulière\nSaturation en O2 : 98% à l’air ambiant\nTempérature : 36,8°C\nExamen physique :\nAuscultation cardiaque : bruits du cœur réguliers, pas de souffle.\nBiologie :\nIonogramme : K+ 4,2 mmol/L, Na+ 138 mmol/L\nTroponine : négative\nFonction rénale : normale\nTSH : normale"
+  }
+]

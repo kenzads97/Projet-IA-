@@ -1,0 +1,30 @@
+{
+  "id": "10_petits_cas_cliniques_cas_006",
+  "source_document": "10 petits Cas cliniques.docx",
+  "case_number": 6,
+  "patient": {
+    "age": 35,
+    "sexe": "F",
+    "taille_cm": null,
+    "poids_kg": null,
+    "symptomes": [
+      "douleur_thoracique",
+      "dyspnee",
+      "palpitations"
+    ],
+    "symptome_libre": "Palpitations, essoufflement soudain, sensation d'oppression thoracique.\nSaturation en oxygène normale (96 %), tachycardie à 110 bpm, douleur thoracique augmentée à l’inspiration profonde.",
+    "tension_systolique": null,
+    "tension_diastolique": null,
+    "frequence_cardiaque": null,
+    "temperature": null,
+    "spo2": null,
+    "antecedents": [
+      "Contraception orale, voyage récent en avion."
+    ],
+    "traitements_en_cours": [],
+    "examens_realises": [],
+    "resultats_examens": {}
+  },
+  "diagnostic_reference": null,
+  "raw_text": "Cas clinique 6 :\nPatient : Femme, 35 ans\nMotif de consultation : Palpitations, essoufflement soudain, sensation d'oppression thoracique.\nAntécédents : Contraception orale, voyage récent en avion.\nSignes cliniques : Saturation en oxygène normale (96 %), tachycardie à 110 bpm, douleur thoracique augmentée à l’inspiration profonde."
+}
