@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+backend/prediction_model.json
+backend/ecg_hybrid_model.joblib
+backend/ecg_hybrid_model_meta.json
+backend/ecg_cnn_model.keras
+backend/ecg_cnn_model_meta.json

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1360" viewBox="0 0 1600 1360">
+  <defs>
+    <style>
+      .title { font: 700 34px 'Segoe UI', Arial, sans-serif; fill: #123b6d; }
+      .subtitle { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #47607d; }
+      .box-title { font: 700 22px 'Segoe UI', Arial, sans-serif; fill: #123b6d; }
+      .box-text { font: 400 17px 'Segoe UI', Arial, sans-serif; fill: #203040; }
+      .small { font: 400 16px 'Segoe UI', Arial, sans-serif; fill: #203040; }
+      .footer { font: 400 16px 'Segoe UI', Arial, sans-serif; fill: #5d718a; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5d718a"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="1360" fill="#ffffff"/>
+
+  <text x="800" y="58" text-anchor="middle" class="title">Pipeline ECG Actuel - EXOFIT</text>
+  <text x="800" y="88" text-anchor="middle" class="subtitle">Traitement du signal, r&#232;gles cliniques explicables, apprentissage supervis&#233; et fusion finale</text>
+
+  <rect x="510" y="120" rx="18" ry="18" width="580" height="84" fill="#f7fbff" stroke="#1f5fa8" stroke-width="2.5"/>
+  <text x="800" y="155" text-anchor="middle" class="box-title">1. Entr&#233;e ECG</text>
+  <text x="800" y="184" text-anchor="middle" class="box-text">Fichier .csv ECG 12 d&#233;rivations</text>
+
+  <line x1="800" y1="204" x2="800" y2="242" stroke="#5d718a" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="390" y="242" rx="18" ry="18" width="820" height="124" fill="#f9fbfd" stroke="#2f6fb5" stroke-width="2.5"/>
+  <text x="800" y="277" text-anchor="middle" class="box-title">2. Lecture et pr&#233;traitement du signal</text>
+  <text x="440" y="312" class="box-text">- chargement du fichier et mise en forme des 12 d&#233;rivations</text>
+  <text x="440" y="338" class="box-text">- correction de la d&#233;rive de ligne de base</text>
+  <text x="440" y="364" class="box-text">- filtre passe-bande, filtre notch 50 Hz, lissage et att&#233;nuation du bruit</text>
+
+  <line x1="800" y1="366" x2="800" y2="404" stroke="#5d718a" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="390" y="404" rx="18" ry="18" width="820" height="138" fill="#f9fbfd" stroke="#2f6fb5" stroke-width="2.5"/>
+  <text x="800" y="439" text-anchor="middle" class="box-title">3. Segmentation ECG</text>
+  <text x="440" y="474" class="box-text">- choix automatique de la d&#233;rivation de rythme</text>
+  <text x="440" y="500" class="box-text">- d&#233;tection robuste des pics R et calcul des intervalles RR</text>
+  <text x="440" y="526" class="box-text">- estimation du QRS, du segment ST, de l&apos;onde T et des indices de qualit&#233; du signal</text>
+
+  <line x1="800" y1="542" x2="800" y2="580" stroke="#5d718a" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="390" y="580" rx="18" ry="18" width="820" height="164" fill="#f9fbfd" stroke="#2f6fb5" stroke-width="2.5"/>
+  <text x="800" y="615" text-anchor="middle" class="box-title">4. Extraction des caract&#233;ristiques</text>
+  <text x="440" y="650" class="box-text">- fr&#233;quence cardiaque, RR moyen, irr&#233;gularit&#233; RR, nombre de pics R</text>
+  <text x="440" y="676" class="box-text">- largeur QRS, polarit&#233; V1/V6, amplitude en V5</text>
+  <text x="440" y="702" class="box-text">- d&#233;viation ST moyenne et maximale, indices T et Q pathologiques</text>
+  <text x="440" y="728" class="box-text">- qualit&#233; du signal, bruit r&#233;siduel, morphologie par territoire</text>
+
+  <line x1="800" y1="744" x2="800" y2="782" stroke="#5d718a" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="100" y="782" rx="18" ry="18" width="620" height="220" fill="#f7fbff" stroke="#1f5fa8" stroke-width="2.5"/>
+  <text x="410" y="820" text-anchor="middle" class="box-title">5A. Mod&#232;le math&#233;matique explicable</text>
+  <text x="145" y="856" class="box-text">- r&#232;gles cliniques par pathologie</text>
+  <text x="145" y="882" class="box-text">- rythme normal, fibrillation auriculaire, bradycardie</text>
+  <text x="145" y="908" class="box-text">- bloc de branche, isch&#233;mie, infarctus</text>
+  <text x="145" y="934" class="box-text">- r&#232;gles par d&#233;rivations / territoires et exclusions entre classes</text>
+  <text x="145" y="960" class="box-text">- scores explicables et calibration clinique</text>
+
+  <rect x="880" y="782" rx="18" ry="18" width="620" height="220" fill="#f7fbff" stroke="#1f5fa8" stroke-width="2.5"/>
+  <text x="1190" y="820" text-anchor="middle" class="box-title">5B. Branche apprentissage</text>
+  <text x="925" y="856" class="box-text">- mod&#232;le hybride supervis&#233; sur features ECG</text>
+  <text x="925" y="882" class="box-text">- CNN 1D sur le signal ECG pr&#233;trait&#233;</text>
+  <text x="925" y="908" class="box-text">- entra&#238;nement guid&#233; par les diagnostics des m&#233;tadonn&#233;es</text>
+  <text x="925" y="934" class="box-text">- production de probabilit&#233;s par pathologie</text>
+  <text x="925" y="960" class="box-text">- comparaison avec la branche r&#232;gles</text>
+
+  <line x1="720" y1="892" x2="840" y2="892" stroke="#5d718a" stroke-width="0"/>
+  <line x1="800" y1="782" x2="410" y2="782" stroke="#5d718a" stroke-width="3"/>
+  <line x1="800" y1="782" x2="1190" y2="782" stroke="#5d718a" stroke-width="3"/>
+  <line x1="410" y1="1002" x2="410" y2="1042" stroke="#5d718a" stroke-width="3" marker-end="url(#arrow)"/>
+  <line x1="1190" y1="1002" x2="1190" y2="1042" stroke="#5d718a" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="390" y="1042" rx="18" ry="18" width="820" height="104" fill="#f7fbff" stroke="#1f5fa8" stroke-width="2.5"/>
+  <text x="800" y="1077" text-anchor="middle" class="box-title">6. Fusion des d&#233;cisions</text>
+  <text x="440" y="1112" class="box-text">- combinaison r&#232;gles + apprentissage, arbitrage en cas de d&#233;saccord, niveau de confiance final</text>
+
+  <line x1="800" y1="1146" x2="800" y2="1184" stroke="#5d718a" stroke-width="3" marker-end="url(#arrow)"/>
+
+  <rect x="390" y="1184" rx="18" ry="18" width="820" height="126" fill="#f7fbff" stroke="#1f5fa8" stroke-width="2.5"/>
+  <text x="800" y="1219" text-anchor="middle" class="box-title">7. Sortie clinique finale</text>
+  <text x="440" y="1254" class="box-text">- pathologie principale, probabilit&#233;s par pathologie, recommandation clinique</text>
+  <text x="440" y="1280" class="box-text">- affichage des features extraites et de la m&#233;thode utilis&#233;e</text>
+
+  <text x="800" y="1166" text-anchor="middle" class="footer">Pipeline ECG actuel combinant traitement du signal, explicabilit&#233; m&#233;dicale et apprentissage</text>
+</svg>

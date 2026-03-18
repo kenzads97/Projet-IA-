@@ -51,6 +51,7 @@ RAW_ECG_DIR = BASE_DIR / "data" / "ecg" / "raw"
 MAPPING_PATH = BASE_DIR / "data" / "ecg" / "patient_ecg_mapping.json"
 META_PATH = BASE_DIR / "data" / "ecg" / "df_meta.pkl"
 MODEL_PATH = BASE_DIR / "backend" / "prediction_model.json"
+MODEL_META_PATH = BASE_DIR / "backend" / "prediction_model_meta.json"
 MIN_CLASS_SIZE = 200
 
 
@@ -314,6 +315,17 @@ def extract_prediction_features(ecg_file: str, patient: dict[str, Any]) -> dict[
     preprocessed = preprocess_ecg(ecg_path.read_bytes())
     features = dict(preprocessed["features"])
     features.update(_patient_context_features(patient))
+    return {name: _safe_float(features.get(name), 0.0) for name in FEATURE_ORDER}
+
+
+def extract_prediction_features_from_bytes(
+    file_bytes: bytes,
+    patient: dict[str, Any] | None = None,
+) -> dict[str, float]:
+    """Extrait les features de prediction depuis un ECG CSV importe par l'utilisateur."""
+    preprocessed = preprocess_ecg(file_bytes)
+    features = dict(preprocessed["features"])
+    features.update(_patient_context_features(patient or {}))
     return {name: _safe_float(features.get(name), 0.0) for name in FEATURE_ORDER}
 
 
@@ -627,14 +639,36 @@ def evaluate_model(model: dict[str, Any], test_samples: list[PredictionSample]) 
     macro_precision = sum(item["precision"] for item in metric_labels) / len(metric_labels) if metric_labels else 0.0
     macro_recall = sum(item["recall"] for item in metric_labels) / len(metric_labels) if metric_labels else 0.0
     macro_f1 = sum(item["f1"] for item in metric_labels) / len(metric_labels) if metric_labels else 0.0
+    confusion_counts: dict[tuple[str, str], int] = {}
+    for item in details:
+        expected = str(item["expected"])
+        predicted = str(item["predicted"])
+        if expected == predicted:
+            continue
+        key = (expected, predicted)
+        confusion_counts[key] = confusion_counts.get(key, 0) + 1
+
+    top_confusions = [
+        {
+            "expected": expected,
+            "predicted": predicted,
+            "count": count,
+        }
+        for (expected, predicted), count in sorted(
+            confusion_counts.items(),
+            key=lambda item: (-item[1], item[0][0], item[0][1]),
+        )[:5]
+    ]
 
     return {
         "test_samples": len(test_samples),
         "accuracy": round(correct / len(test_samples), 3),
+        "error_rate": round(1.0 - (correct / len(test_samples)), 3),
         "macro_precision": round(macro_precision, 3),
         "macro_recall": round(macro_recall, 3),
         "macro_f1": round(macro_f1, 3),
         "per_label": per_label,
+        "top_confusions": top_confusions,
         "details": details,
     }
 
@@ -651,10 +685,7 @@ def train_prediction_pipeline(test_ratio: float = 0.2, save_model: bool = True) 
     model = train_random_forest_model(train_samples)
     evaluation = evaluate_model(model, test_samples)
 
-    if save_model:
-        MODEL_PATH.write_text(json.dumps(model, indent=2, ensure_ascii=False), encoding="utf-8")
-
-    return {
+    summary = {
         "total_samples": len(samples),
         "train_samples": len(train_samples),
         "test_samples": len(test_samples),
@@ -666,11 +697,23 @@ def train_prediction_pipeline(test_ratio: float = 0.2, save_model: bool = True) 
         "evaluation": evaluation,
     }
 
+    if save_model:
+        MODEL_PATH.write_text(json.dumps(model, indent=2, ensure_ascii=False), encoding="utf-8")
+        MODEL_META_PATH.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
+
+    return summary
+
 
 def load_trained_model() -> dict[str, Any]:
     if not MODEL_PATH.exists():
         raise FileNotFoundError("Aucun modele entraine trouve. Lance d'abord train_prediction_pipeline().")
     return json.loads(MODEL_PATH.read_text(encoding="utf-8"))
+
+
+def load_prediction_model_meta() -> dict[str, Any]:
+    if not MODEL_META_PATH.exists():
+        return {}
+    return json.loads(MODEL_META_PATH.read_text(encoding="utf-8"))
 
 
 def predict_future_disease(
@@ -695,6 +738,28 @@ def predict_future_disease(
     result["n_ecg_used"] = len(ecg_files)
     result["ecg_files"] = ecg_files
     result["prediction_mode"] = model.get("prediction_mode", "unknown")
+    result["evaluation_metrics"] = load_prediction_model_meta().get("evaluation", {})
+    return result
+
+
+def predict_future_disease_from_upload(
+    file_bytes: bytes,
+    filename: str,
+    patient: dict[str, Any] | None = None,
+    model: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    """
+    Extrait les features d'un ECG CSV importe a la volée puis retourne la prediction.
+    """
+    model = model or load_trained_model()
+    feature_vector = extract_prediction_features_from_bytes(file_bytes=file_bytes, patient=patient or {})
+    result = predict_with_model(model, feature_vector)
+    result["n_ecg_used"] = 1
+    result["ecg_files"] = [filename]
+    result["prediction_mode"] = model.get("prediction_mode", "unknown")
+    result["source_file"] = filename
+    result["features_extracted"] = feature_vector
+    result["evaluation_metrics"] = load_prediction_model_meta().get("evaluation", {})
     return result
 
 
